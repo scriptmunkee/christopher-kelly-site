@@ -50,8 +50,14 @@
   }
 
   function stopPostHog() {
-    if (ph) { ph.opt_out_capturing(); ph.reset(); }
+    if (ph) {
+      ph.opt_out_capturing();
+      // Stop PostHog writing its cookie/storage again before we clear them.
+      ph.set_config({ disable_persistence: true, disable_session_recording: true });
+    }
     clearPostHogStorage();
+    // PostHog can flush state shortly after opt-out; clear once more.
+    setTimeout(clearPostHogStorage, 1500);
   }
 
   document.querySelector('[data-consent-accept]')?.addEventListener('click', () => {
@@ -72,5 +78,6 @@
 
   const choice = read();
   if (choice === 'granted') startPostHog();
-  else if (choice !== 'denied') show();
+  else if (choice === 'denied') clearPostHogStorage(); // tidy any leftovers, e.g. from an older site version
+  else show();
 </script>
