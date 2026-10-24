@@ -31,7 +31,7 @@ const isExternal = site.calendarUrl.startsWith('http');
         <li><b aria-hidden="true">✓</b>Limited slots per month</li>
       </ul>
       <a class="btn btn-lg" href={site.calendarUrl} {...(isExternal ? { target: '_blank', rel: 'noopener' } : {})}>👉 Book my call</a>
-      <p class="book-note">Opens my live calendar.</p>
+      <p class="book-note">{isExternal ? 'Opens my live calendar in a new tab.' : 'Opens my live calendar.'}</p>
     </div>
   </div>
 </section>

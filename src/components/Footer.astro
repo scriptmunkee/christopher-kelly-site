@@ -34,6 +34,7 @@ const year = new Date().getFullYear();
       <span>© {year} Christopher Kelly. Operated by {site.company.legalName}, registered in England and Wales, company number {site.company.number}.</span>
       <span class="foot-bar-links">
         <a href="/privacy/">Privacy</a>
+        <button type="button" data-consent-open>Cookie settings</button>
         {site.linkedinUrl && <a href={site.linkedinUrl} rel="me noopener">LinkedIn</a>}
       </span>
     </div>

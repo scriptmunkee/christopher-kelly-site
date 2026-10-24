@@ -1,0 +1,76 @@
+---
+// Cookie consent banner. PostHog only loads after "Accept"; nothing is set before then.
+// Reopened from the "Cookie settings" link in the footer ([data-consent-open]).
+---
+<div class="consent" data-consent role="region" aria-label="Cookie consent" hidden>
+  <p class="consent-t">Can I use analytics cookies?</p>
+  <p class="consent-p">With your OK, PostHog sets cookies so I can see how visitors use this site and make it better. Nothing is set unless you accept, and the <a href="/privacy/">privacy notice</a> explains the details.</p>
+  <div class="consent-b">
+    <button type="button" class="btn btn-sm" data-consent-accept>Accept</button>
+    <button type="button" class="btn btn-sm consent-reject" data-consent-reject>Reject</button>
+  </div>
+</div>
+
+<script>
+  import { site } from '../data/site';
+
+  type PostHog = typeof import('posthog-js').default;
+
+  const STORE_KEY = 'ck-consent-v1';
+  const banner = document.querySelector<HTMLElement>('[data-consent]');
+  let ph: PostHog | null = null;
+
+  const read = () => { try { return localStorage.getItem(STORE_KEY); } catch { return null; } };
+  const write = (v: string) => { try { localStorage.setItem(STORE_KEY, v); } catch { /* storage blocked */ } };
+
+  const show = () => banner?.removeAttribute('hidden');
+  const hide = () => banner?.setAttribute('hidden', '');
+
+  async function startPostHog() {
+    if (ph) { ph.opt_in_capturing(); return; }
+    const { default: posthog } = await import('posthog-js');
+    posthog.init(site.analytics.posthogKey, {
+      api_host: site.analytics.posthogHost,
+      ui_host: 'https://eu.posthog.com',
+      person_profiles: 'identified_only',
+    });
+    ph = posthog;
+  }
+
+  function clearPostHogStorage() {
+    const host = location.hostname;
+    document.cookie.split(';').map((c) => c.split('=')[0].trim())
+      .filter((n) => /^(ph_|__ph)/.test(n))
+      .forEach((n) => {
+        for (const d of ['', `; domain=${host}`, `; domain=.${host.replace(/^www\./, '')}`]) {
+          document.cookie = `${n}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/${d}`;
+        }
+      });
+    try { Object.keys(localStorage).filter((k) => /^(ph_|__ph)/.test(k)).forEach((k) => localStorage.removeItem(k)); } catch { /* storage blocked */ }
+  }
+
+  function stopPostHog() {
+    if (ph) { ph.opt_out_capturing(); ph.reset(); }
+    clearPostHogStorage();
+  }
+
+  document.querySelector('[data-consent-accept]')?.addEventListener('click', () => {
+    write('granted'); hide(); startPostHog();
+  });
+  document.querySelector('[data-consent-reject]')?.addEventListener('click', () => {
+    write('denied'); hide(); stopPostHog();
+  });
+  document.querySelectorAll('[data-consent-open]').forEach((el) =>
+    el.addEventListener('click', (e) => { e.preventDefault(); show(); })
+  );
+
+  // Booking intent: record clicks through to the TidyCal calendar.
+  document.addEventListener('click', (e) => {
+    const a = (e.target as Element | null)?.closest<HTMLAnchorElement>('a[href^="https://tidycal.com"]');
+    if (a && ph) ph.capture('book_call_clicked', { cta_text: a.textContent?.trim(), page: location.pathname });
+  });
+
+  const choice = read();
+  if (choice === 'granted') startPostHog();
+  else if (choice !== 'denied') show();
+</script>

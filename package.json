@@ -17,6 +17,7 @@
     "@fontsource/inter": "^5.3.0",
     "@fontsource/jetbrains-mono": "^5.3.0",
     "@fontsource/montserrat": "^5.3.0",
-    "astro": "^7.4.2"
+    "astro": "^7.4.2",
+    "posthog-js": "^1.438.21"
   }
 }
