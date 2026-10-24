@@ -1,0 +1,15 @@
+---
+interface Props { label: string; items: string[]; slow?: boolean }
+const { label, items, slow = false } = Astro.props;
+// Repeat until one set is wide enough, then duplicate for a seamless loop.
+const set = items.length < 5 ? [...items, ...items] : items;
+---
+<section class="marq" aria-label={label}>
+  <span class="marq-label">{label}</span>
+  <div class="marq-view">
+    <div class={`marq-track${slow ? ' marq-slow' : ''}`}>
+      {set.map((t, i) => <span class="marq-item" aria-hidden={i >= items.length ? 'true' : undefined}><span class="marq-dot"></span>{t}</span>)}
+      {set.map((t) => <span class="marq-item" aria-hidden="true"><span class="marq-dot"></span>{t}</span>)}
+    </div>
+  </div>
+</section>

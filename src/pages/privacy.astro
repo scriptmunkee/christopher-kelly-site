@@ -1,0 +1,21 @@
+---
+// [CONFIRM] Review this notice before launch, and update it if you add forms, cookies or new tools.
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+---
+<Base title="Privacy | Christopher Kelly" description="How christopher-kelly.co.uk handles personal data." active="home">
+  <section class="sec bg-white" data-hero style="border-top:0">
+    <div class="wrap-760" style="display:flex;flex-direction:column;gap:1.1rem;line-height:1.75">
+      <p class="eyebrow">Privacy</p>
+      <h1 class="h1">Privacy notice</h1>
+      <p>This site is operated by {site.company.legalName}, registered in England and Wales, company number {site.company.number}. {site.company.legalName} is the data controller for personal data collected through this site.</p>
+      <h2 class="h2" style="font-size:1.4rem;margin-top:1rem">What this site collects</h2>
+      <p><strong>Analytics.</strong> Visits are measured with Cloudflare Web Analytics, which does not use cookies or track you across other sites.</p>
+      <p><strong>Booking a call.</strong> If you book a call, the booking tool collects your name, email address and anything you choose to tell me. I use it only to arrange and prepare for the call. The booking provider processes that data under its own privacy policy.</p>
+      <p><strong>Email.</strong> If you email me, I keep the correspondence for as long as it's needed to deal with your enquiry and any work that follows.</p>
+      <h2 class="h2" style="font-size:1.4rem;margin-top:1rem">Your rights</h2>
+      <p>Under UK GDPR you can ask to see, correct or delete the personal data I hold about you, or object to how it's used. Contact me at [CONTACT EMAIL]. If you're unhappy with the response, you can complain to the Information Commissioner's Office (ico.org.uk).</p>
+      <p class="note">Last updated: [DATE]</p>
+    </div>
+  </section>
+</Base>

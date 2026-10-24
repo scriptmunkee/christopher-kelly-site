@@ -1,0 +1,85 @@
+---
+// Interim /services/ hub. Swap in the full hub design when ready; keep the service ids as anchors.
+import Base from '../../layouts/Base.astro';
+import BookCall from '../../components/BookCall.astro';
+import { services, sectors } from '../../data/services';
+import { breadcrumbSchema, personSchema, businessSchema, serviceSchema } from '../../lib/schema';
+
+const title = 'Enterprise SEO & AI Search Services | Christopher Kelly';
+const description = 'Enterprise AI SEO services: AI visibility audits, entity optimisation, multi-location SEO, content engineering, measurement and automation. Book a call.';
+
+const cover = [
+  { e: '🤖', t: 'AI visibility baseline', p: 'How AI engines describe you today.' },
+  { e: '🧠', t: 'Entity audit', p: 'Where machines get confused about who you are.' },
+  { e: '🗺️', t: 'What to fix first', p: "A short, prioritised list and what it's worth." },
+];
+
+const schema = [
+  personSchema(),
+  businessSchema(),
+  ...services.map((s) => serviceSchema({ name: s.t, description: s.d, path: `/services/#${s.id}` })),
+  breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Services', path: '/services/' }]),
+];
+---
+<Base title={title} description={description} active="services" schema={schema}>
+
+  <section class="hero-band" data-hero>
+    <nav class="crumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li class="sep" aria-hidden="true">/</li>
+        <li aria-current="page">Services</li>
+      </ol>
+    </nav>
+    <div class="wrap" style="padding:3.5rem 2.5rem 4.5rem;text-align:center">
+      <p class="eyebrow">Services</p>
+      <h1 class="h1">Enterprise SEO &amp; AI Search Services</h1>
+      <p class="hero-body" style="margin-left:auto;margin-right:auto">Six ways I help multi-location and multi-brand organisations get understood, cited and recommended by ChatGPT, Gemini, Perplexity and Google AI Mode. Senior strategy and hands-on delivery from the same person.</p>
+      <div class="hero-btns" style="justify-content:center">
+        <a class="btn" href="#book">👉 Book a call with Christopher</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec bg-white" aria-labelledby="h-svc">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">What I do</p>
+        <h2 class="h2" id="h-svc">Six Services. One Senior Point Of Contact.</h2>
+      </div>
+      <div class="svc-grid">
+        {services.map((s, i) => (
+          <article class="svc lift" id={s.id}>
+            <span class="svc-n">{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="svc-t">{s.t}</h3>
+            <p class="svc-d">{s.d}</p>
+            <a class="svc-a" href="#book">Talk to me about this →</a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="sec bg-cream" id="sectors" aria-labelledby="h-sectors">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">Industries</p>
+        <h2 class="h2" id="h-sectors">AI SEO Consultant for Complex,<br>Multi-Location Brands</h2>
+      </div>
+      <div class="tile-grid">
+        {sectors.map((s) => s.href
+          ? <a class="tile" href={s.href}>{s.t}<span class="tile-arrow" aria-hidden="true">→</span></a>
+          : <div class="tile" style="cursor:default">{s.t}<span class="tile-add">Page coming soon</span></div>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <BookCall
+    heading="Book a call with Christopher."
+    sub="One call, direct with me. You leave knowing where you stand in AI search, whether we work together or not."
+    cover={cover}
+    threeCol
+  />
+
+</Base>

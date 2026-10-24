@@ -1,0 +1,41 @@
+---
+import { site } from '../data/site';
+const year = new Date().getFullYear();
+---
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="logo" href="/">Christopher Kelly</a>
+        <p>Enterprise AI SEO consultant. UK based, working globally.</p>
+        <a class="btn btn-sm" href="#book">👉 Book a call</a>
+      </div>
+      <div id="tools">
+        <p class="foot-t">Free tools</p>
+        <ul class="foot-links">
+          {site.freeTools.length
+            ? site.freeTools.map((t) => <li><a href={t.href}>{t.label}</a></li>)
+            : <li><span style="font-size:.8rem;color:#6E6E6E">Coming soon</span></li>}
+        </ul>
+      </div>
+      <div>
+        <p class="foot-t">Explore</p>
+        <ul class="foot-links">
+          <li><a href="/services/">Services</a></li>
+          <li><a href="/services/ai-seo-consultant-hospitality/">Hospitality &amp; Travel</a></li>
+          <li><a href="/#work">Work</a></li>
+          <li><a href="/#about">About</a></li>
+          {site.showBlog && <li><a href="/blog/">Blog</a></li>}
+          <li><a href="#book">Book a call</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bar">
+      <span>© {year} Christopher Kelly. Operated by {site.company.legalName}, registered in England and Wales, company number {site.company.number}.</span>
+      <span class="foot-bar-links">
+        <a href="/privacy/">Privacy</a>
+        {site.linkedinUrl && <a href={site.linkedinUrl} rel="me noopener">LinkedIn</a>}
+      </span>
+    </div>
+  </div>
+</footer>

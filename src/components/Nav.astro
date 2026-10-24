@@ -1,0 +1,36 @@
+---
+import { site } from '../data/site';
+interface Props { active?: 'home' | 'services' }
+const { active } = Astro.props;
+const links = [
+  { label: 'Services', href: '/services/', key: 'services' },
+  { label: 'Work', href: '/#work', key: 'work' },
+  { label: 'About', href: '/#about', key: 'about' },
+  { label: 'Tools', href: '/#tools', key: 'tools' },
+  ...(site.showBlog ? [{ label: 'Blog', href: '/blog/', key: 'blog' }] : []),
+];
+---
+<header class="nav">
+  <div class="nav-in">
+    <a class="logo" href="/">Christopher Kelly</a>
+    <nav class="nav-links" aria-label="Main">
+      {links.map((l) => (
+        <a href={l.href} class={active === l.key ? 'active' : undefined} aria-current={active === l.key ? 'page' : undefined}>{l.label}</a>
+      ))}
+    </nav>
+    <div class="nav-right">
+      <a class="btn nav-cta" href="#book">👉 Book a call</a>
+      <details class="mnav">
+        <summary aria-label="Menu">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0B0F1A" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+        </summary>
+        <nav class="mnav-panel" aria-label="Mobile">
+          {links.map((l) => (
+            <a class={`ml${active === l.key ? ' active' : ''}`} href={l.href} aria-current={active === l.key ? 'page' : undefined}>{l.label}</a>
+          ))}
+          <a class="btn" href="#book">👉 Book a call with Christopher</a>
+        </nav>
+      </details>
+    </div>
+  </div>
+</header>

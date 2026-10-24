@@ -1,0 +1,353 @@
+---
+import Base from '../../layouts/Base.astro';
+import Marquee from '../../components/Marquee.astro';
+import Faq from '../../components/Faq.astro';
+import BookCall from '../../components/BookCall.astro';
+import { site } from '../../data/site';
+import { sectors } from '../../data/services';
+import { breadcrumbSchema, faqSchema, serviceSchema, personSchema, businessSchema } from '../../lib/schema';
+
+const S = `${site.url}/services/`;
+const title = 'Hotel & Hospitality AI SEO Consultant | Christopher Kelly';
+const description = 'AI SEO for luxury hotels and resort groups. Get every property understood, cited and recommended by ChatGPT and Google AI Mode, not just the OTAs. Book a call.';
+const path = '/services/ai-seo-consultant-hospitality/';
+
+const shifts = [
+  { t: 'The trip is planned in a chat.', p: '37% of US summer travellers now use AI to plan trips. The shortlist forms before anyone opens a hotel website.' },
+  { t: 'AI can now book the room.', p: "Google's AI Mode lets US travellers book hotels without leaving the conversation (launched August 2026, with OTAs and the big chains as partners), and Expedia and Booking.com run apps inside ChatGPT." },
+  { t: 'The OTAs are already in the answer.', p: 'OTA reliance in European hotels rose from 19.7% to 29.9% since 2013, with Booking Holdings and Expedia controlling 85% of OTA bookings. Whoever AI trusts most gets the booking.' },
+  { t: "Ranking isn't enough.", p: "AI engines often cite pages that don't rank in Google's top 10, so a property can rank well and still be left out of the answer." },
+];
+
+const stats = [
+  { n: '37%', c: 'of US summer travellers use AI to plan trips', s: 'Allianz Partners / Ipsos, 2026' },
+  { n: 'Aug 2026', c: 'hotel booking arrives inside Google AI Mode', s: 'Google' },
+  { n: '51.3%', c: 'direct share of European hotel bookings', s: 'HOTREC, 2026' },
+  { n: '68%', c: 'of Google searches end with no click', s: 'SparkToro, 2026' },
+];
+
+const ic = (d: string) => `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+const entities = [
+  { i: ic('<path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"></path><circle cx="7.5" cy="7.5" r="1.5"></circle>'), t: 'Property identity', p: 'The official name, accepted short forms and brand, consistent everywhere.' },
+  { i: ic('<path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"></path><circle cx="12" cy="10" r="2.5"></circle>'), t: 'Location precision', p: 'Region, neighbourhood and landmarks, disambiguated from places with similar names.' },
+  { i: ic('<path d="M3 19V7M3 14h18v5M21 14v-2a3 3 0 0 0-3-3h-7v5"></path><circle cx="7" cy="11" r="1.6"></circle>'), t: 'Rooms, suites & villas', p: 'View types, beachfront vs oceanfront, residences.' },
+  { i: ic('<path d="M6 3v7a2 2 0 0 0 4 0V3M8 12v9M17 21V3c-2 1.5-3 4-3 7 0 2 1 3 3 3"></path>'), t: 'Dining & spa', p: 'Restaurants, chefs and treatments, each a recognisable entity.' },
+  { i: ic('<circle cx="12" cy="12" r="9"></circle><path d="M15.5 8.5l-2 5-5 2 2-5z"></path>'), t: 'Experiences', p: "Golf, wellness, kids' clubs and seasonal programmes." },
+  { i: ic('<circle cx="12" cy="9" r="6"></circle><path d="M8.5 14L7 22l5-3 5 3-1.5-8"></path>'), t: 'Awards & press', p: 'Guidebook ratings, awards and travel editorial.' },
+  { i: ic('<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"></path>'), t: 'Reviews', p: 'Google, travel review sites and OTA scores telling the same story.' },
+  { i: ic('<path d="M8 7l-5 5 5 5M16 7l5 5-5 5M13.5 5l-3 14"></path>'), t: 'Business profiles & structured data', p: "Every property and outlet's Google Business Profile, plus hotel, restaurant and FAQ markup." },
+];
+
+const pageTypes = [
+  { t: 'Seasonal hubs & festive spokes', c: 'luxury Christmas resort in Mexico', p: "Launched ahead of the booking window, so they're indexed and cited when demand starts." },
+  { t: 'Couples & honeymoons', c: 'romantic hotel with private plunge pool', p: 'Answers the occasion, not just the room type.' },
+  { t: 'Families', c: "luxury resort with a kids' club", p: 'Club ages, family suites and dining in one citable place.' },
+  { t: 'Itineraries', c: '3 days in Seattle near the waterfront', p: 'Day-by-day structure AI can reuse as a ready-made plan.' },
+  { t: 'Hotel near landmarks', c: 'luxury hotel near Pike Place Market', p: 'Ties the property to the places guests already search for.' },
+  { t: 'Destination guides', c: 'where is Costalegre', p: 'Defines the place, so AI anchors the property to the right region.' },
+  { t: 'Spa, dining & experiences', c: 'Michelin dining hotel in Philadelphia', p: 'Turns each outlet into an entity AI can recommend on its own.' },
+  { t: 'FAQ systems', c: 'is breakfast included at [Property]', p: 'Concise answers AI can lift word for word.' },
+];
+
+const governance = [
+  'Brand voice, banned words and property-specific copy rules followed to the letter',
+  'Separate offers and packages handled per brand policy',
+  'Rebrands, renames and URL changes handled without losing visibility',
+  'Multiple property teams, one senior point of contact',
+  'Profile traffic separated from organic in your analytics',
+  'Clients named only with permission',
+];
+
+const faqs = [
+  { q: 'What does an AI SEO consultant for hotels do?',
+    a: `An AI SEO consultant for hotels makes sure ChatGPT, Google AI Mode and other answer engines understand each property correctly and recommend it for the right trips. The work starts with <a class="inl" href="${S}#ai-visibility-audit">an AI visibility audit</a> of every property, then fixes entity and location data, builds the page types guests ask about, and tracks mentions and citations.` },
+  { q: 'How do we compete with OTAs in AI answers?',
+    a: `Give AI a better source than the OTA. Engines favour pages with precise, consistent facts on rooms, location, dining, policies and seasonal offers. When your site and Google Business Profiles answer those questions more clearly than a listing does, the official site gets cited, and <a class="inl" href="${S}#entity-optimisation">entity and knowledge graph optimisation</a> makes each property the recognised authority on itself.` },
+  { q: 'Does Google AI Mode booking matter for independent and luxury hotels?',
+    a: 'Yes, because the shortlist now happens inside the answer. When a traveller can go from question to booking in one conversation, the properties named in that conversation take the demand. The launch partners are OTAs and big chains, so independent and luxury hotels need strong entity data and clear official pages just to be named at all.' },
+  { q: 'Can you work across multiple properties and markets at once?',
+    a: `Yes. That's how I've worked for years across a global luxury hotel portfolio. Each property gets its own prompt set, baseline and priorities, while shared templates, governance and <a class="inl" href="${S}#local-ai-seo">multi-location and local AI SEO</a> keep delivery consistent. Property teams get recommendations they can approve, and leadership gets one view of the whole portfolio.` },
+  { q: 'How do you measure AI visibility for a hotel?',
+    a: `I track a fixed prompt set for each property and market, covering occasions like couples, families, wellness and festive stays, and record whether the property is mentioned, cited with a link, or missing. That <a class="inl" href="${S}#ai-visibility-measurement">AI visibility measurement</a> sits alongside Search Console and booking data, so you can see which answers drive direct revenue.` },
+  { q: 'Will you work within our brand standards and approvals?',
+    a: "Always. Copy, FAQs and metadata are written to your brand voice, banned-word lists and character limits, then routed through each property's approval process. Offers and packages follow brand policy, and nothing is published or attributed without sign-off. Luxury brands have rules for good reasons, and consistent, approved facts are exactly what AI engines reward." },
+];
+
+const cover = [
+  { e: '🏨', t: 'How AI describes each property', p: 'What ChatGPT and Google AI say about your hotels today.' },
+  { e: '🧭', t: 'Where OTAs win the answer', p: 'The prompts where a listing beats your official site.' },
+  { e: '📍', t: 'Profile and listings health', p: 'Names, outlets and details across your Google Business Profiles.' },
+  { e: '🗓️', t: 'Seasonal and festive timing', p: "When to launch pages so they're cited before demand peaks." },
+  { e: '📊', t: 'What to measure', p: 'Mentions, citations and the direct bookings behind them.' },
+  { e: '🗺️', t: "What I'd fix first", p: 'A short, prioritised list for your portfolio.' },
+];
+
+const check = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>';
+
+const schema = [
+  personSchema(),
+  businessSchema(),
+  serviceSchema({ name: 'AI SEO for luxury hotels and hospitality', description, path, audience: 'Hotel groups and luxury resorts' }),
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Services', path: '/services/' },
+    { name: 'Hospitality & Travel', path },
+  ]),
+  faqSchema(faqs),
+];
+---
+<Base title={title} description={description} active="services" schema={schema}>
+
+  <!-- BREADCRUMB + HERO -->
+  <section class="hero-band" data-hero>
+    <nav class="crumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li class="sep" aria-hidden="true">/</li>
+        <li><a href="/services/">Services</a></li>
+        <li class="sep" aria-hidden="true">/</li>
+        <li aria-current="page">Hospitality &amp; Travel</li>
+      </ol>
+    </nav>
+    <div class="hero hero-tight">
+      <div>
+        <p class="eyebrow">Hospitality &amp; Travel</p>
+        <h1 class="h1">AI SEO Consultant for Luxury Hotels &amp; Hospitality</h1>
+        <p class="hero-sub">When AI plans the trip, one property gets named. Make it yours, not the OTA's.</p>
+        <p class="hero-body">Guests now ask ChatGPT and Google AI Mode where to stay, and increasingly book without leaving the chat. I help hotel groups and luxury resorts get every property understood, cited and recommended across those answers, with years of hands-on delivery inside a global luxury hotel portfolio behind it.</p>
+        <div class="hero-btns">
+          <a class="btn" href="#book">👉 Book a call with Christopher</a>
+          <a class="btn btn-ghost" href="#proof">See the hospitality work →</a>
+        </div>
+      </div>
+      <div class="hero-media">
+        <div class="photo photo-hero">
+          <span class="ph-label">[PLACEHOLDER]<br>Portrait of Christopher</span>
+        </div>
+        <div class="ai-card" role="img" aria-label="Illustration of an AI answer recommending a hotel and citing its official site">
+          <span class="ai-head" aria-hidden="true"><span class="ai-dot"></span>AI answer</span>
+          <p class="ai-prompt" aria-hidden="true">Adults-only wellness resort in Hawaii with a great spa?</p>
+          <p class="ai-ans" aria-hidden="true">For an adults-only wellness stay, <strong>[Property name]</strong> is the strongest match: a dedicated wellness programme, a highly rated spa and a calm, adults-only setting.</p>
+          <span class="ai-tag" aria-hidden="true">Cited · official site</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Marquee label="Track record" slow items={[
+    '15+ luxury hotel & resort properties',
+    '4 continents',
+    'Seasonal, experience & itinerary page systems',
+    'Google AI Overview definition-source citations',
+    'Local SEO automation at portfolio scale',
+  ]} />
+
+  <!-- INTRO -->
+  <section class="sec bg-white" aria-label="Introduction">
+    <div class="wrap-760 intro">
+      <p class="lead">Luxury hospitality is one of the most crowded answers in AI search.</p>
+      <p class="body">OTAs, travel publishers and rival brands all compete for the same recommendation, and AI engines blend them into one reply. If your official site isn't the clearest source, someone else's listing speaks for your property.</p>
+      <p class="body">I've spent years delivering SEO across a global luxury hotel portfolio spanning resorts, city hotels and private residences on four continents. That work includes <a class="inl" href={`${site.url}/#work`}>destination pages that Google's AI Overview now cites as its definition source</a>.</p>
+    </div>
+  </section>
+
+  <!-- THE SHIFT -->
+  <section class="sec bg-cream" aria-labelledby="h-shift">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">The shift</p>
+        <h2 class="h2" id="h-shift">Why Hotel Groups Need An AI SEO Consultant.</h2>
+      </div>
+      <div class="shift-grid">
+        {shifts.map((s, i) => (
+          <div class="shift">
+            <span class="shift-n">{String(i + 1).padStart(2, '0')}</span>
+            <div><h3 class="shift-t">{s.t}</h3><p class="shift-p">{s.p}</p></div>
+          </div>
+        ))}
+      </div>
+      <div class="stat-row">
+        {stats.map((s) => (
+          <div class="stat"><span class="stat-n">{s.n}</span><span class="stat-c">{s.c}</span><span class="stat-s">{s.s}</span></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ENTITIES -->
+  <section class="sec bg-white" aria-labelledby="h-ent">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">What AI checks</p>
+        <h2 class="h2" id="h-ent">The Entities That Decide<br>Which Hotel AI Recommends.</h2>
+      </div>
+      <div class="ent-grid">
+        {entities.map((e) => (
+          <div class="ent">
+            <span class="ent-ic" set:html={e.i} />
+            <h3 class="ent-t">{e.t}</h3>
+            <p class="ent-p">{e.p}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- MID CTA -->
+  <section class="mid" aria-label="Book a call">
+    <div class="mid-card">
+      <div class="mid-copy">
+        <h2 class="mid-h">Want to see how AI describes your properties?</h2>
+        <p class="mid-p">Book a call and I'll show you what ChatGPT and Google AI say about your hotels today, where the OTAs are winning the answer, and what I'd fix first. Free, no hard sell.</p>
+      </div>
+      <a class="btn" href="#book">👉 Book a call with Christopher</a>
+    </div>
+  </section>
+
+  <!-- PLAYBOOK -->
+  <section class="sec bg-cream" aria-labelledby="h-play">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">The playbook</p>
+        <h2 class="h2" id="h-play">Every Property Understood.<br>Every Answer Earned.</h2>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num" aria-hidden="true">01</span>
+          <span class="step-emoji" aria-hidden="true">🔍</span>
+          <h3 class="step-t">Baseline every property</h3>
+          <p class="step-p">A prompt set per property and market: couples, families, wellness, festive and nearby landmarks. Mentions vs citations across ChatGPT and Google AI, and exactly where OTAs and competitors take the answer.</p>
+          <span class="step-tag">Property-by-property baseline</span>
+          <span class="badge" aria-hidden="true">→</span>
+        </div>
+        <div class="step">
+          <span class="step-num" aria-hidden="true">02</span>
+          <span class="step-emoji" aria-hidden="true">🧱</span>
+          <h3 class="step-t">Fix the entity, then the pages</h3>
+          <p class="step-p">Correct names, locations and outlet data first. Then build the page types guests actually ask about, so every answer has an official source to draw on.</p>
+          <span class="step-tag">Entity first</span>
+          <span class="badge" aria-hidden="true">→</span>
+        </div>
+        <div class="step">
+          <span class="step-num" aria-hidden="true">03</span>
+          <span class="step-emoji" aria-hidden="true">📈</span>
+          <h3 class="step-t">Ship inside brand standards</h3>
+          <p class="step-p">Copy, FAQs and metadata delivered within brand rules, character limits and property approvals, then tracked monthly.</p>
+          <span class="step-tag">Shipped, not shelved</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAGE SYSTEMS -->
+  <section class="sec bg-white" aria-labelledby="h-pages">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">Page systems</p>
+        <h2 class="h2" id="h-pages">The Page Types Guests Actually Ask About.</h2>
+        <p class="sub">AI answers are built from specific pages, not homepages. These are the templates I build and optimise across portfolios.</p>
+      </div>
+      <div class="pt-grid">
+        {pageTypes.map((p) => (
+          <div class="pt"><h3 class="pt-t">{p.t}</h3><span class="chip">{p.c}</span><p class="pt-p">{p.p}</p></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- GOVERNANCE -->
+  <section class="sec bg-black" aria-labelledby="h-gov">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">How I work</p>
+        <h2 class="h2 h2-w" id="h-gov">Luxury Brands Have Rules.<br>I Work Within Them.</h2>
+      </div>
+      <ul class="gov-grid">
+        {governance.map((g) => (
+          <li class="gov"><span class="gov-ck" set:html={check} /><span class="gov-p">{g}</span></li>
+        ))}
+      </ul>
+      <div class="cta-row"><a class="btn" href="#book">👉 Talk to me about your brand standards</a></div>
+    </div>
+  </section>
+
+  <!-- PROOF -->
+  <section class="sec bg-cream" id="proof" aria-labelledby="h-proof">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">Proof</p>
+        <h2 class="h2" id="h-proof">Straight From The Answer Engine.</h2>
+      </div>
+      <div class="feat">
+        <figure class="shot shot-wide shot-on-light">
+          <div class="shot-img"><span class="ph-label">[PLACEHOLDER]<br>Google AI Overview citing the destination page</span></div>
+          <figcaption class="shot-cap"><strong>"[Destination query]"</strong> → luxury resort's destination page cited as the definition source</figcaption>
+        </figure>
+        <div class="feat-copy">
+          <span class="label">Destination entity</span>
+          <h3 class="feat-h">Re-anchoring a resort to its true region.</h3>
+          <p>The resort's location shared a name with a far more famous town in another country, so AI answers were contaminated with the wrong place.</p>
+          <p>We re-anchored the property to its true region with a dedicated destination page. Google's AI Overview now uses it as both the definition and the getting-there source.</p>
+        </div>
+      </div>
+      <div class="cases">
+        <article class="case">
+          <span class="label">Luxury hospitality</span>
+          <h3 class="case-t">Global luxury hotel portfolio (named on request)</h3>
+          <p class="case-p">15+ properties, multi-year delivery.</p>
+          <p class="case-m">[PLACEHOLDER: headline metric]</p>
+          <a class="case-a" href="/#work">Read the case study →</a>
+        </article>
+        <article class="case">
+          <span class="label">Seasonal content</span>
+          <h3 class="case-t">Festive &amp; seasonal page programme</h3>
+          <p class="case-p">Spoke pages launched ahead of the booking window.</p>
+          <p class="case-m">[PLACEHOLDER: headline metric]</p>
+          <a class="case-a" href="/#work">Read the case study →</a>
+        </article>
+        <article class="case">
+          <span class="label">Local SEO &amp; AI ops</span>
+          <h3 class="case-t">Local SEO at portfolio scale</h3>
+          <p class="case-p">Automated audits and listings write-back.</p>
+          <p class="case-m">[PLACEHOLDER: headline metric]</p>
+          <a class="case-a" href="/#work">Read the case study →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQS -->
+  <section class="sec bg-white" id="faq" aria-labelledby="h-faq">
+    <div class="wrap-800">
+      <div class="shead">
+        <p class="eyebrow">FAQs</p>
+        <h2 class="h2" id="h-faq">Hospitality AI SEO FAQs</h2>
+      </div>
+      <Faq items={faqs} />
+    </div>
+  </section>
+
+  <BookCall
+    heading="Start With A Call<br>About Your Properties."
+    sub="One call, direct with me, about your properties, your markets and the answers guests see today."
+    cover={cover}
+    threeCol
+  />
+
+  <!-- OTHER SECTORS -->
+  <section class="sec bg-white" aria-labelledby="h-sectors">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">Other sectors</p>
+        <h2 class="h2" id="h-sectors">The Same Playbook, Other Sectors.</h2>
+      </div>
+      <div class="tile-grid">
+        {sectors.filter((s) => s.href !== path).map((s) => (
+          <a class="tile" href={s.href || '/services/#sectors'}>{s.t}<span class="tile-arrow" aria-hidden="true">→</span></a>
+        ))}
+      </div>
+      <p class="all-line">See <a class="inl" href={S}>every enterprise AI SEO service I offer</a>.</p>
+    </div>
+  </section>
+
+</Base>

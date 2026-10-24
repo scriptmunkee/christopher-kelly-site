@@ -1,0 +1,15 @@
+---
+interface Props { items: { q: string; a: string }[]; firstOpen?: boolean }
+const { items, firstOpen = true } = Astro.props;
+---
+<div class="faq-list">
+  {items.map((item, i) => (
+    <details class="faq" open={firstOpen && i === 0}>
+      <summary>
+        <h3 class="faq-q">{item.q}</h3>
+        <span class="faq-ic" aria-hidden="true"><span class="plus-ch">+</span><span class="minus">−</span></span>
+      </summary>
+      <p class="faq-a" set:html={item.a} />
+    </details>
+  ))}
+</div>

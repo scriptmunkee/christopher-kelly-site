@@ -1,0 +1,75 @@
+---
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/inter/700.css';
+import '@fontsource/montserrat/700.css';
+import '@fontsource/montserrat/800.css';
+import '@fontsource/montserrat/900.css';
+import '@fontsource/jetbrains-mono/500.css';
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import StickyCta from '../components/StickyCta.astro';
+import { site } from '../data/site';
+
+interface Props {
+  title: string;
+  description: string;
+  active?: 'home' | 'services';
+  schema?: Record<string, unknown>[];
+  noindex?: boolean;
+}
+
+const { title, description, active = 'home', schema = [], noindex = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, site.url).href;
+const jsonLd = schema.length ? JSON.stringify({ '@context': 'https://schema.org', '@graph': schema }) : '';
+---
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{title}</title>
+  <meta name="description" content={description}>
+  <link rel="canonical" href={canonical}>
+  {noindex && <meta name="robots" content="noindex">}
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Christopher Kelly">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:title" content={title}>
+  <meta property="og:description" content={description}>
+  <meta property="og:url" content={canonical}>
+  <meta name="twitter:card" content="summary">
+  <meta name="theme-color" content="#0B0F1A">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="sitemap" href="/sitemap-index.xml">
+  {jsonLd && <script type="application/ld+json" set:html={jsonLd} />}
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <Nav active={active} />
+  <main id="main">
+    <slot />
+  </main>
+  <Footer />
+  <StickyCta />
+  <script>
+    // Sticky bottom CTA: show once the hero has scrolled out of view.
+    const bar = document.querySelector<HTMLElement>('[data-sticky]');
+    const hero = document.querySelector('[data-hero]');
+    if (bar && hero && 'IntersectionObserver' in window) {
+      new IntersectionObserver(([entry]) => {
+        const shown = !entry.isIntersecting && entry.boundingClientRect.top < 0;
+        bar.classList.toggle('is-shown', shown);
+        bar.setAttribute('aria-hidden', shown ? 'false' : 'true');
+        bar.querySelectorAll('a').forEach((a) => (shown ? a.removeAttribute('tabindex') : a.setAttribute('tabindex', '-1')));
+      }).observe(hero);
+    }
+    // Close the mobile menu after choosing a link.
+    document.querySelectorAll<HTMLAnchorElement>('.mnav-panel a').forEach((a) =>
+      a.addEventListener('click', () => a.closest('details')?.removeAttribute('open'))
+    );
+  </script>
+</body>
+</html>

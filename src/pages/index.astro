@@ -1,0 +1,414 @@
+---
+import Base from '../layouts/Base.astro';
+import Marquee from '../components/Marquee.astro';
+import Faq from '../components/Faq.astro';
+import BookCall from '../components/BookCall.astro';
+import { site } from '../data/site';
+import { services, sectors } from '../data/services';
+import { personSchema, businessSchema, websiteSchema, faqSchema } from '../lib/schema';
+
+const S = `${site.url}/services/`;
+
+const problems = [
+  { tag: 'Wrong answer', q: 'AI describing your brand inaccurately, or recommending a competitor?',
+    p: "Ask ChatGPT or Gemini about your brand and you get outdated facts, the wrong locations, or a rival's name in the answer. Buyers trust that answer before they ever see your site.",
+    d: "trace where the models are getting it from, fix the entity signals and source pages they rely on, and track the answer until it's right." },
+  { tag: 'Portfolio drift', q: 'Dozens of locations, dozens of versions of the truth across site, Google Business Profiles and listings?',
+    p: 'Names, hours, amenities and categories drift apart across every platform. AI systems see the contradictions and hedge, or pick the wrong version.',
+    d: 'audit location data across the estate, set one source of truth, and automate the checks so drift is caught before the models pick it up.' },
+  { tag: 'Dashboards, no direction', q: "Bought an AI visibility tool and still don't know what to change?",
+    p: "You have share-of-voice charts and prompt trackers. Nobody can say which page, entity or source to fix first, or what it's worth.",
+    d: 'turn the data into a prioritised list of changes, separate mentions from citations, and tie each fix to a commercial outcome.' },
+  { tag: 'Zero-click squeeze', q: 'Impressions holding, clicks falling, leadership asking why?',
+    p: "AI Overviews and AI Mode answer the query on the results page. Traffic drops while visibility looks fine, and the old reporting can't explain it.",
+    d: 'show where the clicks went, win the citations inside those answers, and rebuild reporting so leadership sees the full picture.' },
+  { tag: 'Approval gridlock', q: 'Brand, legal, regional and web teams, and nothing ships?',
+    p: 'Every change needs four sign-offs and a quarter to land. Recommendations pile up in decks while competitors publish.',
+    d: 'work inside your governance. Briefs written for approvers, changes batched by risk, and tickets that are ready to ship.' },
+  { tag: 'Agency layers', q: 'Paying for account managers and decks, not senior thinking?',
+    p: 'The pitch had a senior strategist. The delivery has a junior, a project manager and a monthly PDF.',
+    d: 'you work with me directly. Senior strategy and hands-on delivery from the same person, with no handoffs.' },
+];
+
+
+const faqs = [
+  { q: 'What is an enterprise AI SEO consultant?',
+    a: 'An enterprise AI SEO consultant helps large, multi-location or multi-brand organisations get understood, cited and recommended by AI search, including ChatGPT, Gemini, Perplexity and Google AI Mode, alongside traditional rankings. The work covers entity clarity, technical access for AI crawlers, answer-first content and measurement, delivered inside enterprise governance rather than as a slide deck.' },
+  { q: "SEO vs GEO vs AEO: what's the difference?",
+    a: 'SEO earns rankings in traditional search results. GEO (generative engine optimisation) earns mentions and citations inside AI-generated answers. AEO (answer engine optimisation) structures content so engines can lift it as the direct answer. In practice they overlap: the same entity signals, crawlable pages and answer-first content drive all three, so I run them as one programme.' },
+  { q: 'Should we hire a consultant or an agency?',
+    a: 'Hire a consultant when you need senior judgement and hands-on delivery without the layers. With me, the person who audits your brand is the person who writes the roadmap and ships the changes. Agencies suit high volumes of production work, and I often work alongside in-house teams and agencies, setting the direction they execute.' },
+  { q: 'How do you measure AI visibility?',
+    a: `I track a fixed set of buyer prompts across the main AI engines every month and record whether your brand is mentioned, cited with a link, or missing, and who appears instead. That <a class="inl" href="${S}#ai-visibility-measurement">share-of-answer measurement</a> sits alongside Search Console, analytics and booking data, so you can see how AI visibility connects to traffic and revenue.` },
+  { q: 'Can you work within our brand governance?',
+    a: "Yes. Most of my work happens inside brand, legal and regional approval chains. Recommendations arrive as briefs approvers can sign off quickly, changes are batched by risk, and I work directly in your CMS, Jira and existing workflows. Governance isn't an obstacle here: consistent, approved facts are exactly what AI systems reward." },
+  { q: 'How long does AI search take to show results?',
+    a: 'Technical and entity fixes can change how AI engines describe you within weeks, as crawlers revisit and answers refresh. Winning citations for competitive prompts usually takes a few months of consistent content and signal work. The 30-day baseline sets your starting point, so every change after it is measured against real data, not guesswork.' },
+];
+
+const cover = [
+  { e: '🤖', t: 'AI visibility baseline', p: 'How ChatGPT, Gemini, Perplexity and AI Mode describe you today.' },
+  { e: '🧠', t: 'Entity audit', p: 'Whether machines know who you are, and where they get confused.' },
+  { e: '🔗', t: 'Citation sources', p: 'The pages and sites AI leans on when it talks about you.' },
+  { e: '🏆', t: 'Competitor share of answer', p: 'Who wins the prompts you should own.' },
+  { e: '🕷️', t: 'AI crawler access & rendering', p: 'Whether AI bots can fetch and read your pages.' },
+  { e: '📍', t: 'Location data health', p: 'Drift across your site, profiles and listings.' },
+  { e: '📊', t: 'Measurement plan', p: 'How to track mentions, citations and the revenue behind them.' },
+  { e: '🗺️', t: '12-month roadmap', p: "What to fix first, and what it's worth." },
+];
+
+const chev = '<svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>';
+
+const cases = [
+  {
+    label: 'Case study 01 · Luxury hospitality', h: 'Global luxury hotel portfolio (named on request)', open: true,
+    d: '15+ properties across four continents. Seasonal and experience pages, FAQ systems, local SEO and AI visibility tracking of mentions vs citations.',
+    challenge: 'A global portfolio of flagship resorts and city hotels, each with its own team, market and seasonality, sharing one brand standard and one approval chain.',
+    approach: 'Property-by-property recommendations covering seasonal and experience pages, FAQ systems built for answer engines, Google Business Profile management, and AI visibility tracking that separates mentions from citations.',
+    results: ['<strong>[PLACEHOLDER]</strong> change in organic clicks over [PERIOD]', '<strong>[PLACEHOLDER]</strong> AI citations won across properties', '<strong>[PLACEHOLDER]</strong> booking or revenue metric'],
+    visuals: ['[PLACEHOLDER CHART]<br>Organic clicks, before vs after', '[PLACEHOLDER SCREENSHOT]<br>Mentions vs citations tracker'],
+  },
+  {
+    label: 'Case study 02 · Destination entity', h: 'Winning the AI Overview for a destination', open: false,
+    d: "A resort's location terms collided with a better-known town in another country. We re-anchored the entity to its true region, and the page is now cited by Google's AI Overview as the definition and getting-there source.",
+    challenge: 'The resort shared its place name with a more famous town in another country. Search engines and AI answers kept blending the two, giving travellers the wrong context and the wrong directions.',
+    approach: 'We re-anchored the entity to its true region: clearer location facts on the page, consistent regional signals across profiles and structured data, and answer-first getting-there content.',
+    results: ["Cited by Google's AI Overview as the <strong>definition and getting-there source</strong>", '<strong>[PLACEHOLDER]</strong> change in impressions or clicks', '<strong>[PLACEHOLDER]</strong> time to citation'],
+    visuals: ['[PLACEHOLDER SCREENSHOT]<br>AI Overview citing the page', '[PLACEHOLDER CHART]<br>Destination query performance'],
+  },
+  {
+    label: 'Case study 03 · Local SEO & AI ops', h: 'Local SEO at portfolio scale with AI ops', open: false,
+    d: 'Automated workflows that audit location data and write approved fixes back to the listings platform, plus automated monthly reporting.',
+    challenge: 'Location data spread across dozens of listings drifted out of date faster than anyone could check it by hand, and monthly reporting ate days of senior time.',
+    approach: 'Automated workflows that audit location data, flag drift and write approved fixes back to the listings platform, with monthly reporting assembled and delivered automatically.',
+    results: ['<strong>[PLACEHOLDER]</strong> listings audited each month', '<strong>[PLACEHOLDER]</strong> hours saved per month', '<strong>[PLACEHOLDER]</strong> change in location data accuracy'],
+    visuals: ['[PLACEHOLDER SCREENSHOT]<br>Workflow overview', '[PLACEHOLDER SCREENSHOT]<br>Automated monthly report'],
+  },
+];
+
+const schema = [websiteSchema(), personSchema(), businessSchema(), faqSchema(faqs)];
+---
+<Base
+  title="Enterprise AI SEO Consultant | Christopher Kelly"
+  description="Christopher Kelly is an enterprise AI SEO consultant. Get your brand understood, cited and recommended by ChatGPT, Gemini and Google AI across every market. Book a call."
+  active="home"
+  schema={schema}
+>
+
+  <!-- HERO -->
+  <section class="hero-band" data-hero>
+    <div class="hero">
+      <div>
+        <p class="eyebrow">AI SEO Consultant for Enterprise</p>
+        <h1 class="h1">Enterprise AI SEO Consultant.</h1>
+        <p class="hero-sub">Be The Brand AI Recommends, In Every Market You Operate In.</p>
+        <p class="hero-body">Your buyers now ask ChatGPT, Gemini, Perplexity and Google AI Mode before they ever reach your site. I help multi-location and multi-brand organisations get understood, cited and recommended across all of them, with senior hands-on delivery, not another agency layer.</p>
+        <div class="hero-btns">
+          <a class="btn" href="#book">👉 Book a call with Christopher</a>
+          {site.linkedinUrl && <a class="btn btn-ghost" href={site.linkedinUrl} rel="me noopener">LinkedIn →</a>}
+        </div>
+        <p class="note" style="margin-top:1.5rem">15+ luxury hotel &amp; resort properties · 4 continents · Multi-year enterprise delivery</p>
+      </div>
+      <figure>
+        <div class="photo photo-hero">
+          <span class="ph-label">[PLACEHOLDER]<br>Portrait of Christopher</span>
+        </div>
+        <figcaption class="cap">
+          <span class="mont" style="font-weight:800;font-size:.88rem;color:#0B0F1A">Christopher Kelly</span>
+          <span class="note">Enterprise AI SEO Consultant</span>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <Marquee label="Trusted by" items={['15+ luxury hotel & resort properties', '4 continents', 'Multi-year enterprise delivery', 'Google AI Overview citations won']} />
+
+  <!-- IS THIS YOU? -->
+  <section class="sec bg-white" aria-labelledby="h-you">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">Is this you?</p>
+        <h2 class="h2" id="h-you">Sound Familiar? This Is Why Enterprise<br>Brands Hire An AI SEO Consultant.</h2>
+        <p class="sub">These are the problems enterprise teams bring to me. Click the one that sounds like you.</p>
+      </div>
+      <div class="acc-grid">
+        {problems.map((x, i) => (
+          <details class="acc" open={i === 0}>
+            <summary>
+              <span><span class="acc-tag">{x.tag}</span><span class="acc-q">{x.q}</span></span>
+              <span class="plus" aria-hidden="true">+</span>
+            </summary>
+            <div class="acc-body">
+              <p>{x.p}</p>
+              <p><strong>What I do:</strong> {x.d}</p>
+              <a class="btn btn-sm" href="#book">👉 Talk to me about this</a>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SEARCH JOURNEY -->
+  <section class="sec bg-cream" aria-labelledby="h-journey">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">How I think about AI search</p>
+        <h2 class="h2" id="h-journey">Ranking pages is half the job.<br>AI recommends entities it trusts.</h2>
+      </div>
+      <div class="strip">
+        <div class="stage">
+          <span class="tag tag-neutral">Understood</span>
+          <p class="intent">AI knows exactly who you are.</p>
+          <div class="chips"><span class="chip">Who owns [Brand]?</span><span class="chip">Is [Brand] a luxury hotel group?</span><span class="chip">[Brand] locations in Europe</span></div>
+          <p class="stage-p">Entity and knowledge graph clarity. Consistent names, facts and relationships across your site, Wikidata, profiles and listings, so models never confuse you with someone else.</p>
+        </div>
+        <div class="arrow" aria-hidden="true"><span>→</span></div>
+        <div class="stage">
+          <span class="tag tag-indigo">Retrieved</span>
+          <p class="intent">Your pages can be found and read.</p>
+          <div class="chips"><span class="chip">best spa resort in Bali</span><span class="chip">family hotel in the Algarve with a kids' club</span></div>
+          <p class="stage-p">Crawlable by AI bots, server-rendered, structured and fresh. If OpenAI, Google and Perplexity's crawlers can't fetch and parse a page, it doesn't exist to them.</p>
+        </div>
+        <div class="arrow" aria-hidden="true"><span>→</span></div>
+        <div class="stage">
+          <span class="tag tag-green">Cited</span>
+          <p class="intent">Your content becomes the source.</p>
+          <div class="chips"><span class="chip">how to get to [Resort] from the airport</span><span class="chip">best time to visit [Destination]</span></div>
+          <p class="stage-p">Answer-first content that engines can quote and link. Clear definitions, facts in plain sight and pages built to be lifted straight into an answer.</p>
+        </div>
+      </div>
+      <div class="rec">
+        <div style="display:flex;flex-direction:column;gap:1rem">
+          <span class="tag tag-lime">Recommended</span>
+          <p class="intent" style="font-size:1.25rem">AI names you as the answer.</p>
+          <p class="stage-p">When someone asks for a recommendation, there is no page two. The brand AI trusts most gets the booking. Everything above exists to earn this moment.</p>
+        </div>
+        <div>
+          <div class="chips"><span class="chip chip-i">Which luxury resort in the Maldives should I book for a honeymoon?</span><span class="chip chip-i">Recommend a hotel in Lisbon for a business trip with a great spa.</span></div>
+          <p class="rec-big">One answer wins everything.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI SHIFT STATS -->
+  <section class="sec bg-black" aria-labelledby="h-shift">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">The AI shift</p>
+        <h2 class="h2 h2-w" id="h-shift">Your Buyers Have Already Moved.<br>Has Your Visibility?</h2>
+        <p class="sub sub-w">The numbers behind the move from ten blue links to one answer.</p>
+      </div>
+      <div class="stat-grid">
+        <div class="stat-d"><span class="stat-n">1.2bn</span><span class="stat-c">weekly ChatGPT users</span><span class="stat-s">OpenAI, Sept 2026</span></div>
+        <div class="stat-d"><span class="stat-n">68%</span><span class="stat-c">of US Google searches end with no click</span><span class="stat-s">SparkToro, 2026</span></div>
+        <div class="stat-d"><span class="stat-n">~60%</span><span class="stat-c">CTR drop when an AI Overview appears</span><span class="stat-s">SparkToro, 2026</span></div>
+        <div class="stat-d"><span class="stat-n">1bn+</span><span class="stat-c">monthly Google AI Mode users</span><span class="stat-s">Google I/O 2026</span></div>
+      </div>
+      <div class="cta-row"><a class="btn" href="#book">👉 Want to know if AI recommends you?</a></div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="sec bg-white" id="services" aria-labelledby="h-svc">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">What I do</p>
+        <h2 class="h2" id="h-svc">Enterprise SEO &amp; AI Search Services</h2>
+      </div>
+      <div class="svc-grid">
+        {services.map((s, i) => (
+          <div class="svc lift">
+            <span class="svc-n">{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="svc-t"><a href={`/services/#${s.id}`} style="color:inherit;text-decoration:none">{s.t}</a></h3>
+            <p class="svc-d">{s.d}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTORS -->
+  <section class="sec bg-white" aria-labelledby="h-ind">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">Industries</p>
+        <h2 class="h2" id="h-ind">AI SEO Consultant for Complex,<br>Multi-Location Brands</h2>
+      </div>
+      <div class="tile-grid">
+        {sectors.map((s) => (
+          <a class="tile" href={s.href || '/services/#sectors'}>{s.t}<span class="tile-arrow" aria-hidden="true">→</span></a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about" aria-labelledby="h-about">
+    <div class="photo photo-about">
+      <span class="ph-label">[PLACEHOLDER]<br>Photo of Christopher</span>
+    </div>
+    <div class="about-c">
+      <p class="eyebrow" style="margin-bottom:0">About Christopher</p>
+      <h2 class="h2" id="h-about">Hi, I'm Christopher Kelly. Enterprise AI SEO Consultant.</h2>
+      <p>I come from a <strong>long-standing SEO and marketing operations background</strong>, and I've spent years <strong>delivering SEO for one of the world's leading luxury hotel groups across 15+ properties</strong> on four continents.</p>
+      <p>That work runs from seasonal and experience pages to FAQ systems, Google Business Profiles and tracking how AI describes each property. Every change has to clear brand, legal and regional teams, so I know how to ship inside a big organisation.</p>
+      <p>I also <strong>build my own automation and SEO tooling</strong>: n8n workflows, API integrations and browser tools that handle the repetitive work, so senior time goes on decisions.</p>
+      <p>I'm <strong>based in North East England, working with brands worldwide</strong>.</p>
+      <p><strong>Book a call and I'll show you where you stand before you spend a penny.</strong></p>
+    </div>
+  </section>
+
+  <!-- APPROACH -->
+  <section class="sec bg-white" aria-labelledby="h-approach">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">The approach</p>
+        <h2 class="h2" id="h-approach">Senior Strategy.<br>Shipped Inside Your Process.</h2>
+        <p class="sub">One goal: more revenue from search, wherever it happens.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num" aria-hidden="true">01</span>
+          <span class="step-emoji" aria-hidden="true">🔍</span>
+          <h3 class="step-t">Baseline</h3>
+          <p class="step-p">A 30-day AI visibility baseline across the prompts that matter to your buyers, plus a technical and entity audit. You see exactly where you stand, and why.</p>
+          <span class="step-tag">Days 1 to 30</span>
+          <span class="badge" aria-hidden="true">→</span>
+        </div>
+        <div class="step">
+          <span class="step-num" aria-hidden="true">02</span>
+          <span class="step-emoji" aria-hidden="true">🗺️</span>
+          <h3 class="step-t">Roadmap</h3>
+          <p class="step-p">A prioritised plan mapped to revenue and to your approval workflow. Quick wins first, structural fixes scheduled, nothing that can't get signed off.</p>
+          <span class="step-tag">Prioritised by revenue</span>
+          <span class="badge" aria-hidden="true">→</span>
+        </div>
+        <div class="step">
+          <span class="step-num" aria-hidden="true">03</span>
+          <span class="step-emoji" aria-hidden="true">📈</span>
+          <h3 class="step-t">Ship &amp; Compound</h3>
+          <p class="step-p">I work inside your CMS, Jira and governance. Changes ship, results are measured, and each month builds on the last.</p>
+          <span class="step-tag">Ongoing delivery</span>
+        </div>
+      </div>
+      <div class="cta-row"><a class="btn" href="#book">👉 Start with a baseline</a></div>
+    </div>
+  </section>
+
+  <!-- AI PROOF -->
+  <section class="sec bg-black" aria-labelledby="h-proof">
+    <div class="wrap-1100">
+      <div class="shead">
+        <p class="eyebrow">Straight from the answer engine</p>
+        <h2 class="h2 h2-w" id="h-proof">This Is What Enterprise AI SEO<br>Actually Delivers.</h2>
+        <p class="sub" style="color:rgba(255,255,255,.78);max-width:760px">Real answers from AI engines after the work went live. Not a ranking report: the brand is the source the answer is built on.</p>
+      </div>
+      <div class="shot-grid">
+        <figure class="shot"><div class="shot-img"><span class="ph-label">[PLACEHOLDER SCREENSHOT]</span></div><figcaption class="shot-cap"><strong>"where is [Resort]"</strong> → [Brand] cited as the definition source</figcaption></figure>
+        <figure class="shot"><div class="shot-img"><span class="ph-label">[PLACEHOLDER SCREENSHOT]</span></div><figcaption class="shot-cap"><strong>"how to get to [Resort] from the airport"</strong> → [Brand] cited as the getting-there source</figcaption></figure>
+        <figure class="shot"><div class="shot-img"><span class="ph-label">[PLACEHOLDER SCREENSHOT]</span></div><figcaption class="shot-cap"><strong>"[PROMPT]"</strong> → [Brand] cited as the [PLACEHOLDER] source</figcaption></figure>
+      </div>
+      <div class="callout">
+        <h3 class="callout-h">An AI recommendation arrives pre-sold.</h3>
+        <p>When a buyer reads your name inside an AI answer, the comparison has already happened. The engine weighed the options and picked you.</p>
+        <p>That visitor lands ready to book, not to browse. Being the cited answer does work that a page of rankings never could.</p>
+      </div>
+      <div class="cta-row"><a class="btn" href="#book">👉 Get the same for your brand</a></div>
+    </div>
+  </section>
+
+  <!-- CASE STUDIES -->
+  <section class="sec bg-cream" id="work" aria-labelledby="h-work">
+    <div class="wrap-1100">
+      <div class="shead">
+        <p class="eyebrow">Work</p>
+        <h2 class="h2" id="h-work">Enterprise SEO &amp; AI Search Case Studies</h2>
+        <p class="sub">Real projects. Real results. No agency fluff.</p>
+      </div>
+      <div class="cs-list">
+        {cases.map((c) => (
+          <article class="cs">
+            <span class="label">{c.label}</span>
+            <h3 class="cs-h">{c.h}</h3>
+            <p class="cs-d">{c.d}</p>
+            <details class="cs-more" open={c.open}>
+              <summary>Read the full case study <Fragment set:html={chev} /></summary>
+              <div class="cs-body">
+                <div class="cs-col">
+                  <div><h4 class="cs-k">Challenge</h4><p class="cs-p">{c.challenge}</p></div>
+                  <div><h4 class="cs-k">Approach</h4><p class="cs-p">{c.approach}</p></div>
+                  <div><h4 class="cs-k">Results</h4><ul class="cs-ul">{c.results.map((r) => <li set:html={r} />)}</ul></div>
+                </div>
+                <div class="cs-col">
+                  {c.visuals.map((v) => <div class="chart" set:html={v} />)}
+                </div>
+                <blockquote class="quote">
+                  <span class="q-av">[IMG]</span>
+                  <div><p class="q-text">"[PLACEHOLDER QUOTE]"</p><p class="q-who">[NAME], [ROLE], [COMPANY]</p></div>
+                </blockquote>
+              </div>
+            </details>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="sec bg-cream" aria-labelledby="h-reviews">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">Client reviews</p>
+        <h2 class="h2" id="h-reviews">What Industry Leaders Say<br>About Christopher Kelly</h2>
+      </div>
+      <div class="t-grid">
+        {['Global luxury hospitality group', '[PLACEHOLDER: client context]', '[PLACEHOLDER: client context]'].map((ctx) => (
+          <div class="t">
+            <span class="t-ctx">{ctx}</span>
+            <p class="t-st">[PLACEHOLDER: one-line headline from the review]</p>
+            <p class="t-q">"[PLACEHOLDER QUOTE]"</p>
+            <div class="t-foot">
+              <span class="av">[IMG]</span>
+              <div style="display:flex;flex-direction:column;gap:.2rem">
+                <span class="stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
+                <span class="t-name">[NAME]</span>
+                <span class="t-role">[ROLE], [COMPANY]</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <BookCall
+    heading="Book a call with Christopher."
+    sub="One call, direct with me. You leave knowing where you stand in AI search, whether we work together or not."
+    cover={cover}
+  >
+    <div class="mini-grid">
+      {[1, 2, 3].map(() => (
+        <div class="mini"><span class="stars" role="img" aria-label="5 out of 5 stars">★★★★★</span><p class="mini-q">"[PLACEHOLDER SHORT QUOTE]"</p><span class="mini-w">[NAME], [ROLE]</span></div>
+      ))}
+    </div>
+    <ul class="pl" slot="before-ticks">
+      <li>👉 Bring one brand, one market or the whole portfolio</li>
+      <li>👉 We look at real AI answers about you, not theory</li>
+      <li>👉 You leave with the three fixes I'd make first</li>
+    </ul>
+  </BookCall>
+
+  <!-- FAQ -->
+  <section class="sec bg-white" id="faq" aria-labelledby="h-faq">
+    <div class="wrap-800">
+      <div class="shead">
+        <p class="eyebrow">FAQs</p>
+        <h2 class="h2" id="h-faq">Enterprise AI SEO Consultant FAQs</h2>
+      </div>
+      <Faq items={faqs} />
+    </div>
+  </section>
+
+</Base>

@@ -1,0 +1,37 @@
+---
+import { site } from '../data/site';
+interface Props {
+  heading: string;
+  sub: string;
+  cover: { e: string; t: string; p: string }[];
+  threeCol?: boolean;
+}
+const { heading, sub, cover, threeCol = false } = Astro.props;
+const isExternal = site.calendarUrl.startsWith('http');
+---
+<section class="bg-black book" id="book" aria-labelledby="h-book">
+  <div class="wrap">
+    <div class="shead">
+      <p class="eyebrow">Free · No obligation · Direct with Christopher</p>
+      <h2 class="h2 h2-w" id="h-book" set:html={heading} />
+      <p class="sub sub-w">{sub}</p>
+    </div>
+    <p class="cover-label">What we cover</p>
+    <div class={`cover-grid${threeCol ? ' cover-grid-3' : ''}`}>
+      {cover.map((c) => (
+        <div class="cover"><span class="cover-e" aria-hidden="true">{c.e}</span><span class="cover-t">{c.t}</span><span class="cover-p">{c.p}</span></div>
+      ))}
+    </div>
+    <slot />
+    <div class="book-close">
+      <slot name="before-ticks" />
+      <ul class="ticks">
+        <li><b aria-hidden="true">✓</b>You talk to Christopher directly</li>
+        <li><b aria-hidden="true">✓</b>No obligation</li>
+        <li><b aria-hidden="true">✓</b>Limited slots per month</li>
+      </ul>
+      <a class="btn btn-lg" href={site.calendarUrl} {...(isExternal ? { target: '_blank', rel: 'noopener' } : {})}>👉 Book my call</a>
+      <p class="book-note">Opens my live calendar.</p>
+    </div>
+  </div>
+</section>
