@@ -1,0 +1,9 @@
+---
+import SectorPage from '../../components/SectorPage.astro';
+import { sectorPages } from '../../data/sectors';
+
+export function getStaticPaths() {
+  return sectorPages.map((p) => ({ params: { slug: p.slug }, props: p }));
+}
+---
+<SectorPage {...Astro.props} />

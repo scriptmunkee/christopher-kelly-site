@@ -1,0 +1,266 @@
+---
+// One template for every "AI SEO Consultant for <Sector>" page. Content comes from
+// src/data/sectors/<slug>.ts; see src/lib/sector.ts for the shape.
+import Base from '../layouts/Base.astro';
+import Marquee from './Marquee.astro';
+import Faq from './Faq.astro';
+import BookCall from './BookCall.astro';
+import { site } from '../data/site';
+import { sectors } from '../data/services';
+import { icons, S, type SectorPageData } from '../lib/sector';
+import { breadcrumbSchema, faqSchema, serviceSchema, personSchema, businessSchema } from '../lib/schema';
+
+type Props = SectorPageData;
+const p = Astro.props;
+const path = `/services/${p.slug}/`;
+const title = `${p.name} | Christopher Kelly`;
+const check = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>';
+
+const schema = [
+  personSchema(),
+  businessSchema(),
+  serviceSchema({ name: p.service.name, description: p.description, path, audience: p.service.audience }),
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Services', path: '/services/' },
+    { name: p.crumb, path },
+  ]),
+  faqSchema(p.faqs),
+];
+---
+<Base title={title} description={p.description} active="services" schema={schema} hasBookSection>
+
+  <!-- BREADCRUMB + HERO -->
+  <section class="hero-band" data-hero>
+    <nav class="crumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li class="sep" aria-hidden="true">/</li>
+        <li><a href="/services/">Services</a></li>
+        <li class="sep" aria-hidden="true">/</li>
+        <li aria-current="page">{p.crumb}</li>
+      </ol>
+    </nav>
+    <div class="hero hero-tight">
+      <div>
+        <p class="eyebrow">{p.eyebrow}</p>
+        <h1 class="h1">{p.name}</h1>
+        <p class="hero-sub">{p.heroSub}</p>
+        <p class="hero-body" set:html={p.heroBody} />
+        <div class="hero-btns">
+          <a class="btn" href="#book">👉 Book a call with Christopher</a>
+          <a class="btn btn-ghost" href="#playbook">See the playbook →</a>
+        </div>
+      </div>
+      <div class="hero-media">
+        <div class="photo photo-hero">
+          <span class="ph-label">[PLACEHOLDER]<br>Portrait of Christopher</span>
+        </div>
+        <div class="ai-card" role="img" aria-label={p.aiCard.label}>
+          <span class="ai-head" aria-hidden="true"><span class="ai-dot"></span>AI answer</span>
+          <p class="ai-prompt" aria-hidden="true">{p.aiCard.prompt}</p>
+          <p class="ai-ans" aria-hidden="true" set:html={p.aiCard.answer} />
+          <span class="ai-tag" aria-hidden="true">{p.aiCard.tag}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Marquee label="Track record" slow items={p.marquee} />
+
+  <!-- INTRO -->
+  <section class="sec bg-white" aria-label="Introduction">
+    <div class="wrap-760 intro">
+      <p class="lead">{p.intro.lead}</p>
+      {p.intro.body.map((b) => <p class="body" set:html={b} />)}
+    </div>
+  </section>
+
+  <!-- THE SHIFT -->
+  <section class="sec bg-cream" id="shift" aria-labelledby="h-shift">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">The shift</p>
+        <h2 class="h2" id="h-shift">{p.shiftH2}</h2>
+      </div>
+      <div class="shift-grid">
+        {p.shifts.map((s, i) => (
+          <div class="shift">
+            <span class="shift-n">{String(i + 1).padStart(2, '0')}</span>
+            <div><h3 class="shift-t">{s.t}</h3><p class="shift-p">{s.p}</p></div>
+          </div>
+        ))}
+      </div>
+      <div class="stat-row">
+        {p.stats.map((s) => (
+          <div class="stat"><span class="stat-n">{s.n}</span><span class="stat-c">{s.c}</span><span class="stat-s">{s.s}</span></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ENTITIES -->
+  <section class="sec bg-white" id="entities" aria-labelledby="h-ent">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">What AI checks</p>
+        <h2 class="h2" id="h-ent" set:html={p.entitiesH2} />
+      </div>
+      <div class="ent-grid">
+        {p.entities.map((e) => (
+          <div class="ent">
+            <span class="ent-ic" set:html={icons[e.icon]} />
+            <h3 class="ent-t">{e.t}</h3>
+            <p class="ent-p">{e.p}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- MID CTA -->
+  <section class="mid" aria-label="Book a call">
+    <div class="mid-card">
+      <div class="mid-copy">
+        <h2 class="mid-h">{p.mid.h}</h2>
+        <p class="mid-p">{p.mid.p}</p>
+      </div>
+      <a class="btn" href="#book">👉 Book a call with Christopher</a>
+    </div>
+  </section>
+
+  <!-- PLAYBOOK -->
+  <section class="sec bg-cream" id="playbook" aria-labelledby="h-play">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">The playbook</p>
+        <h2 class="h2" id="h-play" set:html={p.playH2} />
+      </div>
+      <div class="steps">
+        {p.steps.map((s, i) => (
+          <div class="step">
+            <span class="step-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <span class="step-emoji" aria-hidden="true">{s.emoji}</span>
+            <h3 class="step-t">{s.t}</h3>
+            <p class="step-p" set:html={s.p} />
+            <span class="step-tag">{s.tag}</span>
+            {i < p.steps.length - 1 && <span class="badge" aria-hidden="true">→</span>}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT DECIDES -->
+  <section class="sec bg-white" id="decides" aria-labelledby="h-decides">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">{p.decidesEyebrow}</p>
+        <h2 class="h2" id="h-decides" set:html={p.decidesH2} />
+      </div>
+      <div class="shift-grid">
+        {p.decides.map((d, i) => (
+          <div class="shift">
+            <span class="shift-n">{String(i + 1).padStart(2, '0')}</span>
+            <div><h3 class="shift-t">{d.t}</h3><p class="shift-p">{d.p}</p></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- PAGE SYSTEMS -->
+  <section class="sec bg-cream" id="pages" aria-labelledby="h-pages">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">Page systems</p>
+        <h2 class="h2" id="h-pages">{p.pagesH2}</h2>
+        <p class="sub">{p.pagesSub}</p>
+      </div>
+      <div class="pt-grid">
+        {p.pageTypes.map((t) => (
+          <div class="pt"><h3 class="pt-t">{t.t}</h3><span class="chip">{t.c}</span><p class="pt-p">{t.p}</p></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- GOVERNANCE -->
+  <section class="sec bg-black" id="governance" aria-labelledby="h-gov">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">How I work</p>
+        <h2 class="h2 h2-w" id="h-gov" set:html={p.govH2} />
+      </div>
+      <ul class="gov-grid">
+        {p.governance.map((g) => (
+          <li class="gov"><span class="gov-ck" set:html={check} /><span class="gov-p">{g}</span></li>
+        ))}
+      </ul>
+      <div class="cta-row"><a class="btn" href="#book">{p.govCta}</a></div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about" aria-labelledby="h-about">
+    <div class="photo photo-about">
+      <span class="ph-label">[PLACEHOLDER]<br>Photo of Christopher</span>
+    </div>
+    <div class="about-c">
+      <p class="eyebrow" style="margin-bottom:0">About Christopher</p>
+      <h2 class="h2" id="h-about">The Consultant Behind The Playbook.</h2>
+      {p.about.map((a) => <p set:html={a} />)}
+    </div>
+  </section>
+
+  <!-- PROOF -->
+  <section class="sec bg-cream" id="proof" aria-labelledby="h-proof">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">Proof</p>
+        <h2 class="h2" id="h-proof" set:html={p.proofH2} />
+      </div>
+      <div class="cases">
+        {p.cases.map((c) => (
+          <article class="case">
+            <span class="label">{c.label}</span>
+            <h3 class="case-t">{c.t}</h3>
+            <p class="case-p">{c.p}</p>
+            <p class="case-m">{c.m}</p>
+          </article>
+        ))}
+      </div>
+      {p.proofLine && <p class="all-line">{p.proofLine}</p>}
+    </div>
+  </section>
+
+  <!-- FAQS -->
+  <section class="sec bg-white" id="faq" aria-labelledby="h-faq">
+    <div class="wrap-800">
+      <div class="shead">
+        <p class="eyebrow">FAQs</p>
+        <h2 class="h2" id="h-faq">{p.faqH2}</h2>
+      </div>
+      <Faq items={p.faqs} />
+    </div>
+  </section>
+
+  <BookCall heading={p.book.heading} sub={p.book.sub} cover={p.book.cover} threeCol />
+
+  <!-- OTHER SECTORS -->
+  <section class="sec bg-white" aria-labelledby="h-sectors">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">Other sectors</p>
+        <h2 class="h2" id="h-sectors">The Same Playbook, Other Sectors.</h2>
+      </div>
+      <div class="tile-grid">
+        {sectors.filter((s) => s.href && s.href !== path).map((s) => (
+          <a class="tile" href={s.href}>{s.t}<span class="tile-arrow" aria-hidden="true">→</span></a>
+        ))}
+      </div>
+      <p class="all-line">See <a class="inl" href={S}>every enterprise AI SEO service I offer</a>.</p>
+    </div>
+  </section>
+
+</Base>
