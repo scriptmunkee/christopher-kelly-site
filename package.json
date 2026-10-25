@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "christopher-kelly.co.uk, enterprise AI SEO consultant site (Astro, static, Cloudflare Pages)",
+  "description": "christopher-kelly.co.uk, enterprise AI SEO consultant site (Astro, static, Cloudflare Worker)",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",

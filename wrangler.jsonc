@@ -1,0 +1,20 @@
+// Cloudflare Worker config for christopher-kelly.co.uk (static assets only, no Worker script).
+// Workers Builds runs `wrangler deploy` on every push to main and reads this file.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "christopher-kelly-site",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./dist",
+    // Serve dist/404.html (with a 404 status) for any URL that doesn't exist.
+    "not_found_handling": "404-page",
+    // Matches astro.config.mjs trailingSlash: 'always'.
+    "html_handling": "auto-trailing-slash"
+  },
+  // Keep the workers.dev URL and both custom domains exactly as set in the dashboard.
+  "workers_dev": true,
+  "routes": [
+    { "pattern": "christopher-kelly.co.uk", "custom_domain": true },
+    { "pattern": "www.christopher-kelly.co.uk", "custom_domain": true }
+  ]
+}
