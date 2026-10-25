@@ -13,5 +13,4 @@ tonal white PNG (`mono: true`) so its three triangles stay distinct; Tech Sofa's
 background keyed out; Hanson Search cropped to drop the B Corp badge; Freesoul rotated from
 its vertical lockup; Iceland and Bankless extracted from SVG sprites; Four Seasons, Stowe,
 Roper Rhodes and Spaceist fetched through the browser because their CDNs block servers.
-Still missing: UBQ (site not identified) and Sharp Edges (sharpedgesok.com does not resolve);
-both show as text until a file is added.
+UBQ is ubqmaterials.com; Sharp Edges (sharpedgesok.com) sits behind a captcha for servers, so it was fetched through the browser.

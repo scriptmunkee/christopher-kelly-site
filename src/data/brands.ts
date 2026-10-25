@@ -52,7 +52,7 @@ export const brands: Brand[] = [
   { name: 'Crestal', slug: 'crestal', sector: 'Crypto & web3' },
   { name: 'Bando', slug: 'bando', sector: 'Crypto & web3' },
   { name: 'Bity', slug: 'bity', sector: 'Crypto & web3' },
-  // No logo sourced yet (show as text): UBQ (site not identified), Sharp Edges OK (domain not resolving).
-  { name: 'UBQ', slug: 'ubq', sector: 'Other' },
-  { name: 'Sharp Edges', slug: 'sharp-edges', sector: 'Other' },
+  // Materials and services
+  { name: 'UBQ Materials', slug: 'ubq', sector: 'Materials', height: 30 },
+  { name: 'Sharp Edges', slug: 'sharp-edges', sector: 'Services', height: 36 },
 ];
