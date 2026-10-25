@@ -22,7 +22,7 @@ const year = new Date().getFullYear();
             : <li><span style="font-size:.8rem;color:#6E6E6E">Coming soon</span></li>}
         </ul>
       </div>
-      <div>
+      <div class="foot-svc">
         <p class="foot-t">AI SEO consulting services</p>
         <ul class="foot-links">
           {sectors.filter((s) => s.href).map((s) => <li><a href={s.href}>{s.t}</a></li>)}

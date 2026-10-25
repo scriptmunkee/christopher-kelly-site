@@ -427,6 +427,7 @@ summary::-webkit-details-marker { display: none; }
   .photo-about { min-height: 320px; }
   .about-c { padding: 3rem 1.5rem; }
   .foot-grid { grid-template-columns: 1fr 1fr; }
+  .foot-svc { grid-column: 1 / -1; order: 3; }
   .foot-brand { grid-column: 1 / -1; }
 }
 @media (max-width: 860px) {
