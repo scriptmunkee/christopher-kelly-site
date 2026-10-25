@@ -21,6 +21,7 @@ Full infrastructure map, recipes and open items live in the `christopher-kelly-s
 - `src/components/`: Nav, Footer, StickyCta, Marquee, Faq, BookCall, Consent (cookie banner and PostHog loader).
 - `src/pages/`: `/`, `/services/`, `/privacy/`, 404, the hand-built sector pages `/services/ai-seo-consultant-hospitality/` and `-multi-location/`, and `services/[slug].astro`, which builds every other sector page.
 - `src/components/SectorPage.astro` + `src/lib/sector.ts`: the shared sector page template and its content type (with the entity icon set). Content lives in `src/data/sectors/<slug>.ts`, registered in `src/data/sectors/index.ts`.
+- `src/content/blog/*.md` + `src/content.config.ts`: blog posts (the filename is the URL slug) and their frontmatter rules. `src/lib/blog.ts` sorts posts and works out read time; `src/pages/blog/` holds the hub and the post template; `src/pages/rss.xml.js` the feed.
 - `public/og.png`: the 1200×630 share image used by every page.
 - `src/styles/global.css`: the whole design system. Tokens are CSS variables in `:root`.
 
@@ -30,6 +31,9 @@ Copy a content file in `src/data/sectors/` (e.g. `solicitors.ts`), change the co
 Pattern copied from tom-riley.co.uk: URL `/services/ai-seo-consultant-<sector>/`; title `AI SEO Consultant for <Sector> | Christopher Kelly`; H1 `AI SEO Consultant for <Sector>`; meta `Christopher Kelly is an AI SEO consultant for <audience>. <Promise>. Book a call.` Headings and copy are always our own.
 
 Naming and linking convention (from the tom-riley.co.uk sitemap): every sector page is named "AI SEO Consultant for <Sector>". That exact name is its H1, its title before the `|`, its `t` in `sectors`, and the anchor text wherever it is linked (footer "AI SEO consulting services" column, tiles, lists). Breadcrumbs use the short sector name. Only link pages that exist.
+
+## Adding a blog post
+Create `src/content/blog/<slug>.md` with the frontmatter the schema in `src/content.config.ts` requires: title, description (160 characters max), standfirst, category (Statistics, Case Studies or Guides), pubDate, 3 to 5 takeaways, sources (title, publisher, date, URL) and authorLink (a page name and its path). Set `draft: true` to hold a post back. Write answer-first, H2s in Title Case, every statistic linked inline to a dated, named source and labelled when it's a vendor study or non-UK data. Internal links go inside sentences, using page names as anchor text. The hub, sitemap, RSS and schema update automatically.
 
 ## Design system (Signal palette, tom-riley.co.uk layout language)
 - Base #F5F2EC with a 44px grid (black 4.5%). Sections alternate white #FFFFFF, stone #FAF8F3, blue-black #0B0F1A. Hairlines black 7%.
