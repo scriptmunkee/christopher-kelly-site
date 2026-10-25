@@ -1,0 +1,375 @@
+---
+import Base from '../../layouts/Base.astro';
+import Marquee from '../../components/Marquee.astro';
+import Faq from '../../components/Faq.astro';
+import BookCall from '../../components/BookCall.astro';
+import { site } from '../../data/site';
+import { sectors } from '../../data/services';
+import { breadcrumbSchema, faqSchema, serviceSchema, personSchema, businessSchema } from '../../lib/schema';
+
+const S = `${site.url}/services/`;
+const title = 'AI SEO Consultant for Fintech | Christopher Kelly';
+const description = 'Christopher Kelly is an AI SEO consultant for fintech and financial brands. Get every product named and cited by ChatGPT and Google AI. Book a call.';
+const path = '/services/ai-seo-consultant-fintech/';
+
+const shifts = [
+  { t: 'Customers ask AI about money.', p: 'Nearly half of consumers worldwide used AI to support savings and investment decisions in the past six months, according to an EY survey of over 18,000 people.' },
+  { t: 'The comparison now happens in the chat.', p: "Since August 2026, UK users can check their credit score and compare current accounts inside ChatGPT through Experian's app." },
+  { t: 'Third parties fill the gaps.', p: "In a study of 2,034 fintech AI answers, Forbes was cited more often than any brand's own website. The study was run by a PR firm, 5WPR." },
+  { t: 'Regulators are watching the answer.', p: 'The FCA has asked AI providers to show clear disclaimers on financial information. Accurate, compliant brand content matters more, not less.' },
+];
+
+const stats = [
+  { n: '49%', c: 'of consumers used AI for savings and investment decisions', s: 'EY, 2026' },
+  { n: '68%', c: 'of Gen Z use AI to help manage money', s: 'EY, 2026' },
+  { n: '62%', c: 'of regular UK ChatGPT users use AI to help reach financial goals', s: 'Experian, 2026' },
+  { n: '36%', c: 'of evidence-backed fintech answers cite Forbes', s: '5WPR, 2026' },
+];
+
+const ic = (d: string) => `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+const entities = [
+  { i: ic('<path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"></path><circle cx="7.5" cy="7.5" r="1.5"></circle>'), t: 'Brand and legal entity', p: 'Trading name, regulated firm and FCA reference, used correctly everywhere.' },
+  { i: ic('<rect x="2" y="5" width="20" height="14" rx="2"></rect><path d="M2 10h20M6 15h4"></path>'), t: 'Products', p: 'Every account, card, loan or platform as its own clear entity.' },
+  { i: ic('<path d="M19 5L5 19"></path><circle cx="6.5" cy="6.5" r="2.5"></circle><circle cx="17.5" cy="17.5" r="2.5"></circle>'), t: 'Rates, fees and limits', p: 'Stated plainly, dated and kept current.' },
+  { i: ic('<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"></path><path d="M9 12l2 2 4-4"></path>'), t: 'Regulation and protection', p: 'Authorisation, FSCS cover or safeguarding, stated accurately.' },
+  { i: ic('<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"></path>'), t: 'Reviews and ratings', p: 'Trustpilot and app store ratings telling one story.' },
+  { i: ic('<path d="M4 19h16M6 15V9M10 15V5M14 15v-4M18 15V7"></path>'), t: 'Comparison sites and press', p: 'Where AI finds independent evidence about you.' },
+  { i: ic('<circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path>'), t: 'Founders and experts', p: 'Named people with credentials AI can recognise.' },
+  { i: ic('<rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path>'), t: 'Security and trust', p: 'How customer money and data are protected.' },
+];
+
+const decides = [
+  { t: 'What others say about you.', p: 'Press coverage, comparison sites and reviews outweigh your own claims. When independent sources agree with your site, AI has the confidence to name you.' },
+  { t: "A clear story about who you're for.", p: 'Freelancers, SMEs, first-time investors: brands that say plainly who a product is for get matched to the right questions. Vague positioning gets skipped.' },
+  { t: 'Owning the cost and comparison questions.', p: 'Fees, FX rates and "X vs Y" questions go to whoever answers them most clearly. If your page is vague, a comparison site answers for you.' },
+  { t: 'Named at the point of choice.', p: 'Prompts like "best business account for a startup" are where customers decide. Winning them takes dated, verifiable facts on your own pages.' },
+];
+
+const pageTypes = [
+  { t: 'Product pages', c: 'business account with no monthly fee', p: 'One clear page per product AI can quote.' },
+  { t: 'Fees and rates', c: '[brand] international transfer fees', p: 'Dated numbers, stated plainly.' },
+  { t: 'Comparisons', c: '[brand] vs [competitor]', p: 'Fair, compliance-approved comparisons you control.' },
+  { t: 'Use cases', c: 'best way for freelancers to invoice in euros', p: 'Matches the product to the job.' },
+  { t: 'Safety and regulation', c: 'is [brand] safe and regulated', p: 'The trust questions answered accurately.' },
+  { t: 'Help-centre FAQs', c: 'how long does a SEPA transfer take', p: 'Concise answers AI can lift word for word.' },
+];
+
+const governance = [
+  'Fair, clear and not misleading, every time',
+  'Financial promotions routed through your compliance approval',
+  'Rates, fees and terms dated and kept current',
+  'Written for customer understanding under the Consumer Duty',
+  'Brand, product and legal entity names used correctly',
+  'Clients named only with permission',
+];
+
+const faqs = [
+  { q: 'What does an AI SEO consultant do for a fintech brand?',
+    a: "An AI SEO consultant makes sure ChatGPT, Google AI Mode and other answer engines understand your products, describe them accurately and recommend them for the right customer questions. For a fintech, that means clear product entities, dated rates and fees, strong third-party evidence and tracking where you're named, cited or missing against competitors in each category." },
+  { q: 'Does AI search work for regulated financial products?',
+    a: 'Yes, and regulated content can be an advantage. AI engines favour precise, verifiable facts, which is what fair, clear and not misleading financial content should already be. Everything is written for your compliance approval process, rates and terms are dated, and nothing goes live without sign-off. The aim is accurate answers about your products, not bolder claims.' },
+  { q: 'How long does it take to show up in AI answers?',
+    a: 'Changes to your own pages and entity data can start to show up in AI answers within weeks, especially on engines that search the web live, like Perplexity, ChatGPT search and Google AI Mode. Shifts that depend on third-party coverage and reviews take longer, often months. A fixed baseline makes the movement visible either way.' },
+  { q: 'How do you measure AI visibility for a fintech?',
+    a: `I track a fixed set of customer questions for each product and category, such as best accounts, fees and comparisons, and record whether your brand is mentioned, cited with a link, or missing, and who is named instead. That <a class="inl" href="${S}#ai-visibility-measurement">AI visibility measurement</a> sits alongside your search and sign-up data, so movement can be tied to acquisition.` },
+  { q: 'Do comparison sites and press coverage matter for AI search?',
+    a: "Yes, a lot. When a brand's own page doesn't state a fact clearly, AI engines fill the gap from comparison sites, reviews and financial press. One September 2026 study of fintech answers found Forbes cited more often than any brand's own website. The fix is clear facts on your pages and consistent coverage elsewhere." },
+];
+
+const cover = [
+  { e: '💳', t: 'How AI describes your products', p: 'What ChatGPT and Google AI say about you today.' },
+  { e: '🔎', t: 'Where competitors get named', p: 'The customer questions where another brand wins.' },
+  { e: '📰', t: 'Which sources AI trusts', p: 'The press and comparison sites shaping the answer.' },
+  { e: '💷', t: 'Fees, rates and facts', p: 'Whether AI can find and quote them accurately.' },
+  { e: '📊', t: 'What to measure', p: 'Mentions, citations and the sign-ups behind them.' },
+  { e: '🗺️', t: "What I'd fix first", p: 'A short, prioritised list for your brand.' },
+];
+
+const check = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>';
+
+const schema = [
+  personSchema(),
+  businessSchema(),
+  serviceSchema({ name: 'AI SEO for fintech and financial services brands', description, path, audience: 'Fintech and financial services brands' }),
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Services', path: '/services/' },
+    { name: 'Fintech', path },
+  ]),
+  faqSchema(faqs),
+];
+---
+<Base title={title} description={description} active="services" schema={schema} hasBookSection>
+
+  <!-- BREADCRUMB + HERO -->
+  <section class="hero-band" data-hero>
+    <nav class="crumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li class="sep" aria-hidden="true">/</li>
+        <li><a href="/services/">Services</a></li>
+        <li class="sep" aria-hidden="true">/</li>
+        <li aria-current="page">Fintech</li>
+      </ol>
+    </nav>
+    <div class="hero hero-tight">
+      <div>
+        <p class="eyebrow">Fintech &amp; Financial Services</p>
+        <h1 class="h1">AI SEO Consultant for Fintech</h1>
+        <p class="hero-sub">Customers now ask AI which account, card or platform to choose. Make sure it picks yours.</p>
+        <p class="hero-body">People ask ChatGPT and Google AI Mode for the best business account, the cheapest way to send money abroad or which app to invest with. I help fintech and financial brands get every product understood, cited and recommended, within the rules regulated marketing has to follow, with SEO work for Bankless, RedStone Finance and Bity behind it.</p>
+        <div class="hero-btns">
+          <a class="btn" href="#book">👉 Book a call with Christopher</a>
+          <a class="btn btn-ghost" href="#playbook">See the playbook →</a>
+        </div>
+      </div>
+      <div class="hero-media">
+        <div class="photo photo-hero">
+          <span class="ph-label">[PLACEHOLDER]<br>Portrait of Christopher</span>
+        </div>
+        <div class="ai-card" role="img" aria-label="Illustration of an AI answer recommending a fintech brand and citing its product page">
+          <span class="ai-head" aria-hidden="true"><span class="ai-dot"></span>AI answer</span>
+          <p class="ai-prompt" aria-hidden="true">Best business account for a UK startup with no monthly fee?</p>
+          <p class="ai-ans" aria-hidden="true">A strong fit is <strong>[Brand]</strong>: no monthly fee, fast online setup and clear FX rates for paying overseas suppliers.</p>
+          <span class="ai-tag" aria-hidden="true">Cited · product page</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Marquee label="Track record" slow items={[
+    'Bankless',
+    'RedStone Finance',
+    'Bity',
+    'Thesis',
+    'Mezo',
+    'Stowe Family Law',
+    'Simpson Millar',
+  ]} />
+
+  <!-- INTRO -->
+  <section class="sec bg-white" aria-label="Introduction">
+    <div class="wrap-760 intro">
+      <p class="lead">Money decisions carry real stakes, so AI is careful about which brands it names.</p>
+      <p class="body">Answer engines lean on brands that give them precise, verifiable facts: what each product does, what it costs, who regulates it and what independent sources say. Where those facts are vague, comparison sites and the press speak for you.</p>
+      <p class="body">I bring the approach behind my <a class="inl" href={S}>enterprise AI SEO services</a> to fintech: every product made clear to the engines that now shape the shortlist, inside your compliance process.</p>
+    </div>
+  </section>
+
+  <!-- THE SHIFT -->
+  <section class="sec bg-cream" id="shift" aria-labelledby="h-shift">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">The shift</p>
+        <h2 class="h2" id="h-shift">Why Fintech Brands Need An AI SEO Consultant.</h2>
+      </div>
+      <div class="shift-grid">
+        {shifts.map((s, i) => (
+          <div class="shift">
+            <span class="shift-n">{String(i + 1).padStart(2, '0')}</span>
+            <div><h3 class="shift-t">{s.t}</h3><p class="shift-p">{s.p}</p></div>
+          </div>
+        ))}
+      </div>
+      <div class="stat-row">
+        {stats.map((s) => (
+          <div class="stat"><span class="stat-n">{s.n}</span><span class="stat-c">{s.c}</span><span class="stat-s">{s.s}</span></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ENTITIES -->
+  <section class="sec bg-white" id="entities" aria-labelledby="h-ent">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">What AI checks</p>
+        <h2 class="h2" id="h-ent">The Entities AI Checks<br>Before It Names A Fintech.</h2>
+      </div>
+      <div class="ent-grid">
+        {entities.map((e) => (
+          <div class="ent">
+            <span class="ent-ic" set:html={e.i} />
+            <h3 class="ent-t">{e.t}</h3>
+            <p class="ent-p">{e.p}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- MID CTA -->
+  <section class="mid" aria-label="Book a call">
+    <div class="mid-card">
+      <div class="mid-copy">
+        <h2 class="mid-h">Want to see which brands AI recommends in your category?</h2>
+        <p class="mid-p">Book a call and I'll show you what ChatGPT and Google AI say about your products today, which sources they trust, and what I'd fix first. Free, no hard sell.</p>
+      </div>
+      <a class="btn" href="#book">👉 Book a call with Christopher</a>
+    </div>
+  </section>
+
+  <!-- PLAYBOOK -->
+  <section class="sec bg-cream" id="playbook" aria-labelledby="h-play">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">The playbook</p>
+        <h2 class="h2" id="h-play">How I Get Fintech Brands<br>Named By AI.</h2>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num" aria-hidden="true">01</span>
+          <span class="step-emoji" aria-hidden="true">🔍</span>
+          <h3 class="step-t">Find the trust gaps</h3>
+          <p class="step-p">A fixed set of customer questions per product and category: where you're named, who is named instead and which third-party sources AI trusts. It starts with <a class="inl" href={`${S}#ai-visibility-audit`}>an AI visibility audit</a>.</p>
+          <span class="step-tag">Product-by-product baseline</span>
+          <span class="badge" aria-hidden="true">→</span>
+        </div>
+        <div class="step">
+          <span class="step-num" aria-hidden="true">02</span>
+          <span class="step-emoji" aria-hidden="true">🧱</span>
+          <h3 class="step-t">Make every product a clear entity</h3>
+          <p class="step-p">Brand, legal entity, products and facts aligned across your site, profiles and directories through <a class="inl" href={`${S}#entity-optimisation`}>entity and knowledge graph optimisation</a>.</p>
+          <span class="step-tag">Entity first</span>
+          <span class="badge" aria-hidden="true">→</span>
+        </div>
+        <div class="step">
+          <span class="step-num" aria-hidden="true">03</span>
+          <span class="step-emoji" aria-hidden="true">📈</span>
+          <h3 class="step-t">Publish the facts AI quotes</h3>
+          <p class="step-p">Fees, rates, comparisons and how-it-works content written for compliance approval, using <a class="inl" href={`${S}#content-engineering`}>content engineering</a> that scales across every product.</p>
+          <span class="step-tag">Written to be cited</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT DECIDES -->
+  <section class="sec bg-white" id="decides" aria-labelledby="h-decides">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">Why brands get named</p>
+        <h2 class="h2" id="h-decides">What Actually Decides<br>Which Fintech AI Recommends.</h2>
+      </div>
+      <div class="shift-grid">
+        {decides.map((d, i) => (
+          <div class="shift">
+            <span class="shift-n">{String(i + 1).padStart(2, '0')}</span>
+            <div><h3 class="shift-t">{d.t}</h3><p class="shift-p">{d.p}</p></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- PAGE SYSTEMS -->
+  <section class="sec bg-cream" id="pages" aria-labelledby="h-pages">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">Page systems</p>
+        <h2 class="h2" id="h-pages">The Pages Customers Actually Ask About.</h2>
+        <p class="sub">AI answers are built from specific pages, not homepages. These are the templates I build and optimise across every product.</p>
+      </div>
+      <div class="pt-grid">
+        {pageTypes.map((p) => (
+          <div class="pt"><h3 class="pt-t">{p.t}</h3><span class="chip">{p.c}</span><p class="pt-p">{p.p}</p></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- GOVERNANCE -->
+  <section class="sec bg-black" id="governance" aria-labelledby="h-gov">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">How I work</p>
+        <h2 class="h2 h2-w" id="h-gov">Regulated Marketing.<br>Done Properly.</h2>
+      </div>
+      <ul class="gov-grid">
+        {governance.map((g) => (
+          <li class="gov"><span class="gov-ck" set:html={check} /><span class="gov-p">{g}</span></li>
+        ))}
+      </ul>
+      <div class="cta-row"><a class="btn" href="#book">👉 Talk to me about your products</a></div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about" aria-labelledby="h-about">
+    <div class="photo photo-about">
+      <span class="ph-label">[PLACEHOLDER]<br>Photo of Christopher</span>
+    </div>
+    <div class="about-c">
+      <p class="eyebrow" style="margin-bottom:0">About Christopher</p>
+      <h2 class="h2" id="h-about">The Consultant Behind The Playbook.</h2>
+      <p>I'm a senior, hands-on enterprise AI SEO consultant. I've delivered SEO for crypto and web3 brands including <strong>Bankless, RedStone Finance, Thesis and Bity</strong>, for law firms <strong>Stowe Family Law and Simpson Millar</strong>, and I've spent years delivering SEO across a global portfolio of 15+ locations.</p>
+      <p>You work with me directly, not another agency layer. Every recommendation is built to clear compliance, product and marketing teams, then tracked until it shows up in the answer. There's <a class="inl" href={`${site.url}/#about`}>more about how I work</a> on the homepage.</p>
+    </div>
+  </section>
+
+  <!-- PROOF -->
+  <section class="sec bg-cream" id="proof" aria-labelledby="h-proof">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">Proof</p>
+        <h2 class="h2" id="h-proof">Proven Across Crypto<br>And Regulated Sectors.</h2>
+      </div>
+      <div class="cases">
+        <article class="case">
+          <span class="label">Crypto media</span>
+          <h3 class="case-t">Bankless</h3>
+          <p class="case-p">Content briefs and keyword targeting for tools and perks pages, plus backlink analysis.</p>
+          <p class="case-m">[PLACEHOLDER: headline metric]</p>
+        </article>
+        <article class="case">
+          <span class="label">DeFi infrastructure</span>
+          <h3 class="case-t">RedStone Finance</h3>
+          <p class="case-p">Content briefs and drafts for oracle and DeFi topics, and competitor comparison pages.</p>
+          <p class="case-m">[PLACEHOLDER: headline metric]</p>
+        </article>
+        <article class="case">
+          <span class="label">Crypto exchange</span>
+          <h3 class="case-t">Bity</h3>
+          <p class="case-p">SEO audit with 404 clean-up and URL structure recommendations.</p>
+          <p class="case-m">[PLACEHOLDER: headline metric]</p>
+        </article>
+      </div>
+      <p class="all-line">I've also delivered SEO strategy and audits for Thesis, Mezo, Trojan, Crestal and Bando.</p>
+    </div>
+  </section>
+
+  <!-- FAQS -->
+  <section class="sec bg-white" id="faq" aria-labelledby="h-faq">
+    <div class="wrap-800">
+      <div class="shead">
+        <p class="eyebrow">FAQs</p>
+        <h2 class="h2" id="h-faq">Fintech AI SEO FAQs</h2>
+      </div>
+      <Faq items={faqs} />
+    </div>
+  </section>
+
+  <BookCall
+    heading="Start With A Call<br>About Your Products."
+    sub="One call, direct with me, about your products, your markets and the answers customers see today."
+    cover={cover}
+    threeCol
+  />
+
+  <!-- OTHER SECTORS -->
+  <section class="sec bg-white" aria-labelledby="h-sectors">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">Other sectors</p>
+        <h2 class="h2" id="h-sectors">The Same Playbook, Other Sectors.</h2>
+      </div>
+      <div class="tile-grid">
+        {sectors.filter((s) => s.href !== path).map((s) => (
+          <a class="tile" href={s.href || '/services/#sectors'}>{s.t}<span class="tile-arrow" aria-hidden="true">→</span></a>
+        ))}
+      </div>
+      <p class="all-line">See <a class="inl" href={S}>every enterprise AI SEO service I offer</a>.</p>
+    </div>
+  </section>
+
+</Base>

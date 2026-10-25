@@ -14,5 +14,6 @@ export const sectors = [
   { t: 'Luxury Hospitality & Travel', href: '/services/ai-seo-consultant-hospitality/' },
   { t: 'Multi-Location Brands', href: '/services/ai-seo-consultant-multi-location/' },
   { t: 'Law Firms & Solicitors', href: '/services/ai-seo-consultant-solicitors/' },
+  { t: 'Fintech & Financial Services', href: '/services/ai-seo-consultant-fintech/' },
   { t: 'Marketplaces & Platforms', href: '' },
 ];
