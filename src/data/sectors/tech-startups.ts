@@ -87,7 +87,7 @@ export const techStartups: SectorPageData = {
   govCta: '👉 Talk to me about your product',
   about: [
     "I'm a senior, hands-on enterprise AI SEO consultant. I've delivered SEO strategy, audits and content for web3 and crypto brands including <strong>RedStone Finance, Bankless, Bity, Thesis and Mezo</strong>, and I've spent years delivering SEO across a global portfolio of 15+ locations.",
-    `You work with me directly, not another agency layer. Every recommendation is built to fit how fast startups ship, then tracked until it shows up in the answer. There's <a class="inl" href="${site.url}/#about">more about how I work</a> on the homepage.`,
+    `You work with me directly, not another agency layer. Every recommendation is built to fit how fast startups ship, then tracked until it shows up in the answer. There's <a class="inl" href="${site.url}/about/">more about me and how I work</a> on my About page.`,
   ],
   proofH2: 'Proven With Web3<br>And Crypto Brands.',
   cases: [

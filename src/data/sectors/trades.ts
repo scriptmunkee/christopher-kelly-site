@@ -87,7 +87,7 @@ export const trades: SectorPageData = {
   govCta: '👉 Talk to me about your branches',
   about: [
     "I'm a senior, hands-on enterprise AI SEO consultant. I've spent years delivering SEO across a global portfolio of 15+ locations, with Google Business Profiles at scale, and delivered SEO for local practices including <strong>Fulham Road Dental and Direct Dental</strong>.",
-    `You work with me directly, not another agency layer. Every recommendation is built to work across all your branches, then tracked until it shows up in the answer. There's <a class="inl" href="${site.url}/#about">more about how I work</a> on the homepage.`,
+    `You work with me directly, not another agency layer. Every recommendation is built to work across all your branches, then tracked until it shows up in the answer. There's <a class="inl" href="${site.url}/about/">more about me and how I work</a> on my About page.`,
   ],
   proofH2: 'Proven In Local<br>And Multi-Site Search.',
   cases: [

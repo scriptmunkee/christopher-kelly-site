@@ -87,7 +87,7 @@ export const dentists: SectorPageData = {
   govCta: '👉 Talk to me about your practice',
   about: [
     "I'm a senior, hands-on enterprise AI SEO consultant. I've delivered SEO for dental practices including <strong>Fulham Road Dental and Direct Dental</strong>, for law firms <strong>Stowe Family Law and Simpson Millar</strong>, and I've spent years delivering SEO across a global portfolio of 15+ locations.",
-    `You work with me directly, not another agency layer. Every recommendation is built to clear clinical, compliance and marketing checks, then tracked until it shows up in the answer. There's <a class="inl" href="${site.url}/#about">more about how I work</a> on the homepage.`,
+    `You work with me directly, not another agency layer. Every recommendation is built to clear clinical, compliance and marketing checks, then tracked until it shows up in the answer. There's <a class="inl" href="${site.url}/about/">more about me and how I work</a> on my About page.`,
   ],
   proofH2: 'Proven In Dental<br>And Regulated Sectors.',
   cases: [

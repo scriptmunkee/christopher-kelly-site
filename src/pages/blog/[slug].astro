@@ -47,7 +47,7 @@ const schema = [
       <h1 class="h1 post-h1">{d.title}</h1>
       <p class="post-stand">{d.standfirst}</p>
       <p class="byline">
-        By <a href={`${site.url}/#about`}>Christopher Kelly</a>
+        By <a href={`${site.url}/about/`}>Christopher Kelly</a>
         <span aria-hidden="true">·</span> <time datetime={d.pubDate.toISOString()}>{formatDate(d.pubDate)}</time>
         {updated && <><span aria-hidden="true">·</span> Updated <time datetime={updated.toISOString()}>{formatDate(updated)}</time></>}
         <span aria-hidden="true">·</span> {minutes} min read

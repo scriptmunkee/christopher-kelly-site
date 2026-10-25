@@ -20,7 +20,7 @@ Full infrastructure map, recipes and open items live in the `christopher-kelly-s
 - `src/lib/nav.ts`: the main nav and footer "Explore" links. Real pages only, never jump links; an item shows only once its page file exists (About appears when `src/pages/about/index.astro` is added).
 - `src/lib/schema.ts`: JSON-LD helpers (Person, ProfessionalService, Service, FAQPage, BreadcrumbList).
 - `src/components/`: Nav, Footer, StickyCta, Marquee, Faq, BookCall, Consent (cookie banner and PostHog loader).
-- `src/pages/`: `/`, `/services/`, `/privacy/`, 404, the hand-built sector pages `/services/ai-seo-consultant-hospitality/` and `-multi-location/`, and `services/[slug].astro`, which builds every other sector page.
+- `src/pages/`: `/`, `/services/`, `/about/` (ProfilePage; its facts tables must match the Person schema), `/privacy/`, 404, the hand-built sector pages `/services/ai-seo-consultant-hospitality/` and `-multi-location/`, and `services/[slug].astro`, which builds every other sector page.
 - `src/components/SectorPage.astro` + `src/lib/sector.ts`: the shared sector page template and its content type (with the entity icon set). Content lives in `src/data/sectors/<slug>.ts`, registered in `src/data/sectors/index.ts`.
 - `src/content/blog/*.md` + `src/content.config.ts`: blog posts (the filename is the URL slug) and their frontmatter rules. `src/lib/blog.ts` sorts posts and works out read time; `src/pages/blog/` holds the hub and the post template; `src/pages/rss.xml.js` the feed.
 - `src/content/case-studies/*.md` + `src/lib/caseStudies.ts`: case studies (filename is the slug). `src/pages/case-studies/` holds the hub and the template. The nav "Work" link and footer "Case studies" point to the hub.

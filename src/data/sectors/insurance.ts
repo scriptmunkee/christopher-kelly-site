@@ -87,7 +87,7 @@ export const insurance: SectorPageData = {
   govCta: '👉 Talk to me about your products',
   about: [
     "I'm a senior, hands-on enterprise AI SEO consultant. I've delivered SEO in regulated and high-stakes sectors, including law firms <strong>Simpson Millar and Stowe Family Law</strong> and crypto exchange <strong>Bity</strong>, and I've spent years delivering SEO across a global portfolio of 15+ locations.",
-    `You work with me directly, not another agency layer. Every recommendation is built to clear compliance, product and marketing teams, then tracked until it shows up in the answer. There's <a class="inl" href="${site.url}/#about">more about how I work</a> on the homepage.`,
+    `You work with me directly, not another agency layer. Every recommendation is built to clear compliance, product and marketing teams, then tracked until it shows up in the answer. There's <a class="inl" href="${site.url}/about/">more about me and how I work</a> on my About page.`,
   ],
   proofH2: 'Proven In Regulated Sectors.',
   cases: [

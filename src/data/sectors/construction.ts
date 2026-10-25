@@ -87,7 +87,7 @@ export const construction: SectorPageData = {
   govCta: '👉 Talk to me about your firm',
   about: [
     "I'm a senior, hands-on enterprise AI SEO consultant. I've spent years delivering SEO across a global portfolio of 15+ locations, and worked with multi-office firms including <strong>Simpson Millar and Stowe Family Law</strong>.",
-    `You work with me directly, not another agency layer. Every recommendation is built to clear your technical, bid and marketing teams, then tracked until it shows up in the answer. There's <a class="inl" href="${site.url}/#about">more about how I work</a> on the homepage.`,
+    `You work with me directly, not another agency layer. Every recommendation is built to clear your technical, bid and marketing teams, then tracked until it shows up in the answer. There's <a class="inl" href="${site.url}/about/">more about me and how I work</a> on my About page.`,
   ],
   proofH2: 'Proven At Enterprise Scale.',
   cases: [

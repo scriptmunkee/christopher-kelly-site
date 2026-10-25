@@ -63,7 +63,7 @@ const schema = [
         {d.headline.map((h) => <li><span class="cs-hn">{h.n}</span><span class="cs-hl">{h.l}</span></li>)}
       </ul>
       <p class="byline">
-        By <a href={`${site.url}/#about`}>Christopher Kelly</a>
+        By <a href={`${site.url}/about/`}>Christopher Kelly</a>
         <span aria-hidden="true">·</span> <time datetime={d.pubDate.toISOString()}>{formatDate(d.pubDate)}</time>
         {updated && <><span aria-hidden="true">·</span> Updated <time datetime={updated.toISOString()}>{formatDate(updated)}</time></>}
       </p>
