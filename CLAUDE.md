@@ -22,6 +22,7 @@ Full infrastructure map, recipes and open items live in the `christopher-kelly-s
 - `src/pages/`: `/`, `/services/`, `/privacy/`, 404, the hand-built sector pages `/services/ai-seo-consultant-hospitality/` and `-multi-location/`, and `services/[slug].astro`, which builds every other sector page.
 - `src/components/SectorPage.astro` + `src/lib/sector.ts`: the shared sector page template and its content type (with the entity icon set). Content lives in `src/data/sectors/<slug>.ts`, registered in `src/data/sectors/index.ts`.
 - `src/content/blog/*.md` + `src/content.config.ts`: blog posts (the filename is the URL slug) and their frontmatter rules. `src/lib/blog.ts` sorts posts and works out read time; `src/pages/blog/` holds the hub and the post template; `src/pages/rss.xml.js` the feed.
+- `src/content/case-studies/*.md` + `src/lib/caseStudies.ts`: case studies (filename is the slug). `src/pages/case-studies/` holds the hub and the template. The nav "Work" link and footer "Case studies" point to the hub.
 - `public/og.png`: the 1200×630 share image used by every page.
 - `src/styles/global.css`: the whole design system. Tokens are CSS variables in `:root`.
 
@@ -34,6 +35,9 @@ Naming and linking convention (from the tom-riley.co.uk sitemap): every sector p
 
 ## Adding a blog post
 Create `src/content/blog/<slug>.md` with the frontmatter the schema in `src/content.config.ts` requires: title, description (160 characters max), standfirst, category (Statistics, Case Studies or Guides), pubDate, 3 to 5 takeaways, sources (title, publisher, date, URL) and authorLink (a page name and its path). Set `draft: true` to hold a post back. Write answer-first, H2s in Title Case, every statistic linked inline to a dated, named source and labelled when it's a vendor study or non-UK data. Internal links go inside sentences, using page names as anchor text. The hub, sitemap, RSS and schema update automatically.
+
+## Adding a case study
+Create `src/content/case-studies/<slug>.md` with the frontmatter in `src/content.config.ts`: headline stats (3 or 4), summary (challenge, approach, result), KPI tiles (number, caption, basis line), an optional `value` model (locations, rates, build hours, hosting, and workflows with runs a year and minutes before and after) and `assumptions`, each marked Documented or Estimate. The template computes every total, ROI, payback and the scale table from `value`, so never type a total into the body; keep the headline and KPI numbers in step with the model. Set `estimated: true` when any figure is modelled, which shows the estimate notice. Name the client only if they are on the permitted list below; otherwise "named on request". Blog posts in the Case Studies category also appear on the hub.
 
 ## Design system (Signal palette, tom-riley.co.uk layout language)
 - Base #F5F2EC with a 44px grid (black 4.5%). Sections alternate white #FFFFFF, stone #FAF8F3, blue-black #0B0F1A. Hairlines black 7%.
