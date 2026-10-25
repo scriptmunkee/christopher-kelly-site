@@ -47,6 +47,13 @@ const pageTypes = [
   { t: 'Legal FAQs', c: 'do I need a solicitor for a divorce', p: 'Concise answers AI can lift word for word.' },
 ];
 
+const decides = [
+  { t: 'What others say about you.', p: 'AI trusts independent evidence more than your own claims. Directory rankings, client reviews and press coverage that agree with your site give the engine the confidence to name you.' },
+  { t: 'A clear story about what you do.', p: 'Firms that say plainly what they specialise in, and where, get matched to the right questions. A vague "full-service" message leaves AI to guess, and it usually guesses someone else.' },
+  { t: 'Owning the fee and process questions.', p: 'Questions about what probate costs or how long a divorce takes go to whoever answers them most clearly. The price and service information you must already publish is a head start most firms waste.' },
+  { t: 'Named when clients are ready to instruct.', p: 'Prompts like "best employment solicitor in Leeds" are where clients choose. Winning them takes evidence on your own pages: experience, accreditations, reviews and results you are able to publish.' },
+];
+
 const governance = [
   'Written to fit the SRA Transparency Rules and your compliance process',
   'No promised outcomes, no misleading claims',
@@ -173,11 +180,11 @@ const schema = [
   </section>
 
   <!-- ENTITIES -->
-  <section class="sec bg-white" id="signals" aria-labelledby="h-ent">
+  <section class="sec bg-white" id="entities" aria-labelledby="h-ent">
     <div class="wrap">
       <div class="shead">
         <p class="eyebrow">What AI checks</p>
-        <h2 class="h2" id="h-ent">The Signals AI Checks<br>Before It Names A Firm.</h2>
+        <h2 class="h2" id="h-ent">The Entities AI Checks<br>Before It Names A Firm.</h2>
       </div>
       <div class="ent-grid">
         {entities.map((e) => (
@@ -207,7 +214,7 @@ const schema = [
     <div class="wrap">
       <div class="shead">
         <p class="eyebrow">The playbook</p>
-        <h2 class="h2" id="h-play">Every Specialism Understood.<br>Every Answer Earned.</h2>
+        <h2 class="h2" id="h-play">How I Get Law Firms<br>Named By AI.</h2>
       </div>
       <div class="steps">
         <div class="step">
@@ -237,8 +244,26 @@ const schema = [
     </div>
   </section>
 
+  <!-- WHAT DECIDES -->
+  <section class="sec bg-white" id="decides" aria-labelledby="h-decides">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">Why firms get named</p>
+        <h2 class="h2" id="h-decides">What Actually Decides<br>Which Firm AI Recommends.</h2>
+      </div>
+      <div class="shift-grid">
+        {decides.map((d, i) => (
+          <div class="shift">
+            <span class="shift-n">{String(i + 1).padStart(2, '0')}</span>
+            <div><h3 class="shift-t">{d.t}</h3><p class="shift-p">{d.p}</p></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <!-- PAGE SYSTEMS -->
-  <section class="sec bg-white" id="pages" aria-labelledby="h-pages">
+  <section class="sec bg-cream" id="pages" aria-labelledby="h-pages">
     <div class="wrap">
       <div class="shead">
         <p class="eyebrow">Page systems</p>
