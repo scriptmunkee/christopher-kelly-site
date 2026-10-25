@@ -17,7 +17,7 @@ export const site = {
   },
 
   // Your LinkedIn profile URL. Leave as '' to hide LinkedIn links.
-  linkedinUrl: '',
+  linkedinUrl: 'https://www.linkedin.com/in/christopher-kelly-seo/',
 
   company: {
     legalName: 'Ascend Digital Marketing Ltd',
