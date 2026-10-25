@@ -140,6 +140,7 @@ html:has(.mnav[open]) .sticky { visibility: hidden; }
 .hero-btns { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2rem; }
 .photo { position: relative; background: var(--dark); border: 1px solid var(--hair); display: flex; align-items: center; justify-content: center; overflow: hidden; }
 .photo img { width: 100%; height: 100%; object-fit: cover; }
+.photo picture { position: absolute; inset: 0; }
 .photo-hero { height: 520px; }
 .ph-label { font-size: .7rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: rgba(255, 255, 255, .6); text-align: center; padding: 1rem; line-height: 1.6; }
 .cap { display: flex; flex-direction: column; gap: .15rem; margin-top: .9rem; }

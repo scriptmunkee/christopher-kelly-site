@@ -255,7 +255,10 @@ const schema = [websiteSchema(), personSchema(), businessSchema(), faqSchema(faq
   <!-- ABOUT -->
   <section class="about" id="about" aria-labelledby="h-about">
     <div class="photo photo-about">
-      <span class="ph-label">[PLACEHOLDER]<br>Photo of Christopher</span>
+      <picture>
+        <source type="image/webp" srcset="/img/christopher-about-640.webp 640w, /img/christopher-about.webp 967w" sizes="(max-width: 860px) 100vw, 50vw">
+        <img src="/img/christopher-about.jpg" width="967" height="1289" alt="Christopher Kelly working from a laptop and phone in a loft office" loading="lazy" decoding="async" style="object-position: 50% 30%">
+      </picture>
     </div>
     <div class="about-c">
       <p class="eyebrow" style="margin-bottom:0">About Christopher</p>
