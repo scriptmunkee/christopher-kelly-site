@@ -6,7 +6,7 @@
   "description": "christopher-kelly.co.uk, enterprise AI SEO consultant site (Astro, static, Cloudflare Worker)",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/sitemap.mjs",
     "preview": "astro preview"
   },
   "engines": {

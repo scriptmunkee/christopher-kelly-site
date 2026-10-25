@@ -6,6 +6,7 @@ Full infrastructure map, recipes and open items live in the `christopher-kelly-s
 
 ## Workflow
 - Edit, run `npm run build` to check it compiles, commit, push to `main`. Cloudflare rebuilds automatically, usually within a minute. Confirm on the live site.
+- Sitemap: `@astrojs/sitemap` builds `sitemap-index.xml`, and `scripts/sitemap.mjs` (part of `npm run build`) copies the URL set to `/sitemap.xml` and fails the build if a built page is missing. After adding any page, check it appears at https://christopher-kelly.co.uk/sitemap.xml.
 - Never commit secrets. Public client keys only (PostHog `phc_` key, Cloudflare beacon token in `site.ts`). There is no backend, no forms and no database.
 - Booking: every "Book my call" button uses `calendarUrl` (TidyCal) in `site.ts`.
 - Analytics: Cloudflare Web Analytics beacon for everyone; PostHog (EU) only after consent via `Consent.astro`. Update `/privacy/` whenever a tool, cookie or form is added.
