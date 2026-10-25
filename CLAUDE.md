@@ -19,12 +19,13 @@ Full infrastructure map, recipes and open items live in the `christopher-kelly-s
 - `wrangler.jsonc`: Worker config read by Workers Builds. Serves `404.html` for missing URLs and declares both custom domains; keep the domains listed here or a deploy could drop them.
 - `src/lib/schema.ts`: JSON-LD helpers (Person, ProfessionalService, Service, FAQPage, BreadcrumbList).
 - `src/components/`: Nav, Footer, StickyCta, Marquee, Faq, BookCall, Consent (cookie banner and PostHog loader).
-- `src/pages/`: `/`, `/services/`, sector pages `/services/ai-seo-consultant-hospitality/`, `-multi-location/`, `-solicitors/` and `-fintech/`, `/privacy/`, 404.
+- `src/pages/`: `/`, `/services/`, `/privacy/`, 404, the hand-built sector pages `/services/ai-seo-consultant-hospitality/` and `-multi-location/`, and `services/[slug].astro`, which builds every other sector page.
+- `src/components/SectorPage.astro` + `src/lib/sector.ts`: the shared sector page template and its content type (with the entity icon set). Content lives in `src/data/sectors/<slug>.ts`, registered in `src/data/sectors/index.ts`.
 - `public/og.png`: the 1200×630 share image used by every page.
 - `src/styles/global.css`: the whole design system. Tokens are CSS variables in `:root`.
 
 ## Adding a sector page
-Copy `src/pages/services/ai-seo-consultant-solicitors.astro` (the most complete template: entities, playbook, what decides, page systems, governance, about, proof, FAQs), keep `hasBookSection`, change the content arrays at the top, then add the page's `href` to `sectors` in `src/data/services.ts` and a link in the footer's Explore list.
+Copy a content file in `src/data/sectors/` (e.g. `solicitors.ts`), change the content, add it to `src/data/sectors/index.ts`, then add `{ t, href }` to `sectors` in `src/data/services.ts`. The page, footer link, tiles and sitemap entry all follow automatically. Before pushing, check: title before `|` equals the H1, meta under 160 characters, FAQ answers 40 to 70 words, no double or em dashes.
 
 Pattern copied from tom-riley.co.uk: URL `/services/ai-seo-consultant-<sector>/`; title `AI SEO Consultant for <Sector> | Christopher Kelly`; H1 `AI SEO Consultant for <Sector>`; meta `Christopher Kelly is an AI SEO consultant for <audience>. <Promise>. Book a call.` Headings and copy are always our own.
 
@@ -45,6 +46,6 @@ Naming and linking convention (from the tom-riley.co.uk sitemap): every sector p
 - No hype words. Never write "hidden gem", "nestled" or "oasis".
 - Internal links go inside the sentence as natural anchor text, never bolt-on "Read more" or "See more" lines.
 - Never invent metrics, quotes or client names. Use [PLACEHOLDER] or [CONFIRM].
-- The luxury hotel group is "named on request": do not name the client. Stowe Family Law and Simpson Millar may be named (permission confirmed).
+- The luxury hotel group is "named on request": do not name the client. These clients may be named (permission confirmed): Stowe Family Law, Simpson Millar, Fulham Road Dental, Direct Dental, Bankless, RedStone Finance, Bity, Thesis, Mezo, Trojan, Crestal, Bando. Describe only work the record supports; otherwise use [PLACEHOLDER].
 - Say "entities", not "signals", for what AI checks.
 - FAQ answers: answer-first, 40 to 70 words.
