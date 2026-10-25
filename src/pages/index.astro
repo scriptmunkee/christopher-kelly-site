@@ -12,7 +12,7 @@ const S = `${site.url}/services/`;
 const problems = [
   { tag: 'Wrong answer', q: 'AI describing your brand inaccurately, or recommending a competitor?',
     p: "Ask ChatGPT or Gemini about your brand and you get outdated facts, the wrong locations, or a rival's name in the answer. Buyers trust that answer before they ever see your site.",
-    d: "trace where the models are getting it from, fix the entity signals and source pages they rely on, and track the answer until it's right." },
+    d: "trace where the models are getting it from, fix the entities and source pages they rely on, and track the answer until it's right." },
   { tag: 'Portfolio drift', q: 'Dozens of locations, dozens of versions of the truth across site, Google Business Profiles and listings?',
     p: 'Names, hours, amenities and categories drift apart across every platform. AI systems see the contradictions and hedge, or pick the wrong version.',
     d: 'audit location data across the estate, set one source of truth, and automate the checks so drift is caught before the models pick it up.' },
@@ -35,7 +35,7 @@ const faqs = [
   { q: 'What is an enterprise AI SEO consultant?',
     a: 'An enterprise AI SEO consultant helps large, multi-location or multi-brand organisations get understood, cited and recommended by AI search, including ChatGPT, Gemini, Perplexity and Google AI Mode, alongside traditional rankings. The work covers entity clarity, technical access for AI crawlers, answer-first content and measurement, delivered inside enterprise governance rather than as a slide deck.' },
   { q: "SEO vs GEO vs AEO: what's the difference?",
-    a: 'SEO earns rankings in traditional search results. GEO (generative engine optimisation) earns mentions and citations inside AI-generated answers. AEO (answer engine optimisation) structures content so engines can lift it as the direct answer. In practice they overlap: the same entity signals, crawlable pages and answer-first content drive all three, so I run them as one programme.' },
+    a: 'SEO earns rankings in traditional search results. GEO (generative engine optimisation) earns mentions and citations inside AI-generated answers. AEO (answer engine optimisation) structures content so engines can lift it as the direct answer. In practice they overlap: the same entities, crawlable pages and answer-first content drive all three, so I run them as one programme.' },
   { q: 'Should we hire a consultant or an agency?',
     a: 'Hire a consultant when you need senior judgement and hands-on delivery without the layers. With me, the person who audits your brand is the person who writes the roadmap and ships the changes. Agencies suit high volumes of production work, and I often work alongside in-house teams and agencies, setting the direction they execute.' },
   { q: 'How do you measure AI visibility?',
@@ -43,7 +43,7 @@ const faqs = [
   { q: 'Can you work within our brand governance?',
     a: "Yes. Most of my work happens inside brand, legal and regional approval chains. Recommendations arrive as briefs approvers can sign off quickly, changes are batched by risk, and I work directly in your CMS, Jira and existing workflows. Governance isn't an obstacle here: consistent, approved facts are exactly what AI systems reward." },
   { q: 'How long does AI search take to show results?',
-    a: 'Technical and entity fixes can change how AI engines describe you within weeks, as crawlers revisit and answers refresh. Winning citations for competitive prompts usually takes a few months of consistent content and signal work. The 30-day baseline sets your starting point, so every change after it is measured against real data, not guesswork.' },
+    a: 'Technical and entity fixes can change how AI engines describe you within weeks, as crawlers revisit and answers refresh. Winning citations for competitive prompts usually takes a few months of consistent content and entity work. The 30-day baseline sets your starting point, so every change after it is measured against real data, not guesswork.' },
 ];
 
 const cover = [
