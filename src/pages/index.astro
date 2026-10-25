@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Marquee from '../components/Marquee.astro';
 import { brands } from '../data/brands';
+import { testimonials, linkedinRecommendationsUrl } from '../data/testimonials';
 import Faq from '../components/Faq.astro';
 import BookCall from '../components/BookCall.astro';
 import { site } from '../data/site';
@@ -371,24 +372,25 @@ const schema = [websiteSchema(), personSchema(), businessSchema(), faqSchema(faq
   <section class="sec bg-cream" aria-labelledby="h-reviews">
     <div class="wrap">
       <div class="shead">
-        <p class="eyebrow">Client reviews</p>
-        <h2 class="h2" id="h-reviews">What Industry Leaders Say<br>About Christopher Kelly</h2>
+        <p class="eyebrow">Recommendations</p>
+        <h2 class="h2" id="h-reviews">What Clients And Colleagues Say<br>About Christopher Kelly</h2>
+        <p class="sub">Every quote below is taken word for word from the <a class="inl" href={linkedinRecommendationsUrl} target="_blank" rel="noopener">recommendations on Christopher's LinkedIn profile</a>, or from a written reference.</p>
       </div>
       <div class="t-grid">
-        {['Global luxury hospitality group', '[PLACEHOLDER: client context]', '[PLACEHOLDER: client context]'].map((ctx) => (
-          <div class="t">
-            <span class="t-ctx">{ctx}</span>
-            <p class="t-st">[PLACEHOLDER: one-line headline from the review]</p>
-            <p class="t-q">"[PLACEHOLDER QUOTE]"</p>
-            <div class="t-foot">
-              <span class="av">[IMG]</span>
+        {testimonials.map((t) => (
+          <blockquote class="t">
+            <span class="t-ctx">{t.context}</span>
+            <p class="t-st">{t.headline}</p>
+            <p class="t-q">“{t.quote}”</p>
+            <footer class="t-foot">
+              <span class="av av-init" aria-hidden="true">{t.initials}</span>
               <div style="display:flex;flex-direction:column;gap:.2rem">
-                <span class="stars" role="img" aria-label="5 out of 5 stars">★★★★★</span>
-                <span class="t-name">[NAME]</span>
-                <span class="t-role">[ROLE], [COMPANY]</span>
+                <cite class="t-name">{t.name}</cite>
+                <span class="t-role">{t.role}</span>
+                <span class="t-role">{t.relation}</span>
               </div>
-            </div>
-          </div>
+            </footer>
+          </blockquote>
         ))}
       </div>
     </div>

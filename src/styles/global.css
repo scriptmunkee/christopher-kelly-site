@@ -313,6 +313,9 @@ html:has(.mnav[open]) .sticky { visibility: hidden; }
 .t-foot { display: flex; gap: 1rem; align-items: center; margin-top: auto; padding-top: 1rem; }
 .av { width: 72px; height: 72px; border-radius: 50%; border: 3px solid var(--lime); box-shadow: 0 3px 0 var(--lime-press); background: #ECE8E0; flex: none; display: flex; align-items: center; justify-content: center; font-size: .6rem; font-weight: 700; letter-spacing: .08em; color: var(--sub); overflow: hidden; }
 .stars { color: var(--indigo); letter-spacing: .1em; font-size: .95rem; }
+.av-init { font-family: var(--f-head); font-size: 1rem; font-weight: 800; letter-spacing: .02em; color: var(--ink); }
+.t-name { font-style: normal; }
+blockquote.t { margin: 0; }
 .t-name { font-family: var(--f-head); font-weight: 800; font-size: .92rem; color: var(--ink); }
 .t-role { font-size: .8rem; color: var(--grey-3); line-height: 1.45; }
 .t-li { font-size: .8rem; font-weight: 600; text-decoration: none; }
