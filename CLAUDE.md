@@ -55,6 +55,6 @@ Create `src/content/case-studies/<slug>.md` with the frontmatter in `src/content
 - No hype words. Never write "hidden gem", "nestled" or "oasis".
 - Internal links go inside the sentence as natural anchor text, never bolt-on "Read more" or "See more" lines.
 - Never invent metrics, quotes or client names. Use [PLACEHOLDER] or [CONFIRM].
-- The luxury hotel group is "named on request": do not name the client. These clients may be named (permission confirmed): Stowe Family Law, Simpson Millar, Fulham Road Dental, Direct Dental, Bankless, RedStone Finance, Bity, Thesis, Mezo, Trojan, Crestal, Bando. Describe only work the record supports; otherwise use [PLACEHOLDER].
+- Clients that may be named (Chris confirmed 25 Oct 2026; the full list with logos is `src/data/brands.ts`): Four Seasons Hotels and Resorts (banner logo only; body copy still says "global luxury hotel group, named on request" until Chris says otherwise), Stowe Family Law, Simpson Millar, Breit Biniazan, Fulham Road Dental, Direct Dental, St John & St Elizabeth Hospital (HJE), Iceland Foods, Destinology, Roper Rhodes, Nikura, Perk Clothing, Spaceist, New England Shaving Company, Lewis Brass & Copper, BudMother, Freesoul, Tech Sofa, BannerWorld, Smart UK Supply, More Soda, Hanson Search, UBQ, Sharp Edges, Bankless, RedStone Finance, Bity, Thesis, Mezo, Trojan, Crestal, Bando. Describe only work the record supports; otherwise use [PLACEHOLDER].
 - Say "entities", not "signals", for what AI checks.
 - FAQ answers: answer-first, 40 to 70 words.
