@@ -1,11 +1,14 @@
 # christopher-kelly.co.uk: notes for Claude
 
 Personal site for Christopher Kelly, Enterprise AI SEO Consultant (UK based, working globally).
-Operated by Ascend Digital Marketing Ltd. Static Astro site, deployed to Cloudflare Pages on every push to `main`.
+Operated by Ascend Digital Marketing Ltd. Static Astro site, served by the Cloudflare Worker `christopher-kelly-site` (static assets) and rebuilt by Workers Builds on every push to `main`.
+Full infrastructure map, recipes and open items live in the `christopher-kelly-site` skill; keep it and this file in step.
 
 ## Workflow
-- Edit, run `npm run build` to check it compiles, commit, push to `main`. Cloudflare rebuilds automatically.
-- Never commit secrets. There is no backend, no forms and no database.
+- Edit, run `npm run build` to check it compiles, commit, push to `main`. Cloudflare rebuilds automatically, usually within a minute. Confirm on the live site.
+- Never commit secrets. Public client keys only (PostHog `phc_` key, Cloudflare beacon token in `site.ts`). There is no backend, no forms and no database.
+- Booking: every "Book my call" button uses `calendarUrl` (TidyCal) in `site.ts`.
+- Analytics: Cloudflare Web Analytics beacon for everyone; PostHog (EU) only after consent via `Consent.astro`. Update `/privacy/` whenever a tool, cookie or form is added.
 - Keep pages server-rendered HTML. No client-side frameworks; tiny inline scripts only (see `Base.astro`).
 - Interactive bits (accordions, FAQs, case studies, mobile menu) use native `<details>/<summary>` so content is in the HTML for crawlers.
 
@@ -14,7 +17,7 @@ Operated by Ascend Digital Marketing Ltd. Static Astro site, deployed to Cloudfl
 - `src/data/services.ts`: the six services (ids are `/services/#anchors`, keep them stable) and sector pages.
 - `src/layouts/Base.astro`: head, SEO meta, JSON-LD, nav, footer, sticky CTA.
 - `src/lib/schema.ts`: JSON-LD helpers (Person, ProfessionalService, Service, FAQPage, BreadcrumbList).
-- `src/components/`: Nav, Footer, StickyCta, Marquee, Faq, BookCall.
+- `src/components/`: Nav, Footer, StickyCta, Marquee, Faq, BookCall, Consent (cookie banner and PostHog loader).
 - `src/pages/`: `/`, `/services/`, `/services/ai-seo-consultant-hospitality/`, `/privacy/`, 404.
 - `src/styles/global.css`: the whole design system. Tokens are CSS variables in `:root`.
 
