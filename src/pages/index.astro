@@ -114,7 +114,10 @@ const schema = [websiteSchema(), personSchema(), businessSchema(), faqSchema(faq
       </div>
       <figure>
         <div class="photo photo-hero">
-          <span class="ph-label">[PLACEHOLDER]<br>Portrait of Christopher</span>
+          <picture>
+            <source type="image/webp" srcset="/img/christopher-hero-800.webp 800w, /img/christopher-hero.webp 1448w" sizes="(max-width: 860px) 100vw, 45vw">
+            <img src="/img/christopher-hero.jpg" width="1448" height="1086" alt="Christopher Kelly, Enterprise AI SEO Consultant, at his desk" fetchpriority="high" decoding="async" style="object-position: 50% 18%">
+          </picture>
         </div>
         <figcaption class="cap">
           <span class="mont" style="font-weight:800;font-size:.88rem;color:#0B0F1A">Christopher Kelly</span>
