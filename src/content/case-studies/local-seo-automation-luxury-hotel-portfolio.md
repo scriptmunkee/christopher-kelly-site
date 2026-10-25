@@ -69,7 +69,7 @@ assumptions:
 stack: ["n8n (self-hosted)", "Docker", "Cloudflare Tunnel", "Slack", "Yext Entities API", "Google Sheets", "Zoho WorkDrive", "Zoho Mail"]
 sources:
   - { title: "The 2026 Local Visibility Index (SOCi100)", publisher: "SOCi", date: "Feb 2026", url: "https://golocal.soci.ai/rs/355-TUF-572/images/The_2026_Local_Visibility_Index_SOCi100.pdf" }
-  - { title: "86% of AI citations come from brand-managed sources", publisher: "Yext", date: "9 Oct 2025", url: "https://yext.com/about/news-media/ai-citations-release" }
+  - { title: "AI citations come mostly from brand-managed sources", publisher: "Yext", date: "9 Oct 2025", url: "https://yext.com/about/news-media/ai-citations-release" }
 authorLink: { text: "AI SEO Consultant for Multi-Location Brands", href: "/services/ai-seo-consultant-multi-location/" }
 ---
 
@@ -138,7 +138,7 @@ Three things stand out.
 
 ## Why This Matters for Enterprise Brands
 
-AI assistants build their answers from the facts they can find about each location, and those facts are often wrong. In [SOCi's 2026 Local Visibility Index](https://golocal.soci.ai/rs/355-TUF-572/images/The_2026_Local_Visibility_Index_SOCi100.pdf), non-Google AI assistants were only about 68% accurate on business contact details. The data you control carries the most weight: a [Yext analysis of 6.8 million AI citations](https://yext.com/about/news-media/ai-citations-release), a vendor study from October 2025, found 86% came from sources brands manage, such as their websites and listings.
+AI assistants build their answers from the facts they can find about each location, and those facts are often wrong. In [SOCi's 2026 Local Visibility Index](https://golocal.soci.ai/rs/355-TUF-572/images/The_2026_Local_Visibility_Index_SOCi100.pdf), non-Google AI assistants were only about 68% accurate on business contact details. The data you control carries the most weight: a [Yext analysis of 6.8 million AI citations](https://yext.com/about/news-media/ai-citations-release), a vendor study from October 2025, found most came from sources brands manage, such as their websites and listings.
 
 So the data in your listings platform isn't admin. It's the raw material AI uses to describe and recommend you. With hundreds of locations and outlets, keeping it right by hand doesn't scale. Automation does, and it brings four things large organisations care about:
 
