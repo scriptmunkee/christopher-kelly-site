@@ -1,0 +1,107 @@
+---
+import Base from '../../layouts/Base.astro';
+import BookCall from '../../components/BookCall.astro';
+import { getPosts, formatDate } from '../../lib/blog';
+import { getCaseStudies, caseCover } from '../../lib/caseStudies';
+import { collectionSchema, breadcrumbSchema, personSchema, businessSchema } from '../../lib/schema';
+
+const studies = await getCaseStudies();
+const [featured, ...rest] = studies;
+// Shorter case studies written as blog posts sit alongside the full ones.
+const posts = (await getPosts()).filter((p) => p.data.category === 'Case Studies');
+const cards = [
+  ...rest.map((c) => ({ href: `/case-studies/${c.id}/`, label: c.data.eyebrow, t: c.data.title, p: c.data.standfirst, date: c.data.pubDate, stat: c.data.headline[0] })),
+  ...posts.map((p) => ({ href: `/blog/${p.id}/`, label: 'Case study', t: p.data.title, p: p.data.standfirst, date: p.data.pubDate, stat: undefined })),
+];
+
+const title = 'Enterprise AI SEO Case Studies | Christopher Kelly';
+const description = 'Case studies from Christopher Kelly: AI search, entity and automation work for enterprise brands, with the KPIs, value and method behind every number.';
+const schema = [
+  personSchema(),
+  businessSchema(),
+  collectionSchema({
+    path: '/case-studies/',
+    name: title,
+    items: [
+      ...studies.map((c) => ({ title: c.data.title, path: `/case-studies/${c.id}/` })),
+      ...posts.map((p) => ({ title: p.data.title, path: `/blog/${p.id}/` })),
+    ],
+  }),
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Case Studies', path: '/case-studies/' },
+  ]),
+];
+---
+<Base title={title} description={description} active="work" schema={schema} hasBookSection>
+
+  <section class="hero-band" data-hero>
+    <nav class="crumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li class="sep" aria-hidden="true">/</li>
+        <li aria-current="page">Case Studies</li>
+      </ol>
+    </nav>
+    <div class="blog-hero">
+      <p class="eyebrow">Case studies</p>
+      <h1 class="h1">Enterprise AI SEO Case Studies</h1>
+      <p class="hero-body">What changed, what it was worth and how the numbers were worked out. Clients are named where they've agreed to it, and every estimate is labelled as one.</p>
+    </div>
+  </section>
+
+  <section class="sec bg-white" aria-labelledby="h-latest">
+    <div class="wrap">
+      <h2 class="sr-only" id="h-latest">Latest Case Studies</h2>
+      {featured && (
+        <a class="cs-feat" href={`/case-studies/${featured.id}/`}>
+          <div class="cs-feat-copy">
+            <span class="label">{featured.data.eyebrow}</span>
+            <h3 class="post-feat-t">{featured.data.title}</h3>
+            <p class="post-feat-p">{featured.data.standfirst}</p>
+            <span class="post-meta">{featured.data.sector} · <time datetime={featured.data.pubDate.toISOString()}>{formatDate(featured.data.pubDate)}</time></span>
+            <span class="post-go" aria-hidden="true">Read the case study →</span>
+          </div>
+          <ul class="cs-feat-stats" aria-label="Headline results">
+            {featured.data.headline.map((h) => <li><span class="cs-hn">{h.n}</span><span class="cs-hl">{h.l}</span></li>)}
+          </ul>
+        </a>
+      )}
+      {cards.length > 0 && (
+        <div class="post-grid">
+          {cards.map((c) => (
+            <a class="post-card" href={c.href}>
+              <span class="label">{c.label}</span>
+              <h3 class="post-card-t">{c.t}</h3>
+              <p class="post-card-p">{c.p}</p>
+              {c.stat && <p class="post-card-p"><strong>{c.stat.n}</strong> {c.stat.l}</p>}
+              <span class="post-meta"><time datetime={c.date.toISOString()}>{formatDate(c.date)}</time></span>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="sec bg-cream" aria-labelledby="h-how">
+    <div class="wrap-1100">
+      <div class="shead">
+        <p class="eyebrow">How I report results</p>
+        <h2 class="h2" id="h-how">Numbers You Can Check</h2>
+      </div>
+      <div class="cs-proof">
+        <div><h3>Measured or modelled</h3><p>Every figure says whether it was measured, documented from the work itself or modelled. Estimates are never dressed up as results.</p></div>
+        <div><h3>Method on the page</h3><p>Each case study lists its inputs and assumptions, so your finance team can rerun the sums with your own rates and volumes.</p></div>
+        <div><h3>Tied to money</h3><p>Hours saved, citations won and errors avoided are taken through to cost, capacity and payback, because that is how budgets get approved.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <BookCall
+    heading="Want Results Like These<br>Across Your Portfolio?"
+    sub="One call, direct with me, about where AI search and automation would pay back fastest for your brand."
+    cover={caseCover}
+    threeCol
+  />
+
+</Base>

@@ -1,11 +1,11 @@
 ---
 import { site } from '../data/site';
-interface Props { active?: 'home' | 'services' | 'blog'; bookHref?: string }
+interface Props { active?: 'home' | 'services' | 'work' | 'blog'; bookHref?: string }
 const { active, bookHref = '#book' } = Astro.props;
 const bookAttrs = bookHref.startsWith('http') ? { target: '_blank', rel: 'noopener' } : {};
 const links = [
   { label: 'Services', href: '/services/', key: 'services' },
-  { label: 'Work', href: '/#work', key: 'work' },
+  { label: 'Work', href: '/case-studies/', key: 'work' },
   { label: 'About', href: '/#about', key: 'about' },
   { label: 'Tools', href: '/#tools', key: 'tools' },
   ...(site.showBlog ? [{ label: 'Blog', href: '/blog/', key: 'blog' }] : []),

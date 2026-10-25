@@ -1,0 +1,251 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import BookCall from '../../components/BookCall.astro';
+import { site } from '../../data/site';
+import { getPosts, formatDate } from '../../lib/blog';
+import { getCaseStudies, valueModel, num, gbp, gbpShort, mins, caseCover, type CaseStudy } from '../../lib/caseStudies';
+import { caseStudySchema, breadcrumbSchema, personSchema, businessSchema } from '../../lib/schema';
+
+export async function getStaticPaths() {
+  const items = await getCaseStudies();
+  return items.map((cs) => ({ params: { slug: cs.id }, props: { cs } }));
+}
+
+const { cs } = Astro.props as { cs: CaseStudy };
+const { Content } = await render(cs);
+const d = cs.data;
+const path = `/case-studies/${cs.id}/`;
+const updated = d.updatedDate && d.updatedDate.valueOf() !== d.pubDate.valueOf() ? d.updatedDate : undefined;
+const m = d.value ? valueModel(d.value) : undefined;
+const pct = (n: number) => `${Math.round(n * 100)}%`;
+
+// Other case studies, plus blog posts filed under Case Studies.
+const others = [
+  ...(await getCaseStudies()).filter((c) => c.id !== cs.id).map((c) => ({ t: c.data.title, href: `/case-studies/${c.id}/` })),
+  ...(await getPosts()).filter((p) => p.data.category === 'Case Studies').map((p) => ({ t: p.data.title, href: `/blog/${p.id}/` })),
+];
+
+const schema = [
+  personSchema(),
+  businessSchema(),
+  caseStudySchema({ title: d.title, description: d.description, path, published: d.pubDate, updated, about: [d.eyebrow, d.sector, ...d.stack.slice(0, 4)] }),
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Case Studies', path: '/case-studies/' },
+    { name: d.title, path },
+  ]),
+];
+---
+<Base title={`${d.title} | Christopher Kelly`} description={d.description} active="work" schema={schema} hasBookSection article={{ published: d.pubDate, updated }}>
+
+  <section class="hero-band" data-hero>
+    <nav class="crumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li class="sep" aria-hidden="true">/</li>
+        <li><a href="/case-studies/">Case Studies</a></li>
+        <li class="sep" aria-hidden="true">/</li>
+        <li aria-current="page">{d.title}</li>
+      </ol>
+    </nav>
+    <header class="cs-head">
+      <p class="eyebrow">Case study · {d.eyebrow}</p>
+      <h1 class="h1 cs-h1">{d.title}</h1>
+      <p class="post-stand">{d.standfirst}</p>
+      <dl class="cs-facts">
+        <div><dt>Client</dt><dd>{d.client}</dd></div>
+        <div><dt>Sector</dt><dd>{d.sector}</dd></div>
+        <div><dt>Scope</dt><dd>{d.scope}</dd></div>
+        <div><dt>Period</dt><dd>{d.period}</dd></div>
+      </dl>
+      <ul class="cs-hero-stats" aria-label="Headline results">
+        {d.headline.map((h) => <li><span class="cs-hn">{h.n}</span><span class="cs-hl">{h.l}</span></li>)}
+      </ul>
+      <p class="byline">
+        By <a href={`${site.url}/#about`}>Christopher Kelly</a>
+        <span aria-hidden="true">·</span> <time datetime={d.pubDate.toISOString()}>{formatDate(d.pubDate)}</time>
+        {updated && <><span aria-hidden="true">·</span> Updated <time datetime={updated.toISOString()}>{formatDate(updated)}</time></>}
+      </p>
+    </header>
+  </section>
+
+  <!-- AT A GLANCE -->
+  <section class="sec bg-white" aria-labelledby="h-glance">
+    <div class="wrap-1100">
+      {d.estimated && (
+        <p class="cs-note" role="note"><strong>About these numbers.</strong> Workflow facts are documented. Time, cost and value figures are modelled estimates, and every input is listed in <a class="inl" href="#method">how we worked it out</a>, so you can rerun the sums with your own rates.</p>
+      )}
+      <h2 class="sr-only" id="h-glance">At a Glance</h2>
+      <div class="cs-glance">
+        <div class="cs-g"><span class="cs-gk">The challenge</span><p>{d.summary.challenge}</p></div>
+        <div class="cs-g"><span class="cs-gk">What I built</span><p>{d.summary.approach}</p></div>
+        <div class="cs-g cs-g-res"><span class="cs-gk">The result</span><p>{d.summary.result}</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KPIs -->
+  <section class="sec bg-black" aria-labelledby="h-kpis">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">KPIs</p>
+        <h2 class="h2 h2-w" id="h-kpis">The Numbers</h2>
+        {d.estimated && <p class="sub sub-w">Each tile says where its number comes from.</p>}
+      </div>
+      <div class="stat-grid cs-kpis">
+        {d.kpis.map((k) => (
+          <div class="stat-d"><span class="stat-n">{k.n}</span><span class="stat-c">{k.c}</span><span class="stat-s">{k.s}</span></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- STORY -->
+  <section class="sec bg-white post-sec">
+    <div class="post-col">
+      <article class="prose">
+        <Content />
+      </article>
+    </div>
+  </section>
+
+  {m && d.value && (
+    <>
+      <!-- VALUE -->
+      <section class="sec bg-cream" id="value" aria-labelledby="h-value">
+        <div class="wrap-1100">
+          <div class="shead">
+            <p class="eyebrow">Value</p>
+            <h2 class="h2" id="h-value">What It's Worth</h2>
+            <p class="sub">Hours saved per workflow each year, valued at {gbp(d.value.costRate)} an hour of team cost. Capacity value uses {gbp(d.value.billRate)} an hour, the rate that time could be sold at.</p>
+          </div>
+          <div class="cs-table-wrap">
+            <table class="cs-table">
+              <caption class="sr-only">Annual time and value by workflow</caption>
+              <thead>
+                <tr><th scope="col">Workflow</th><th scope="col">Runs a year</th><th scope="col">Before</th><th scope="col">After</th><th scope="col">Hours saved</th><th scope="col">Cost saved</th><th scope="col">Capacity value</th></tr>
+              </thead>
+              <tbody>
+                {m.rows.map((r) => (
+                  <tr>
+                    <th scope="row"><span class="cs-wf">{r.name}</span><span class="cs-wf-d">{r.what}</span></th>
+                    <td>{num(r.runs)}<span class="cs-cell-s">{r.runsBasis}</span></td>
+                    <td>{mins(r.beforeMins)}</td>
+                    <td>{mins(r.afterMins)}<span class="cs-cell-s">{pct(r.faster)} faster</span></td>
+                    <td><strong>{num(r.hours)}</strong></td>
+                    <td>{gbp(r.cost)}</td>
+                    <td>{gbp(r.capacity)}</td>
+                  </tr>
+                ))}
+              </tbody>
+              <tfoot>
+                <tr><th scope="row">Total</th><td></td><td>{num(m.beforeHours)} hrs</td><td>{pct(m.cut)} less time</td><td><strong>{num(m.hours)}</strong></td><td><strong>{gbp(m.cost)}</strong></td><td><strong>{gbp(m.capacity)}</strong></td></tr>
+              </tfoot>
+            </table>
+          </div>
+          <div class="cs-roi">
+            <div class="cs-roi-i"><span class="cs-roi-n">{gbp(m.yearOneCost)}</span><span class="cs-roi-l">Year-one cost: {num(d.value.buildHours)} build hours plus {gbp(d.value.runCostYear)} hosting</span></div>
+            <div class="cs-roi-i"><span class="cs-roi-n">{gbp(m.net)}</span><span class="cs-roi-l">Net saving in year one, after build and running costs</span></div>
+            <div class="cs-roi-i"><span class="cs-roi-n">{num(m.roi)}%</span><span class="cs-roi-l">Year-one return on the build</span></div>
+            <div class="cs-roi-i"><span class="cs-roi-n">{m.paybackWeeks.toFixed(1)} wks</span><span class="cs-roi-l">To pay back the build from time saved</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCALE -->
+      <section class="sec bg-white" id="scale" aria-labelledby="h-scale">
+        <div class="wrap-1100">
+          <div class="shead">
+            <p class="eyebrow">Scale</p>
+            <h2 class="h2" id="h-scale">What This Means at Enterprise Scale</h2>
+            <p class="sub">The build cost is paid once. The saving repeats for every location, roughly {num(m.perLocation)} hours a year each on this model.</p>
+          </div>
+          <div class="cs-scale">
+            {m.scale.map((s) => (
+              <div class={`cs-scale-i${s.current ? ' is-current' : ''}`}>
+                <span class="cs-scale-k">{num(s.n)} locations{s.current && <em> · this portfolio</em>}</span>
+                <span class="cs-scale-n">{num(s.hours)} hrs</span>
+                <span class="cs-scale-l">{gbpShort(s.cost)} cost saved · {gbpShort(s.capacity)} capacity · {s.fte < 1 ? s.fte.toFixed(2) : s.fte.toFixed(1)} FTE</span>
+              </div>
+            ))}
+          </div>
+          <p class="cs-small">Assumes the same workflow mix and cadence per location, with {num(d.value.fteHours)} productive hours in a full-time year. Hosting costs rise a little with volume; build costs stay broadly flat.</p>
+        </div>
+      </section>
+    </>
+  )}
+
+  <!-- METHOD -->
+  {d.assumptions.length > 0 && (
+    <section class="sec bg-cream" id="method" aria-labelledby="h-method">
+      <div class="wrap-1100">
+        <div class="shead">
+          <p class="eyebrow">Method</p>
+          <h2 class="h2" id="h-method">How We Worked It Out</h2>
+          <p class="sub">Documented means it comes from the workflows, their outputs or the team guide. Estimate means a modelled input, set cautiously.</p>
+        </div>
+        <div class="cs-table-wrap">
+          <table class="cs-table cs-table-method">
+            <caption class="sr-only">Inputs and assumptions behind the figures</caption>
+            <thead><tr><th scope="col">Input</th><th scope="col">Value</th><th scope="col">Basis</th></tr></thead>
+            <tbody>
+              {d.assumptions.map((a) => (
+                <tr><th scope="row">{a.item}</th><td>{a.value}</td><td><span class={`tag ${a.basis === 'Documented' ? 'tag-green' : 'tag-indigo'}`}>{a.basis}</span></td></tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        {d.stack.length > 0 && (
+          <div class="cs-stack">
+            <p class="cs-gk">The stack</p>
+            <ul class="chips">{d.stack.map((s) => <li class="chip">{s}</li>)}</ul>
+          </div>
+        )}
+      </div>
+    </section>
+  )}
+
+  <section class="sec bg-white post-sec">
+    <div class="post-col">
+      {d.sources.length > 0 && (
+        <section class="sources" aria-labelledby="h-sources">
+          <h2 id="h-sources">Sources</h2>
+          <ol>
+            {d.sources.map((s) => (
+              <li><a href={s.url} rel="noopener">{s.title}</a>, {s.publisher}, {s.date}</li>
+            ))}
+          </ol>
+        </section>
+      )}
+
+      <aside class="author-box" aria-labelledby="h-author">
+        <div class="author-photo" aria-hidden="true"><span class="ph-label">[PLACEHOLDER]<br>Portrait</span></div>
+        <div>
+          <h2 class="author-h" id="h-author">About The Author</h2>
+          <p>Christopher Kelly is a senior, hands-on enterprise AI SEO consultant based in County Durham, working with brands worldwide. This is the kind of work he does as an <a class="inl" href={`${site.url}${d.authorLink.href}`}>{d.authorLink.text}</a>.</p>
+          {site.linkedinUrl && <p class="author-links"><a href={site.linkedinUrl} rel="me noopener">LinkedIn →</a></p>}
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <BookCall
+    heading="Want Numbers Like These<br>For Your Portfolio?"
+    sub="One call, direct with me, about the work your team repeats every month and what it would be worth to automate."
+    cover={caseCover}
+    threeCol
+  />
+
+  {others.length > 0 && (
+    <section class="sec bg-cream" aria-labelledby="h-more">
+      <div class="wrap">
+        <div class="shead"><p class="eyebrow">Case studies</p><h2 class="h2" id="h-more">More Results</h2></div>
+        <div class="tile-grid">
+          {others.map((o) => <a class="tile" href={o.href}><span>{o.t}</span><span class="tile-arrow" aria-hidden="true">→</span></a>)}
+        </div>
+      </div>
+    </section>
+  )}
+
+</Base>

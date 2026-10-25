@@ -134,17 +134,41 @@ export function blogPostingSchema(opts: { title: string; description: string; pa
   };
 }
 
-export function blogIndexSchema(posts: { title: string; path: string }[]) {
+export function collectionSchema(opts: { path: string; name: string; items: { title: string; path: string }[] }) {
   return {
     '@type': 'CollectionPage',
-    '@id': `${site.url}/blog/#page`,
-    url: `${site.url}/blog/`,
-    name: 'Blog | Christopher Kelly',
+    '@id': `${site.url}${opts.path}#page`,
+    url: `${site.url}${opts.path}`,
+    name: opts.name,
     inLanguage: 'en-GB',
     publisher: { '@id': orgId },
     mainEntity: {
       '@type': 'ItemList',
-      itemListElement: posts.map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: `${site.url}${p.path}`, name: p.title })),
+      itemListElement: opts.items.map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: `${site.url}${p.path}`, name: p.title })),
     },
+  };
+}
+
+export function blogIndexSchema(posts: { title: string; path: string }[]) {
+  return collectionSchema({ path: '/blog/', name: 'Blog | Christopher Kelly', items: posts });
+}
+
+export function caseStudySchema(opts: { title: string; description: string; path: string; published: Date; updated?: Date; about: string[] }) {
+  const url = `${site.url}${opts.path}`;
+  return {
+    '@type': 'Article',
+    '@id': `${url}#article`,
+    articleSection: 'Case studies',
+    headline: opts.title,
+    description: opts.description,
+    url,
+    mainEntityOfPage: url,
+    datePublished: opts.published.toISOString(),
+    dateModified: (opts.updated ?? opts.published).toISOString(),
+    inLanguage: 'en-GB',
+    image: `${site.url}/og.png`,
+    author: { '@id': personId },
+    publisher: { '@id': orgId },
+    about: opts.about.map((name) => ({ '@type': 'Thing', name })),
   };
 }
