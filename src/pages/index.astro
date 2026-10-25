@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Marquee from '../components/Marquee.astro';
+import Portrait from '../components/Portrait.astro';
 import { brands } from '../data/brands';
 import { testimonials, linkedinRecommendationsUrl } from '../data/testimonials';
 import Faq from '../components/Faq.astro';
@@ -114,10 +115,7 @@ const schema = [websiteSchema(), personSchema(), businessSchema(), faqSchema(faq
       </div>
       <figure>
         <div class="photo photo-hero">
-          <picture>
-            <source type="image/webp" srcset="/img/christopher-hero-800.webp 800w, /img/christopher-hero.webp 1448w" sizes="(max-width: 860px) 100vw, 45vw">
-            <img src="/img/christopher-hero.jpg" width="1448" height="1086" alt="Christopher Kelly, Enterprise AI SEO Consultant, at his desk" fetchpriority="high" decoding="async" style="object-position: 50% 18%">
-          </picture>
+          <Portrait variant="hero" eager />
         </div>
         <figcaption class="cap">
           <span class="mont" style="font-weight:800;font-size:.88rem;color:#0B0F1A">Christopher Kelly</span>
@@ -259,10 +257,7 @@ const schema = [websiteSchema(), personSchema(), businessSchema(), faqSchema(faq
   <!-- ABOUT -->
   <section class="about" id="about" aria-labelledby="h-about">
     <div class="photo photo-about">
-      <picture>
-        <source type="image/webp" srcset="/img/christopher-about-640.webp 640w, /img/christopher-about.webp 967w" sizes="(max-width: 860px) 100vw, 50vw">
-        <img src="/img/christopher-about.jpg" width="967" height="1289" alt="Christopher Kelly working from a laptop and phone in a loft office" loading="lazy" decoding="async" style="object-position: 50% 30%">
-      </picture>
+      <Portrait variant="about" />
     </div>
     <div class="about-c">
       <p class="eyebrow" style="margin-bottom:0">About Christopher</p>

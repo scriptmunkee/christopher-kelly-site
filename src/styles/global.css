@@ -545,7 +545,8 @@ blockquote.t { margin: 0; }
 .sources ol { padding-left: 1.3rem; display: flex; flex-direction: column; gap: .45rem; font-size: .85rem; line-height: 1.55; color: var(--grey-2); }
 .sources a { color: var(--indigo); }
 .author-box { margin-top: 3rem; display: grid; grid-template-columns: 96px 1fr; gap: 1.25rem; align-items: start; background: var(--stone); border: 1px solid var(--hair); padding: 1.5rem; }
-.author-photo { width: 96px; height: 96px; background: var(--dark); display: flex; align-items: center; justify-content: center; }
+.author-photo { width: 96px; height: 96px; background: var(--dark); display: flex; align-items: center; justify-content: center; overflow: hidden; flex: none; }
+.author-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .author-photo .ph-label { font-size: .55rem; padding: .25rem; }
 .author-h { font-family: var(--f-head); font-weight: 800; font-size: 1rem; color: var(--ink); margin-bottom: .5rem; }
 .author-box p { font-size: .92rem; line-height: 1.65; color: var(--body); }

@@ -15,6 +15,7 @@ export function personSchema() {
     url: `${site.url}/`,
     description:
       'Christopher Kelly is a senior, hands-on enterprise AI SEO consultant based in Newcastle upon Tyne, UK, with multi-year SEO and AI search delivery across a global portfolio of 15+ locations.',
+    image: `${site.url}/img/christopher-hero.jpg`,
     worksFor: { '@id': orgId },
     address: { '@type': 'PostalAddress', addressLocality: 'Newcastle upon Tyne', addressRegion: 'Tyne and Wear', addressCountry: 'GB' },
     knowsAbout: [

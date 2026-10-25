@@ -1,0 +1,29 @@
+---
+/**
+ * Christopher's photos, used wherever a page shows him.
+ * - hero: desk portrait (landscape), for every page hero's .photo-hero frame
+ * - about: loft photo (portrait, mirrored to face the copy), for the About section's .photo-about frame
+ * - author: square head-and-shoulders crop for blog and case study author boxes
+ */
+interface Props { variant: 'hero' | 'about' | 'author'; eager?: boolean }
+const { variant, eager = false } = Astro.props;
+const alt = 'Christopher Kelly, Enterprise AI SEO Consultant';
+---
+{variant === 'hero' && (
+  <picture>
+    <source type="image/webp" srcset="/img/christopher-hero-800.webp 800w, /img/christopher-hero.webp 1448w" sizes="(max-width: 860px) 100vw, 45vw">
+    <img src="/img/christopher-hero.jpg" width="1448" height="1086" alt={`${alt}, at his desk`} loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : undefined} decoding="async" style="object-position: 50% 18%">
+  </picture>
+)}
+{variant === 'about' && (
+  <picture>
+    <source type="image/webp" srcset="/img/christopher-about-640.webp 640w, /img/christopher-about.webp 967w" sizes="(max-width: 860px) 100vw, 50vw">
+    <img src="/img/christopher-about.jpg" width="967" height="1289" alt="Christopher Kelly working from a laptop and phone in a loft office" loading="lazy" decoding="async" style="object-position: 50% 30%">
+  </picture>
+)}
+{variant === 'author' && (
+  <picture>
+    <source type="image/webp" srcset="/img/christopher-author.webp">
+    <img src="/img/christopher-author.jpg" width="384" height="384" alt={alt} loading="lazy" decoding="async">
+  </picture>
+)}

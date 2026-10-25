@@ -1,4 +1,5 @@
 ---
+import Portrait from '../../components/Portrait.astro';
 import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import BookCall from '../../components/BookCall.astro';
@@ -220,7 +221,7 @@ const schema = [
       )}
 
       <aside class="author-box" aria-labelledby="h-author">
-        <div class="author-photo" aria-hidden="true"><span class="ph-label">[PLACEHOLDER]<br>Portrait</span></div>
+        <div class="author-photo"><Portrait variant="author" /></div>
         <div>
           <h2 class="author-h" id="h-author">About The Author</h2>
           <p>Christopher Kelly is a senior, hands-on enterprise AI SEO consultant based in Newcastle upon Tyne, working with brands worldwide. This is the kind of work he does as an <a class="inl" href={`${site.url}${d.authorLink.href}`}>{d.authorLink.text}</a>.</p>

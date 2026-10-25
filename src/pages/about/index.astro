@@ -1,4 +1,5 @@
 ---
+import Portrait from '../../components/Portrait.astro';
 import Base from '../../layouts/Base.astro';
 import Faq from '../../components/Faq.astro';
 import BookCall from '../../components/BookCall.astro';
@@ -151,7 +152,7 @@ const schema = [
       </div>
       <div class="hero-media">
         <div class="photo photo-hero">
-          <span class="ph-label">[PLACEHOLDER]<br>Portrait of Christopher</span>
+          <Portrait variant="hero" eager />
         </div>
         <div class="ai-card" role="img" aria-label="An AI answer describing Christopher Kelly as an enterprise AI SEO consultant in Newcastle upon Tyne">
           <span class="ai-head" aria-hidden="true"><span class="ai-dot"></span>AI answer</span>
