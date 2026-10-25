@@ -3,5 +3,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://christopher-kelly.co.uk/sitemap.xml
 Sitemap: https://christopher-kelly.co.uk/sitemap-index.xml
