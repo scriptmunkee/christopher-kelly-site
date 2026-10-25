@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Marquee from '../components/Marquee.astro';
-import { brands, anonymisedClient } from '../data/brands';
+import { brands } from '../data/brands';
 import Faq from '../components/Faq.astro';
 import BookCall from '../components/BookCall.astro';
 import { site } from '../data/site';
@@ -123,7 +123,7 @@ const schema = [websiteSchema(), personSchema(), businessSchema(), faqSchema(faq
     </div>
   </section>
 
-  <Marquee label="Trusted by" brands={brands} trailing={[anonymisedClient]} />
+  <Marquee label="Trusted by" brands={brands} />
 
   <!-- IS THIS YOU? -->
   <section class="sec bg-white" aria-labelledby="h-you">
