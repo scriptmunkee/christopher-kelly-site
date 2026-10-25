@@ -1,7 +1,8 @@
 ---
 import { site } from '../data/site';
-interface Props { active?: 'home' | 'services' }
-const { active } = Astro.props;
+interface Props { active?: 'home' | 'services'; bookHref?: string }
+const { active, bookHref = '#book' } = Astro.props;
+const bookAttrs = bookHref.startsWith('http') ? { target: '_blank', rel: 'noopener' } : {};
 const links = [
   { label: 'Services', href: '/services/', key: 'services' },
   { label: 'Work', href: '/#work', key: 'work' },
@@ -19,7 +20,7 @@ const links = [
       ))}
     </nav>
     <div class="nav-right">
-      <a class="btn nav-cta" href="#book">👉 Book a call</a>
+      <a class="btn nav-cta" href={bookHref} {...bookAttrs}>👉 Book a call</a>
       <details class="mnav">
         <summary aria-label="Menu">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0B0F1A" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
@@ -28,7 +29,7 @@ const links = [
           {links.map((l) => (
             <a class={`ml${active === l.key ? ' active' : ''}`} href={l.href} aria-current={active === l.key ? 'page' : undefined}>{l.label}</a>
           ))}
-          <a class="btn" href="#book">👉 Book a call with Christopher</a>
+          <a class="btn" href={bookHref} {...bookAttrs}>👉 Book a call with Christopher</a>
         </nav>
       </details>
     </div>

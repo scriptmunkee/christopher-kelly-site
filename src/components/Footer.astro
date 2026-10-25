@@ -1,5 +1,8 @@
 ---
 import { site } from '../data/site';
+interface Props { bookHref?: string }
+const { bookHref = '#book' } = Astro.props;
+const bookAttrs = bookHref.startsWith('http') ? { target: '_blank', rel: 'noopener' } : {};
 const year = new Date().getFullYear();
 ---
 <footer class="foot">
@@ -8,7 +11,7 @@ const year = new Date().getFullYear();
       <div class="foot-brand">
         <a class="logo" href="/">Christopher Kelly</a>
         <p>Enterprise AI SEO consultant. UK based, working globally.</p>
-        <a class="btn btn-sm" href="#book">👉 Book a call</a>
+        <a class="btn btn-sm" href={bookHref} {...bookAttrs}>👉 Book a call</a>
       </div>
       <div id="tools">
         <p class="foot-t">Free tools</p>
@@ -26,7 +29,7 @@ const year = new Date().getFullYear();
           <li><a href="/#work">Work</a></li>
           <li><a href="/#about">About</a></li>
           {site.showBlog && <li><a href="/blog/">Blog</a></li>}
-          <li><a href="#book">Book a call</a></li>
+          <li><a href={bookHref} {...bookAttrs}>Book a call</a></li>
         </ul>
       </div>
     </div>

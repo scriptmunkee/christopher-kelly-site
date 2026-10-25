@@ -1,6 +1,11 @@
+---
+interface Props { bookHref?: string }
+const { bookHref = '#book' } = Astro.props;
+const bookAttrs = bookHref.startsWith('http') ? { target: '_blank', rel: 'noopener' } : {};
+---
 <div class="sticky" data-sticky aria-hidden="true">
   <div class="sticky-in">
     <p class="sticky-t">Book a call with Christopher <span class="sticky-g">· Straight into my calendar. No hard sell.</span></p>
-    <a class="btn btn-sm" href="#book" tabindex="-1">👉 Book a call</a>
+    <a class="btn btn-sm" href={bookHref} tabindex="-1" {...bookAttrs}>👉 Book a call</a>
   </div>
 </div>

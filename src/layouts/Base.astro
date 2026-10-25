@@ -20,9 +20,13 @@ interface Props {
   active?: 'home' | 'services';
   schema?: Record<string, unknown>[];
   noindex?: boolean;
+  /** True on pages that render the #book section (BookCall). Elsewhere the site-wide
+   *  "Book a call" buttons go straight to the booking page instead. */
+  hasBookSection?: boolean;
 }
 
-const { title, description, active = 'home', schema = [], noindex = false } = Astro.props;
+const { title, description, active = 'home', schema = [], noindex = false, hasBookSection = false } = Astro.props;
+const bookHref = hasBookSection ? '#book' : site.calendarUrl;
 const canonical = new URL(Astro.url.pathname, site.url).href;
 const jsonLd = schema.length ? JSON.stringify({ '@context': 'https://schema.org', '@graph': schema }) : '';
 ---
@@ -52,12 +56,12 @@ const jsonLd = schema.length ? JSON.stringify({ '@context': 'https://schema.org'
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
-  <Nav active={active} />
+  <Nav active={active} bookHref={bookHref} />
   <main id="main">
     <slot />
   </main>
-  <Footer />
-  <StickyCta />
+  <Footer bookHref={bookHref} />
+  <StickyCta bookHref={bookHref} />
   <Consent />
   <script>
     // Sticky bottom CTA: show once the hero has scrolled out of view.
