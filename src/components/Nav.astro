@@ -1,15 +1,9 @@
 ---
-import { site } from '../data/site';
-interface Props { active?: 'home' | 'services' | 'work' | 'blog'; bookHref?: string }
+import { mainNav, type NavKey } from '../lib/nav';
+interface Props { active?: NavKey; bookHref?: string }
 const { active, bookHref = '#book' } = Astro.props;
 const bookAttrs = bookHref.startsWith('http') ? { target: '_blank', rel: 'noopener' } : {};
-const links = [
-  { label: 'Services', href: '/services/', key: 'services' },
-  { label: 'Work', href: '/case-studies/', key: 'work' },
-  { label: 'About', href: '/#about', key: 'about' },
-  { label: 'Tools', href: '/#tools', key: 'tools' },
-  ...(site.showBlog ? [{ label: 'Blog', href: '/blog/', key: 'blog' }] : []),
-];
+const links = mainNav;
 ---
 <header class="nav">
   <div class="nav-in">

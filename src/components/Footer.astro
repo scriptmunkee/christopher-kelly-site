@@ -1,6 +1,7 @@
 ---
 import { site } from '../data/site';
 import { sectors } from '../data/services';
+import { mainNav } from '../lib/nav';
 interface Props { bookHref?: string }
 const { bookHref = '#book' } = Astro.props;
 const bookAttrs = bookHref.startsWith('http') ? { target: '_blank', rel: 'noopener' } : {};
@@ -14,7 +15,7 @@ const year = new Date().getFullYear();
         <p>Enterprise AI SEO consultant. UK based, working globally.</p>
         <a class="btn btn-sm" href={bookHref} {...bookAttrs}>👉 Book a call</a>
       </div>
-      <div id="tools">
+      <div>
         <p class="foot-t">Free tools</p>
         <ul class="foot-links">
           {site.freeTools.length
@@ -31,10 +32,7 @@ const year = new Date().getFullYear();
       <div>
         <p class="foot-t">Explore</p>
         <ul class="foot-links">
-          <li><a href="/services/">Services</a></li>
-          <li><a href="/case-studies/">Case studies</a></li>
-          <li><a href="/#about">About</a></li>
-          {site.showBlog && <li><a href="/blog/">Blog</a></li>}
+          {mainNav.map((l) => <li><a href={l.href}>{l.footLabel}</a></li>)}
           <li><a href={bookHref} {...bookAttrs}>Book a call</a></li>
         </ul>
       </div>
