@@ -17,15 +17,17 @@ import { site } from '../data/site';
 interface Props {
   title: string;
   description: string;
-  active?: 'home' | 'services';
+  active?: 'home' | 'services' | 'blog';
   schema?: Record<string, unknown>[];
   noindex?: boolean;
   /** True on pages that render the #book section (BookCall). Elsewhere the site-wide
    *  "Book a call" buttons go straight to the booking page instead. */
   hasBookSection?: boolean;
+  /** Blog posts: sets og:type article and the publish dates. */
+  article?: { published: Date; updated?: Date };
 }
 
-const { title, description, active = 'home', schema = [], noindex = false, hasBookSection = false } = Astro.props;
+const { title, description, active = 'home', schema = [], noindex = false, hasBookSection = false, article } = Astro.props;
 const bookHref = hasBookSection ? '#book' : site.calendarUrl;
 const canonical = new URL(Astro.url.pathname, site.url).href;
 const jsonLd = schema.length ? JSON.stringify({ '@context': 'https://schema.org', '@graph': schema }) : '';
@@ -39,7 +41,10 @@ const jsonLd = schema.length ? JSON.stringify({ '@context': 'https://schema.org'
   <meta name="description" content={description}>
   <link rel="canonical" href={canonical}>
   {noindex && <meta name="robots" content="noindex">}
-  <meta property="og:type" content="website">
+  <meta property="og:type" content={article ? 'article' : 'website'}>
+  {article && <meta property="article:published_time" content={article.published.toISOString()}>}
+  {article && <meta property="article:modified_time" content={(article.updated ?? article.published).toISOString()}>}
+  {site.showBlog && <link rel="alternate" type="application/rss+xml" title="Christopher Kelly: Blog" href="/rss.xml">}
   <meta property="og:site_name" content="Christopher Kelly">
   <meta property="og:locale" content="en_GB">
   <meta property="og:title" content={title}>

@@ -1,0 +1,105 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import BookCall from '../../components/BookCall.astro';
+import { site } from '../../data/site';
+import { getPosts, readingTime, formatDate, blogCover, type Post } from '../../lib/blog';
+import { blogPostingSchema, breadcrumbSchema, personSchema, businessSchema } from '../../lib/schema';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props as { post: Post };
+const { Content, headings } = await render(post);
+const d = post.data;
+const path = `/blog/${post.id}/`;
+const toc = headings.filter((h) => h.depth === 2);
+const minutes = readingTime(post.body);
+const updated = d.updatedDate && d.updatedDate.valueOf() !== d.pubDate.valueOf() ? d.updatedDate : undefined;
+
+const schema = [
+  personSchema(),
+  businessSchema(),
+  blogPostingSchema({ title: d.title, description: d.description, path, published: d.pubDate, updated }),
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Blog', path: '/blog/' },
+    { name: d.title, path },
+  ]),
+];
+---
+<Base title={`${d.title} | Christopher Kelly`} description={d.description} active="blog" schema={schema} hasBookSection article={{ published: d.pubDate, updated }}>
+
+  <section class="hero-band" data-hero>
+    <nav class="crumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li class="sep" aria-hidden="true">/</li>
+        <li><a href="/blog/">Blog</a></li>
+        <li class="sep" aria-hidden="true">/</li>
+        <li aria-current="page">{d.title}</li>
+      </ol>
+    </nav>
+    <header class="post-head">
+      <p class="eyebrow">{d.category}</p>
+      <h1 class="h1 post-h1">{d.title}</h1>
+      <p class="post-stand">{d.standfirst}</p>
+      <p class="byline">
+        By <a href={`${site.url}/#about`}>Christopher Kelly</a>
+        <span aria-hidden="true">·</span> <time datetime={d.pubDate.toISOString()}>{formatDate(d.pubDate)}</time>
+        {updated && <><span aria-hidden="true">·</span> Updated <time datetime={updated.toISOString()}>{formatDate(updated)}</time></>}
+        <span aria-hidden="true">·</span> {minutes} min read
+      </p>
+    </header>
+  </section>
+
+  <section class="sec bg-white post-sec">
+    <div class="post-col">
+      <aside class="takeaways" aria-labelledby="h-takeaways">
+        <h2 class="takeaways-h" id="h-takeaways">Key Takeaways</h2>
+        <ul>{d.takeaways.map((t) => <li>{t}</li>)}</ul>
+      </aside>
+
+      {toc.length > 2 && (
+        <details class="toc">
+          <summary>Contents</summary>
+          <ol>{toc.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}</ol>
+        </details>
+      )}
+
+      <article class="prose">
+        <Content />
+      </article>
+
+      {d.sources.length > 0 && (
+        <section class="sources" aria-labelledby="h-sources">
+          <h2 id="h-sources">Sources</h2>
+          <ol>
+            {d.sources.map((s) => (
+              <li><a href={s.url} rel="noopener">{s.title}</a>, {s.publisher}, {s.date}</li>
+            ))}
+          </ol>
+        </section>
+      )}
+
+      <aside class="author-box" aria-labelledby="h-author">
+        <div class="author-photo" aria-hidden="true"><span class="ph-label">[PLACEHOLDER]<br>Portrait</span></div>
+        <div>
+          <h2 class="author-h" id="h-author">About The Author</h2>
+          <p>Christopher Kelly is a senior, hands-on enterprise AI SEO consultant based in County Durham, working with brands worldwide. This is the kind of work he does as an <a class="inl" href={`${site.url}${d.authorLink.href}`}>{d.authorLink.text}</a>.</p>
+          {site.linkedinUrl && <p class="author-links"><a href={site.linkedinUrl} rel="me noopener">LinkedIn →</a></p>}
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <BookCall
+    heading="Want To Know What AI<br>Says About Your Brand?"
+    sub="One call, direct with me, about your brand, your markets and the answers your customers see today."
+    cover={blogCover}
+    threeCol
+  />
+
+</Base>

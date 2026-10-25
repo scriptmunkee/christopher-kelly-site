@@ -1,6 +1,6 @@
 ---
 import { site } from '../data/site';
-interface Props { active?: 'home' | 'services'; bookHref?: string }
+interface Props { active?: 'home' | 'services' | 'blog'; bookHref?: string }
 const { active, bookHref = '#book' } = Astro.props;
 const bookAttrs = bookHref.startsWith('http') ? { target: '_blank', rel: 'noopener' } : {};
 const links = [

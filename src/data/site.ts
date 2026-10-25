@@ -25,7 +25,7 @@ export const site = {
   },
 
   // Set to true once /blog/ exists, to show Blog in the nav and footer.
-  showBlog: false,
+  showBlog: true,
 
   // Free tools listed in the footer. Add { label, href } items when ready.
   freeTools: [] as { label: string; href: string }[],

@@ -1,0 +1,107 @@
+---
+import Base from '../../layouts/Base.astro';
+import BookCall from '../../components/BookCall.astro';
+import { getPosts, categories, categoryId, readingTime, formatDate, blogCover } from '../../lib/blog';
+import { blogIndexSchema, breadcrumbSchema, personSchema, businessSchema } from '../../lib/schema';
+
+const posts = await getPosts();
+const [featured, ...rest] = posts;
+const byCategory = categories
+  .map((c) => ({ c, id: categoryId(c), items: posts.filter((p) => p.data.category === c) }))
+  .filter((g) => g.items.length);
+// Category sections only earn their place once there are enough posts to sort.
+const showCategories = posts.length >= 6;
+
+const title = 'Blog | Christopher Kelly';
+const description = 'AI search statistics, case studies and practical guides from Christopher Kelly, enterprise AI SEO consultant. Every number sourced.';
+const schema = [
+  personSchema(),
+  businessSchema(),
+  blogIndexSchema(posts.map((p) => ({ title: p.data.title, path: `/blog/${p.id}/` }))),
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Blog', path: '/blog/' },
+  ]),
+];
+---
+<Base title={title} description={description} active="blog" schema={schema} hasBookSection>
+
+  <section class="hero-band" data-hero>
+    <nav class="crumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li class="sep" aria-hidden="true">/</li>
+        <li aria-current="page">Blog</li>
+      </ol>
+    </nav>
+    <div class="blog-hero">
+      <p class="eyebrow">Blog</p>
+      <h1 class="h1">AI Search, Explained With Evidence.</h1>
+      <p class="hero-body">Research, case studies and practical guides on getting brands understood, cited and recommended by AI. Every number is sourced and dated.</p>
+      {showCategories && (
+        <nav class="cat-links" aria-label="Blog categories">
+          <a href="#all">All</a>
+          {byCategory.map((g) => <a href={`#${g.id}`}>{g.c}</a>)}
+        </nav>
+      )}
+    </div>
+  </section>
+
+  {featured && (
+    <section class="sec bg-white" id="all" aria-label="Latest post">
+      <div class="wrap">
+        <a class="post-feat" href={`/blog/${featured.id}/`}>
+          <span class="label">{featured.data.category}</span>
+          <h2 class="post-feat-t">{featured.data.title}</h2>
+          <p class="post-feat-p">{featured.data.standfirst}</p>
+          <span class="post-meta"><time datetime={featured.data.pubDate.toISOString()}>{formatDate(featured.data.pubDate)}</time> · {readingTime(featured.body)} min read</span>
+          <span class="post-go" aria-hidden="true">Read the post →</span>
+        </a>
+        {rest.length > 0 && (
+          <div class="post-grid">
+            {rest.map((p) => (
+              <a class="post-card" href={`/blog/${p.id}/`}>
+                <span class="label">{p.data.category}</span>
+                <h3 class="post-card-t">{p.data.title}</h3>
+                <p class="post-card-p">{p.data.standfirst}</p>
+                <span class="post-meta"><time datetime={p.data.pubDate.toISOString()}>{formatDate(p.data.pubDate)}</time> · {readingTime(p.body)} min read</span>
+              </a>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+  )}
+
+  {showCategories && byCategory.map((g, i) => (
+    <section class={`sec ${i % 2 === 0 ? 'bg-cream' : 'bg-white'}`} id={g.id} aria-labelledby={`h-${g.id}`}>
+      <div class="wrap">
+        <div class="shead">
+          <p class="eyebrow">Category</p>
+          <h2 class="h2" id={`h-${g.id}`}>{g.c}</h2>
+        </div>
+        <div class="post-grid">
+          {g.items.map((p) => (
+            <a class="post-card" href={`/blog/${p.id}/`}>
+              <h3 class="post-card-t">{p.data.title}</h3>
+              <p class="post-card-p">{p.data.standfirst}</p>
+              <span class="post-meta"><time datetime={p.data.pubDate.toISOString()}>{formatDate(p.data.pubDate)}</time> · {readingTime(p.body)} min read</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  ))}
+
+  {posts.length === 0 && (
+    <section class="sec bg-white"><div class="wrap-760"><p class="lead" style="text-align:center">The first posts are on their way.</p></div></section>
+  )}
+
+  <BookCall
+    heading="Want To Know What AI<br>Says About Your Brand?"
+    sub="One call, direct with me, about your brand, your markets and the answers your customers see today."
+    cover={blogCover}
+    threeCol
+  />
+
+</Base>

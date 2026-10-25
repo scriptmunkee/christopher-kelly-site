@@ -115,3 +115,36 @@ export function serviceSchema(opts: { name: string; description: string; path: s
     ...(opts.audience ? { audience: { '@type': 'BusinessAudience', name: opts.audience } } : {}),
   };
 }
+
+export function blogPostingSchema(opts: { title: string; description: string; path: string; published: Date; updated?: Date }) {
+  const url = `${site.url}${opts.path}`;
+  return {
+    '@type': 'BlogPosting',
+    '@id': `${url}#article`,
+    headline: opts.title,
+    description: opts.description,
+    url,
+    mainEntityOfPage: url,
+    datePublished: opts.published.toISOString(),
+    dateModified: (opts.updated ?? opts.published).toISOString(),
+    inLanguage: 'en-GB',
+    image: `${site.url}/og.png`,
+    author: { '@id': personId },
+    publisher: { '@id': orgId },
+  };
+}
+
+export function blogIndexSchema(posts: { title: string; path: string }[]) {
+  return {
+    '@type': 'CollectionPage',
+    '@id': `${site.url}/blog/#page`,
+    url: `${site.url}/blog/`,
+    name: 'Blog | Christopher Kelly',
+    inLanguage: 'en-GB',
+    publisher: { '@id': orgId },
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: posts.map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: `${site.url}${p.path}`, name: p.title })),
+    },
+  };
+}
