@@ -22,9 +22,9 @@ function logoFor(b: Brand): string | null {
   for (const c of candidates) if (fs.existsSync(path.join(publicDir, c))) return c;
   return null;
 }
-type Entry = { kind: 'text'; t: string } | { kind: 'logo'; t: string; src: string };
+type Entry = { kind: 'text'; t: string } | { kind: 'logo'; t: string; src: string; h: number };
 const entries: Entry[] = [
-  ...brands.map<Entry>((b) => { const src = logoFor(b); return src ? { kind: 'logo', t: b.name, src } : { kind: 'text', t: b.name }; }),
+  ...brands.map<Entry>((b) => { const src = logoFor(b); return src ? { kind: 'logo', t: b.name, src, h: b.height ?? 28 } : { kind: 'text', t: b.name }; }),
   ...trailing.map<Entry>((t) => ({ kind: 'text', t })),
   ...items.map<Entry>((t) => ({ kind: 'text', t })),
 ];
@@ -40,7 +40,7 @@ const hasLogos = entries.some((e) => e.kind === 'logo');
         <span class="marq-item" aria-hidden={i >= entries.length ? 'true' : undefined}>
           <span class="marq-dot"></span>
           {e.kind === 'logo'
-            ? <img class="marq-logo" src={e.src} alt={e.t} loading="lazy" decoding="async" height="28" />
+            ? <img class="marq-logo" src={e.src} alt={e.t} loading="lazy" decoding="async" height={e.h} style={e.h !== 28 ? `height:${e.h}px` : undefined} />
             : e.t}
         </span>
       ))}

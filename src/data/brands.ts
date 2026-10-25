@@ -10,18 +10,20 @@ export interface Brand {
   sector: 'Legal' | 'Dental' | 'Crypto & web3';
   /** Override the default /logos/<slug>.svg path. */
   logo?: string;
+  /** Display height in px (default 28). Square or stacked marks need more height to match the wordmarks' visual weight. */
+  height?: number;
 }
 
 export const brands: Brand[] = [
-  { name: 'Stowe Family Law', slug: 'stowe-family-law', sector: 'Legal' },
-  { name: 'Simpson Millar', slug: 'simpson-millar', sector: 'Legal' },
-  { name: 'Fulham Road Dental', slug: 'fulham-road-dental', sector: 'Dental' },
+  { name: 'Stowe Family Law', slug: 'stowe-family-law', sector: 'Legal', height: 44 },
+  { name: 'Simpson Millar', slug: 'simpson-millar', sector: 'Legal', height: 44 },
+  { name: 'Fulham Road Dental', slug: 'fulham-road-dental', sector: 'Dental', height: 26 },
   { name: 'Direct Dental', slug: 'direct-dental', sector: 'Dental' },
   { name: 'Bankless', slug: 'bankless', sector: 'Crypto & web3' },
   { name: 'RedStone Finance', slug: 'redstone-finance', sector: 'Crypto & web3' },
   { name: 'Mezo', slug: 'mezo', sector: 'Crypto & web3' },
   { name: 'Thesis', slug: 'thesis', sector: 'Crypto & web3' },
-  { name: 'Trojan', slug: 'trojan', sector: 'Crypto & web3' },
+  { name: 'Trojan', slug: 'trojan', sector: 'Crypto & web3', height: 34 },
   { name: 'Crestal', slug: 'crestal', sector: 'Crypto & web3' },
   { name: 'Bando', slug: 'bando', sector: 'Crypto & web3' },
   { name: 'Bity', slug: 'bity', sector: 'Crypto & web3' },

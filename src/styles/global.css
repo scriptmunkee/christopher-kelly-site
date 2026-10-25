@@ -164,7 +164,7 @@ html:has(.mnav[open]) .sticky { visibility: hidden; }
 @keyframes marq { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 /* Brand logos: rendered as flat white marks on the dark band so mixed brand colours read as one set. */
 .marq-logos .marq-track { animation-duration: 40s; }
-.marq-logo { height: 28px; width: auto; max-width: 160px; display: block; filter: brightness(0) invert(1); opacity: .85; transition: opacity .2s ease; }
+.marq-logo { height: 28px; width: auto; max-width: 160px; display: block; margin: -8px 0; filter: brightness(0) invert(1); opacity: .85; transition: opacity .2s ease; }
 .marq-item:hover .marq-logo { opacity: 1; }
 @media (prefers-reduced-motion: reduce) { .marq-track { animation: none; flex-wrap: wrap; gap: .75rem 0; width: auto; } }
 
