@@ -72,7 +72,7 @@ export const construction: SectorPageData = {
     { t: 'Case studies', c: 'school refurbishment contractors in Yorkshire', p: 'Projects with sector, region and value stated.' },
     { t: 'Accreditations', c: 'is [firm] Constructionline Gold', p: 'Certificates and schemes, kept current.' },
     { t: 'Product pages', c: 'fire-rated cladding systems for buildings over 18m', p: 'Tested performance data AI can quote.' },
-    { t: 'Development pages', c: 'new build homes near Durham with a 10-year warranty', p: 'Every development a place AI can recommend.' },
+    { t: 'Development pages', c: 'new build homes near Newcastle with a 10-year warranty', p: 'Every development a place AI can recommend.' },
     { t: 'Buyer FAQs', c: 'is [housebuilder] registered with the New Homes Ombudsman', p: 'Concise answers AI can lift word for word.' },
   ],
   govH2: 'Safety-Critical Claims.<br>Handled Carefully.',

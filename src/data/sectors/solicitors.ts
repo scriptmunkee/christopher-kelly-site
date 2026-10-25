@@ -11,7 +11,7 @@ export const solicitors: SectorPageData = {
   heroBody: 'People ask ChatGPT and Google AI Mode who handles probate locally, or which employment solicitors are worth calling. I help law firms, especially multi-office firms and legal groups, get every practice area and office understood, cited and recommended, with work for Stowe Family Law and Simpson Millar behind it.',
   aiCard: {
     label: 'Illustration of an AI answer recommending a law firm and citing its probate page',
-    prompt: 'Which solicitors near Durham handle probate with fixed fees?',
+    prompt: 'Which solicitors in Newcastle handle probate with fixed fees?',
     answer: 'A strong match is <strong>[Firm name]</strong>: a specialist private client team, published fixed fees for probate and an office in [Town].',
     tag: "Cited · firm's probate page",
   },
