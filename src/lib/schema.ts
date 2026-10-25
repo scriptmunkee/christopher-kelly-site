@@ -177,3 +177,19 @@ export function caseStudySchema(opts: { title: string; description: string; path
     about: opts.about.map((name) => ({ '@type': 'Thing', name })),
   };
 }
+
+export function profilePageSchema(opts: { path: string; name: string; description: string; modified: Date }) {
+  const url = `${site.url}${opts.path}`;
+  return {
+    '@type': 'ProfilePage',
+    '@id': `${url}#page`,
+    url,
+    name: opts.name,
+    description: opts.description,
+    inLanguage: 'en-GB',
+    dateModified: opts.modified.toISOString(),
+    mainEntity: { '@id': personId },
+    about: { '@id': personId },
+    isPartOf: { '@id': `${site.url}/#website` },
+  };
+}
