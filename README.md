@@ -15,7 +15,7 @@ Every push to `main` deploys automatically to the Worker `christopher-kelly-site
 
 ## Before launch checklist
 - [x] Booking URL (`calendarUrl`, TidyCal)
-- [ ] `src/data/site.ts`: LinkedIn URL, company number
+- [ ] `src/data/site.ts`: LinkedIn URL
 - [ ] Portrait and about photos (replace the `[PLACEHOLDER]` photo blocks)
 - [ ] AI answer screenshots (homepage proof section, hospitality proof section)
 - [ ] Case study metrics, charts and quotes
