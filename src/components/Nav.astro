@@ -17,15 +17,28 @@ const links = mainNav;
       <a class="btn nav-cta" href={bookHref} {...bookAttrs}>👉 Book a call</a>
       <details class="mnav">
         <summary aria-label="Menu">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0B0F1A" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+          <svg class="mnav-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0B0F1A" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+          <svg class="mnav-close" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0B0F1A" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
         </summary>
         <nav class="mnav-panel" aria-label="Mobile">
           {links.map((l) => (
-            <a class={`ml${active === l.key ? ' active' : ''}`} href={l.href} aria-current={active === l.key ? 'page' : undefined}>{l.label}</a>
+            <a class={`ml${active === l.key ? ' active' : ''}`} href={l.href} aria-current={active === l.key ? 'page' : undefined}>{l.label}<span class="ml-arrow" aria-hidden="true">→</span></a>
           ))}
-          <a class="btn" href={bookHref} {...bookAttrs}>👉 Book a call with Christopher</a>
+          <div class="mnav-foot">
+            <a class="btn" href={bookHref} {...bookAttrs}>👉 Book a call with Christopher</a>
+            <p class="note">Enterprise AI SEO consultant. Based in Newcastle upon Tyne, working worldwide.</p>
+          </div>
         </nav>
       </details>
     </div>
   </div>
 </header>
+<script is:inline>
+  // Close the full-screen mobile menu when a link is tapped or Escape is pressed.
+  (function () {
+    var m = document.querySelector('.mnav');
+    if (!m) return;
+    m.querySelectorAll('.mnav-panel a').forEach(function (a) { a.addEventListener('click', function () { m.open = false; }); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && m.open) { m.open = false; m.querySelector('summary').focus(); } });
+  })();
+</script>
