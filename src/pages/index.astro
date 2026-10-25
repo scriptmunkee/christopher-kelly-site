@@ -131,11 +131,11 @@ const schema = [websiteSchema(), personSchema(), businessSchema(), faqSchema(faq
       <div class="shead">
         <p class="eyebrow">Is this you?</p>
         <h2 class="h2" id="h-you">Sound Familiar? This Is Why Enterprise<br>Brands Hire An AI SEO Consultant.</h2>
-        <p class="sub">These are the problems enterprise teams bring to me. Click the one that sounds like you.</p>
+        <p class="sub">These are the problems enterprise teams bring to me. Find the one that sounds like you.</p>
       </div>
       <div class="acc-grid">
         {problems.map((x, i) => (
-          <details class="acc" open={i === 0}>
+          <details class="acc" open>
             <summary>
               <span><span class="acc-tag">{x.tag}</span><span class="acc-q">{x.q}</span></span>
               <span class="plus" aria-hidden="true">+</span>
@@ -148,6 +148,12 @@ const schema = [websiteSchema(), personSchema(), businessSchema(), faqSchema(faq
           </details>
         ))}
       </div>
+      <script is:inline>
+        // Desktop shows every card open at equal height; phones keep the accordion with the first card open.
+        if (window.matchMedia('(max-width: 760px)').matches) {
+          document.querySelectorAll('.acc-grid .acc').forEach(function (d, i) { if (i) d.removeAttribute('open'); });
+        }
+      </script>
     </div>
   </section>
 
