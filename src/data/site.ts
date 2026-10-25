@@ -1,4 +1,4 @@
-// Site-wide settings. Fill the [PLACEHOLDER] values before launch.
+// Site-wide settings.
 export const site = {
   name: 'Christopher Kelly',
   url: 'https://christopher-kelly.co.uk',
@@ -21,7 +21,7 @@ export const site = {
 
   company: {
     legalName: 'Ascend Digital Marketing Ltd',
-    number: '[NUMBER]',
+    number: '16822903',
   },
 
   // Set to true once /blog/ exists, to show Blog in the nav and footer.
