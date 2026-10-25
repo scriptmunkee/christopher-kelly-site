@@ -1,0 +1,349 @@
+---
+import Base from '../../layouts/Base.astro';
+import Marquee from '../../components/Marquee.astro';
+import Faq from '../../components/Faq.astro';
+import BookCall from '../../components/BookCall.astro';
+import { site } from '../../data/site';
+import { sectors } from '../../data/services';
+import { breadcrumbSchema, faqSchema, serviceSchema, personSchema, businessSchema } from '../../lib/schema';
+
+const S = `${site.url}/services/`;
+const title = 'AI SEO Consultant for Solicitors | Christopher Kelly';
+const description = 'Christopher Kelly is an AI SEO consultant for law firms and solicitors. Get every office and practice area recommended by ChatGPT and Google AI. Book a call.';
+const path = '/services/ai-seo-consultant-solicitors/';
+
+const shifts = [
+  { t: 'Clients ask AI before they call.', p: 'About one in six people facing a legal dispute have asked an AI chatbot for help, rising to one in four of those aged 18 to 24.' },
+  { t: 'AI users check more sources.', p: 'Chatbot users consulted 3.7 sources on average, against 1.9 for everyone else. Your firm has to look right everywhere they check.' },
+  { t: 'Your own site is the main source.', p: 'In a July 2026 study of UK solicitor answers on ChatGPT and Perplexity, firm websites earned 74% of citations. The study was run by an AI visibility software vendor.' },
+  { t: 'Some clients may skip you entirely.', p: '39% of UK adults would consider asking a chatbot instead of a solicitor about a legal problem.' },
+];
+
+const stats = [
+  { n: '1 in 6', c: 'people in a legal dispute have asked an AI chatbot for help', s: 'JUSTICE, 2026' },
+  { n: '3.7', c: 'sources checked by chatbot users, vs 1.9 for others', s: 'JUSTICE, 2026' },
+  { n: '74%', c: 'of UK solicitor citations go to firm websites', s: 'TendorAI, 2026' },
+  { n: '39%', c: 'of UK adults would consider AI instead of a solicitor', s: 'Uswitch / Opinium, 2026' },
+];
+
+const ic = (d: string) => `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+const entities = [
+  { i: ic('<path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"></path><circle cx="7.5" cy="7.5" r="1.5"></circle>'), t: 'Firm identity', p: 'One name, trading names and SRA number, consistent everywhere.' },
+  { i: ic('<path d="M12 3v18M5 7h14M5 7l-3 6a3 3 0 0 0 6 0zM19 7l-3 6a3 3 0 0 0 6 0zM8 21h8"></path>'), t: 'Practice areas', p: 'Every specialism a clear entity with its own page.' },
+  { i: ic('<circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path>'), t: 'Solicitors and partners', p: 'Named people, with experience and qualifications stated.' },
+  { i: ic('<path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"></path><circle cx="12" cy="10" r="2.5"></circle>'), t: 'Offices', p: "Each office's Google Business Profile, address and areas served." },
+  { i: ic('<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><path d="M14 3v6h6M8 13h8M8 17h5"></path>'), t: 'Fees and service details', p: 'The information the Transparency Rules require, published clearly.' },
+  { i: ic('<circle cx="12" cy="9" r="6"></circle><path d="M8.5 14L7 22l5-3 5 3-1.5-8"></path>'), t: 'Directories and rankings', p: 'Chambers and Partners, The Legal 500 and Law Society Find a Solicitor.' },
+  { i: ic('<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"></path>'), t: 'Reviews', p: 'Google, Review Solicitors and Trustpilot telling the same story.' },
+  { i: ic('<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"></path><path d="M9 12l2 2 4-4"></path>'), t: 'Regulation and trust', p: 'SRA digital badge, complaints information, Lexcel and CQS accreditations.' },
+];
+
+const pageTypes = [
+  { t: 'Practice area pages', c: 'employment solicitor for unfair dismissal in Leeds', p: 'One page per specialism, per market.' },
+  { t: 'Fees pages', c: 'how much does probate cost with a solicitor', p: 'Required price information, presented so AI can quote it.' },
+  { t: 'Office pages', c: 'family solicitors in Newcastle', p: 'Every office a place AI can recommend.' },
+  { t: 'Solicitor profiles', c: 'partner specialising in commercial property', p: 'People as entities, with experience stated.' },
+  { t: 'Process guides', c: 'how long does conveyancing take', p: 'Stages and timescales clients want first.' },
+  { t: 'Legal FAQs', c: 'do I need a solicitor for a divorce', p: 'Concise answers AI can lift word for word.' },
+];
+
+const governance = [
+  'Written to fit the SRA Transparency Rules and your compliance process',
+  'No promised outcomes, no misleading claims',
+  'Every page signed off before it goes live',
+  'Solicitor and partner details accurate and approved',
+  'Offices, specialisms and fees kept in step across site, profiles and directories',
+  'Clients named only with permission',
+];
+
+const faqs = [
+  { q: 'Do people really use AI to find a solicitor?',
+    a: 'Yes, and younger clients lead the way. Research from the charity JUSTICE found about one in six people facing a legal dispute had asked an AI chatbot for help, and those users checked nearly twice as many sources as everyone else. AI is now part of how people shortlist firms, so being named and described correctly in that answer matters.' },
+  { q: 'Can a specialist or regional firm compete with national firms in AI search?',
+    a: "It's harder, but specialism is the way in. National brands start ahead, yet AI answers favour clear, specific evidence. A firm that states its specialisms, solicitors' experience, fees and offices precisely gives the engine confident facts to repeat. In TendorAI's July 2026 study, firm websites earned most UK solicitor citations in ChatGPT and Perplexity." },
+  { q: 'How does AI search work with legal directories and reviews?',
+    a: 'They work together. Directories like Chambers and Partners, The Legal 500 and review sites give AI independent evidence about a firm, while your own site supplies the detail. Which sources get cited varies by engine: in one 2026 UK study, Perplexity cited directories often and ChatGPT cited none. The aim is consistent facts everywhere, with your site as the clearest source.' },
+  { q: 'Will AI SEO work within SRA rules?',
+    a: 'Yes. Copy, FAQs and page changes are written to fit the SRA Transparency Rules and your own compliance process, and nothing goes live without sign-off. Helpfully, the prices, service details and complaints information firms must already publish are exactly the kind of clear facts AI engines cite, so compliance and visibility point the same way.' },
+  { q: 'How do we start?',
+    a: `Start with a baseline. I run a fixed set of client questions for each practice area and office through ChatGPT and Google AI, then show where your firm is named, cited or missing and who is named instead. That <a class="inl" href="${S}#ai-visibility-audit">AI visibility audit</a> gives you a prioritised list of fixes before any wider work begins.` },
+];
+
+const cover = [
+  { e: '⚖️', t: 'How AI describes your firm', p: 'What ChatGPT and Google AI say about you today.' },
+  { e: '🔎', t: 'Which specialisms go missing', p: 'The client questions where another firm gets named.' },
+  { e: '📍', t: 'Offices and profiles health', p: 'Names, addresses and details across every office.' },
+  { e: '💷', t: 'Fees and transparency content', p: 'Whether AI can find and quote your required information.' },
+  { e: '📊', t: 'What to measure', p: 'Mentions, citations and the enquiries behind them.' },
+  { e: '🗺️', t: "What I'd fix first", p: 'A short, prioritised list for your firm.' },
+];
+
+const check = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>';
+
+const schema = [
+  personSchema(),
+  businessSchema(),
+  serviceSchema({ name: 'AI SEO for law firms and solicitors', description, path, audience: 'Law firms and solicitors' }),
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Services', path: '/services/' },
+    { name: 'Solicitors', path },
+  ]),
+  faqSchema(faqs),
+];
+---
+<Base title={title} description={description} active="services" schema={schema} hasBookSection>
+
+  <!-- BREADCRUMB + HERO -->
+  <section class="hero-band" data-hero>
+    <nav class="crumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li class="sep" aria-hidden="true">/</li>
+        <li><a href="/services/">Services</a></li>
+        <li class="sep" aria-hidden="true">/</li>
+        <li aria-current="page">Solicitors</li>
+      </ol>
+    </nav>
+    <div class="hero hero-tight">
+      <div>
+        <p class="eyebrow">Law Firms &amp; Solicitors</p>
+        <h1 class="h1">AI SEO Consultant for Solicitors</h1>
+        <p class="hero-sub">Clients now ask AI which firm to call. Make sure it names yours, for the right specialism, in the right town.</p>
+        <p class="hero-body">People ask ChatGPT and Google AI Mode who handles probate locally, or which employment solicitors are worth calling. I help law firms, especially multi-office firms and legal groups, get every practice area and office understood, cited and recommended, with work for Stowe Family Law and Simpson Millar behind it.</p>
+        <div class="hero-btns">
+          <a class="btn" href="#book">👉 Book a call with Christopher</a>
+          <a class="btn btn-ghost" href="#playbook">See the playbook →</a>
+        </div>
+      </div>
+      <div class="hero-media">
+        <div class="photo photo-hero">
+          <span class="ph-label">[PLACEHOLDER]<br>Portrait of Christopher</span>
+        </div>
+        <div class="ai-card" role="img" aria-label="Illustration of an AI answer recommending a law firm and citing its probate page">
+          <span class="ai-head" aria-hidden="true"><span class="ai-dot"></span>AI answer</span>
+          <p class="ai-prompt" aria-hidden="true">Which solicitors near Durham handle probate with fixed fees?</p>
+          <p class="ai-ans" aria-hidden="true">A strong match is <strong>[Firm name]</strong>: a specialist private client team, published fixed fees for probate and an office in [Town].</p>
+          <span class="ai-tag" aria-hidden="true">Cited · firm's probate page</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Marquee label="Track record" slow items={[
+    'Stowe Family Law',
+    'Simpson Millar',
+    'Multi-year enterprise delivery',
+    'Google Business Profiles at scale',
+    'Entity & knowledge graph optimisation',
+    'AI visibility tracked per location',
+    'Monthly automated reporting',
+  ]} />
+
+  <!-- INTRO -->
+  <section class="sec bg-white" aria-label="Introduction">
+    <div class="wrap-760 intro">
+      <p class="lead">Choosing a solicitor is a trust decision, and AI now sits in the middle of it.</p>
+      <p class="body">Legal questions carry real stakes, so AI engines lean on firms that give them clear evidence: named solicitors, defined specialisms, regulation, fees and reviews. Firms that leave those facts vague get described by directories and competitors instead.</p>
+      <p class="body">I bring the same approach I use for multi-location brands, set out across my <a class="inl" href={S}>enterprise AI SEO services</a>, to law firms: every office and specialism made clear to the engines that now shape the shortlist.</p>
+    </div>
+  </section>
+
+  <!-- THE SHIFT -->
+  <section class="sec bg-cream" id="shift" aria-labelledby="h-shift">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">The shift</p>
+        <h2 class="h2" id="h-shift">Why Law Firms Need An AI SEO Consultant.</h2>
+      </div>
+      <div class="shift-grid">
+        {shifts.map((s, i) => (
+          <div class="shift">
+            <span class="shift-n">{String(i + 1).padStart(2, '0')}</span>
+            <div><h3 class="shift-t">{s.t}</h3><p class="shift-p">{s.p}</p></div>
+          </div>
+        ))}
+      </div>
+      <div class="stat-row">
+        {stats.map((s) => (
+          <div class="stat"><span class="stat-n">{s.n}</span><span class="stat-c">{s.c}</span><span class="stat-s">{s.s}</span></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ENTITIES -->
+  <section class="sec bg-white" id="signals" aria-labelledby="h-ent">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">What AI checks</p>
+        <h2 class="h2" id="h-ent">The Signals AI Checks<br>Before It Names A Firm.</h2>
+      </div>
+      <div class="ent-grid">
+        {entities.map((e) => (
+          <div class="ent">
+            <span class="ent-ic" set:html={e.i} />
+            <h3 class="ent-t">{e.t}</h3>
+            <p class="ent-p">{e.p}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- MID CTA -->
+  <section class="mid" aria-label="Book a call">
+    <div class="mid-card">
+      <div class="mid-copy">
+        <h2 class="mid-h">Want to see which firms AI names in your practice areas?</h2>
+        <p class="mid-p">Book a call and I'll show you what ChatGPT and Google AI say about your firm today, which specialisms go missing, and what I'd fix first. Free, no hard sell.</p>
+      </div>
+      <a class="btn" href="#book">👉 Book a call with Christopher</a>
+    </div>
+  </section>
+
+  <!-- PLAYBOOK -->
+  <section class="sec bg-cream" id="playbook" aria-labelledby="h-play">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">The playbook</p>
+        <h2 class="h2" id="h-play">Every Specialism Understood.<br>Every Answer Earned.</h2>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num" aria-hidden="true">01</span>
+          <span class="step-emoji" aria-hidden="true">🔍</span>
+          <h3 class="step-t">Baseline by practice area and office</h3>
+          <p class="step-p">A fixed set of client questions for each specialism and town, with your firm marked named, cited or missing. It starts with <a class="inl" href={`${S}#ai-visibility-audit`}>an AI visibility audit</a> across ChatGPT and Google AI.</p>
+          <span class="step-tag">Specialism-by-specialism baseline</span>
+          <span class="badge" aria-hidden="true">→</span>
+        </div>
+        <div class="step">
+          <span class="step-num" aria-hidden="true">02</span>
+          <span class="step-emoji" aria-hidden="true">🧱</span>
+          <h3 class="step-t">Build the people and practice entities</h3>
+          <p class="step-p">Solicitor profiles, practice pages, offices and directories aligned through <a class="inl" href={`${S}#entity-optimisation`}>entity and knowledge graph optimisation</a>, so AI knows who does what, and where.</p>
+          <span class="step-tag">Entity first</span>
+          <span class="badge" aria-hidden="true">→</span>
+        </div>
+        <div class="step">
+          <span class="step-num" aria-hidden="true">03</span>
+          <span class="step-emoji" aria-hidden="true">📈</span>
+          <h3 class="step-t">Answer the questions clients ask</h3>
+          <p class="step-p">Fees, timelines and process explained clearly enough to be quoted, using <a class="inl" href={`${S}#content-engineering`}>content engineering</a> that scales across every practice area.</p>
+          <span class="step-tag">Written to be cited</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAGE SYSTEMS -->
+  <section class="sec bg-white" id="pages" aria-labelledby="h-pages">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">Page systems</p>
+        <h2 class="h2" id="h-pages">The Pages Clients Actually Ask About.</h2>
+        <p class="sub">AI answers are built from specific pages, not homepages. These are the templates I build and optimise across practice areas and offices.</p>
+      </div>
+      <div class="pt-grid">
+        {pageTypes.map((p) => (
+          <div class="pt"><h3 class="pt-t">{p.t}</h3><span class="chip">{p.c}</span><p class="pt-p">{p.p}</p></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- GOVERNANCE -->
+  <section class="sec bg-black" id="governance" aria-labelledby="h-gov">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">How I work</p>
+        <h2 class="h2 h2-w" id="h-gov">Regulated Sector.<br>Careful Work.</h2>
+      </div>
+      <ul class="gov-grid">
+        {governance.map((g) => (
+          <li class="gov"><span class="gov-ck" set:html={check} /><span class="gov-p">{g}</span></li>
+        ))}
+      </ul>
+      <div class="cta-row"><a class="btn" href="#book">👉 Talk to me about your firm</a></div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about" aria-labelledby="h-about">
+    <div class="photo photo-about">
+      <span class="ph-label">[PLACEHOLDER]<br>Photo of Christopher</span>
+    </div>
+    <div class="about-c">
+      <p class="eyebrow" style="margin-bottom:0">About Christopher</p>
+      <h2 class="h2" id="h-about">The Consultant Behind The Playbook.</h2>
+      <p>I'm a senior, hands-on enterprise AI SEO consultant. I've worked with <strong>Stowe Family Law and Simpson Millar</strong>, and spent years on <strong>multi-year SEO and AI search delivery across a global portfolio of 15+ locations</strong>.</p>
+      <p>You work with me directly, not another agency layer. Every recommendation is built to clear compliance, partners and marketing, then tracked until it shows up in the answer. There's <a class="inl" href={`${site.url}/#about`}>more about how I work</a> on the homepage.</p>
+    </div>
+  </section>
+
+  <!-- PROOF -->
+  <section class="sec bg-cream" id="proof" aria-labelledby="h-proof">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">Proof</p>
+        <h2 class="h2" id="h-proof">Proven At Enterprise Scale.</h2>
+      </div>
+      <div class="cases">
+        <article class="case">
+          <span class="label">Family law</span>
+          <h3 class="case-t">Stowe Family Law</h3>
+          <p class="case-p">[PLACEHOLDER: what you delivered]</p>
+          <p class="case-m">[PLACEHOLDER: headline metric]</p>
+        </article>
+        <article class="case">
+          <span class="label">Multi-practice law firm</span>
+          <h3 class="case-t">Simpson Millar</h3>
+          <p class="case-p">[PLACEHOLDER: what you delivered]</p>
+          <p class="case-m">[PLACEHOLDER: headline metric]</p>
+        </article>
+        <article class="case">
+          <span class="label">Multi-location portfolio</span>
+          <h3 class="case-t">Global luxury hotel portfolio (named on request)</h3>
+          <p class="case-p">15+ properties, each with its own profiles, pages and prompt set. Multi-year delivery.</p>
+          <p class="case-m">[PLACEHOLDER: headline metric]</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQS -->
+  <section class="sec bg-white" id="faq" aria-labelledby="h-faq">
+    <div class="wrap-800">
+      <div class="shead">
+        <p class="eyebrow">FAQs</p>
+        <h2 class="h2" id="h-faq">Solicitor AI SEO FAQs</h2>
+      </div>
+      <Faq items={faqs} />
+    </div>
+  </section>
+
+  <BookCall
+    heading="Start With A Call<br>About Your Firm."
+    sub="One call, direct with me, about your firm, your practice areas and the answers clients see today."
+    cover={cover}
+    threeCol
+  />
+
+  <!-- OTHER SECTORS -->
+  <section class="sec bg-white" aria-labelledby="h-sectors">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">Other sectors</p>
+        <h2 class="h2" id="h-sectors">The Same Playbook, Other Sectors.</h2>
+      </div>
+      <div class="tile-grid">
+        {sectors.filter((s) => s.href !== path).map((s) => (
+          <a class="tile" href={s.href || '/services/#sectors'}>{s.t}<span class="tile-arrow" aria-hidden="true">→</span></a>
+        ))}
+      </div>
+      <p class="all-line">See <a class="inl" href={S}>every enterprise AI SEO service I offer</a>.</p>
+    </div>
+  </section>
+
+</Base>

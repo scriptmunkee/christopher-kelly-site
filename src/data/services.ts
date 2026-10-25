@@ -13,5 +13,6 @@ export const services = [
 export const sectors = [
   { t: 'Luxury Hospitality & Travel', href: '/services/ai-seo-consultant-hospitality/' },
   { t: 'Multi-Location Brands', href: '/services/ai-seo-consultant-multi-location/' },
+  { t: 'Law Firms & Solicitors', href: '/services/ai-seo-consultant-solicitors/' },
   { t: 'Marketplaces & Platforms', href: '' },
 ];
