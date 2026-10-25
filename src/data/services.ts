@@ -17,5 +17,6 @@ export const sectors = [
   { t: 'AI SEO Consultant for Multi-Location Brands', href: '/services/ai-seo-consultant-multi-location/' },
   { t: 'AI SEO Consultant for Solicitors', href: '/services/ai-seo-consultant-solicitors/' },
   { t: 'AI SEO Consultant for Fintech', href: '/services/ai-seo-consultant-fintech/' },
+  { t: 'AI SEO Consultant for Dentists', href: '/services/ai-seo-consultant-dentists/' },
   { t: 'AI SEO Consultant for Marketplaces', href: '' },
 ];

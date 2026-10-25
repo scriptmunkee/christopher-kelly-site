@@ -3,5 +3,6 @@
 import type { SectorPageData } from '../../lib/sector';
 import { solicitors } from './solicitors';
 import { fintech } from './fintech';
+import { dentists } from './dentists';
 
-export const sectorPages: SectorPageData[] = [solicitors, fintech];
+export const sectorPages: SectorPageData[] = [solicitors, fintech, dentists];
