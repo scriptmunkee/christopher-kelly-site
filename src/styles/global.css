@@ -374,7 +374,7 @@ summary::-webkit-details-marker { display: none; }
 
 /* ---------- footer ---------- */
 .foot { background: var(--stone); border-top: 1px solid var(--hair); padding: 4rem 2.5rem 6.5rem; }
-.foot-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2.5rem; }
+.foot-grid { display: grid; grid-template-columns: 1.6fr 1fr 1.6fr 1fr; gap: 2.5rem; }
 .foot-brand { display: flex; flex-direction: column; gap: .9rem; max-width: 360px; }
 .foot-brand p { font-size: .85rem; line-height: 1.65; color: var(--grey-3); }
 .foot-brand .btn { align-self: flex-start; }

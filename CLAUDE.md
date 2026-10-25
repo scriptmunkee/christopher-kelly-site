@@ -19,7 +19,7 @@ Full infrastructure map, recipes and open items live in the `christopher-kelly-s
 - `wrangler.jsonc`: Worker config read by Workers Builds. Serves `404.html` for missing URLs and declares both custom domains; keep the domains listed here or a deploy could drop them.
 - `src/lib/schema.ts`: JSON-LD helpers (Person, ProfessionalService, Service, FAQPage, BreadcrumbList).
 - `src/components/`: Nav, Footer, StickyCta, Marquee, Faq, BookCall, Consent (cookie banner and PostHog loader).
-- `src/pages/`: `/`, `/services/`, sector pages `/services/ai-seo-consultant-hospitality/`, `-multi-location/` and `-solicitors/`, `/privacy/`, 404.
+- `src/pages/`: `/`, `/services/`, sector pages `/services/ai-seo-consultant-hospitality/`, `-multi-location/`, `-solicitors/` and `-fintech/`, `/privacy/`, 404.
 - `public/og.png`: the 1200×630 share image used by every page.
 - `src/styles/global.css`: the whole design system. Tokens are CSS variables in `:root`.
 
@@ -27,6 +27,8 @@ Full infrastructure map, recipes and open items live in the `christopher-kelly-s
 Copy `src/pages/services/ai-seo-consultant-solicitors.astro` (the most complete template: entities, playbook, what decides, page systems, governance, about, proof, FAQs), keep `hasBookSection`, change the content arrays at the top, then add the page's `href` to `sectors` in `src/data/services.ts` and a link in the footer's Explore list.
 
 Pattern copied from tom-riley.co.uk: URL `/services/ai-seo-consultant-<sector>/`; title `AI SEO Consultant for <Sector> | Christopher Kelly`; H1 `AI SEO Consultant for <Sector>`; meta `Christopher Kelly is an AI SEO consultant for <audience>. <Promise>. Book a call.` Headings and copy are always our own.
+
+Naming and linking convention (from the tom-riley.co.uk sitemap): every sector page is named "AI SEO Consultant for <Sector>". That exact name is its H1, its title before the `|`, its `t` in `sectors`, and the anchor text wherever it is linked (footer "AI SEO consulting services" column, tiles, lists). Breadcrumbs use the short sector name. Only link pages that exist.
 
 ## Design system (Signal palette, tom-riley.co.uk layout language)
 - Base #F5F2EC with a 44px grid (black 4.5%). Sections alternate white #FFFFFF, stone #FAF8F3, blue-black #0B0F1A. Hairlines black 7%.

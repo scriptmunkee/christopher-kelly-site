@@ -8,8 +8,8 @@ import { sectors } from '../../data/services';
 import { breadcrumbSchema, faqSchema, serviceSchema, personSchema, businessSchema } from '../../lib/schema';
 
 const S = `${site.url}/services/`;
-const title = 'Hotel & Hospitality AI SEO Consultant | Christopher Kelly';
-const description = 'AI SEO for luxury hotels and resort groups. Get every property understood, cited and recommended by ChatGPT and Google AI Mode, not just the OTAs. Book a call.';
+const title = 'AI SEO Consultant for Hospitality | Christopher Kelly';
+const description = 'Christopher Kelly is an AI SEO consultant for hotels and hospitality brands. Get every property recommended by ChatGPT and Google AI, not just the OTAs. Book a call.';
 const path = '/services/ai-seo-consultant-hospitality/';
 
 const shifts = [
@@ -91,7 +91,7 @@ const schema = [
   breadcrumbSchema([
     { name: 'Home', path: '/' },
     { name: 'Services', path: '/services/' },
-    { name: 'Hospitality & Travel', path },
+    { name: 'Hospitality', path },
   ]),
   faqSchema(faqs),
 ];
@@ -106,13 +106,13 @@ const schema = [
         <li class="sep" aria-hidden="true">/</li>
         <li><a href="/services/">Services</a></li>
         <li class="sep" aria-hidden="true">/</li>
-        <li aria-current="page">Hospitality &amp; Travel</li>
+        <li aria-current="page">Hospitality</li>
       </ol>
     </nav>
     <div class="hero hero-tight">
       <div>
         <p class="eyebrow">Hospitality &amp; Travel</p>
-        <h1 class="h1">AI SEO Consultant for Luxury Hotels &amp; Hospitality</h1>
+        <h1 class="h1">AI SEO Consultant for Hospitality</h1>
         <p class="hero-sub">When AI plans the trip, one property gets named. Make it yours, not the OTA's.</p>
         <p class="hero-body">Guests now ask ChatGPT and Google AI Mode where to stay, and increasingly book without leaving the chat. I help hotel groups and luxury resorts get every property understood, cited and recommended across those answers, with years of hands-on delivery inside a global luxury hotel portfolio behind it.</p>
         <div class="hero-btns">
@@ -342,8 +342,8 @@ const schema = [
         <h2 class="h2" id="h-sectors">The Same Playbook, Other Sectors.</h2>
       </div>
       <div class="tile-grid">
-        {sectors.filter((s) => s.href !== path).map((s) => (
-          <a class="tile" href={s.href || '/services/#sectors'}>{s.t}<span class="tile-arrow" aria-hidden="true">→</span></a>
+        {sectors.filter((s) => s.href && s.href !== path).map((s) => (
+          <a class="tile" href={s.href}>{s.t}<span class="tile-arrow" aria-hidden="true">→</span></a>
         ))}
       </div>
       <p class="all-line">See <a class="inl" href={S}>every enterprise AI SEO service I offer</a>.</p>

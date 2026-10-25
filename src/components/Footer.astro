@@ -1,5 +1,6 @@
 ---
 import { site } from '../data/site';
+import { sectors } from '../data/services';
 interface Props { bookHref?: string }
 const { bookHref = '#book' } = Astro.props;
 const bookAttrs = bookHref.startsWith('http') ? { target: '_blank', rel: 'noopener' } : {};
@@ -22,13 +23,15 @@ const year = new Date().getFullYear();
         </ul>
       </div>
       <div>
+        <p class="foot-t">AI SEO consulting services</p>
+        <ul class="foot-links">
+          {sectors.filter((s) => s.href).map((s) => <li><a href={s.href}>{s.t}</a></li>)}
+        </ul>
+      </div>
+      <div>
         <p class="foot-t">Explore</p>
         <ul class="foot-links">
           <li><a href="/services/">Services</a></li>
-          <li><a href="/services/ai-seo-consultant-hospitality/">Hospitality &amp; Travel</a></li>
-          <li><a href="/services/ai-seo-consultant-multi-location/">Multi-Location Brands</a></li>
-          <li><a href="/services/ai-seo-consultant-solicitors/">Law Firms &amp; Solicitors</a></li>
-          <li><a href="/services/ai-seo-consultant-fintech/">Fintech &amp; Financial Services</a></li>
           <li><a href="/#work">Work</a></li>
           <li><a href="/#about">About</a></li>
           {site.showBlog && <li><a href="/blog/">Blog</a></li>}

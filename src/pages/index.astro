@@ -238,8 +238,8 @@ const schema = [websiteSchema(), personSchema(), businessSchema(), faqSchema(faq
         <h2 class="h2" id="h-ind">AI SEO Consultant for Complex,<br>Multi-Location Brands</h2>
       </div>
       <div class="tile-grid">
-        {sectors.map((s) => (
-          <a class="tile" href={s.href || '/services/#sectors'}>{s.t}<span class="tile-arrow" aria-hidden="true">→</span></a>
+        {sectors.filter((s) => s.href).map((s) => (
+          <a class="tile" href={s.href}>{s.t}<span class="tile-arrow" aria-hidden="true">→</span></a>
         ))}
       </div>
     </div>

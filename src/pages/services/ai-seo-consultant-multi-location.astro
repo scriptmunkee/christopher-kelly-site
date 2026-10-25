@@ -337,8 +337,8 @@ const schema = [
         <h2 class="h2" id="h-sectors">The Same Playbook, Other Sectors.</h2>
       </div>
       <div class="tile-grid">
-        {sectors.filter((s) => s.href !== path).map((s) => (
-          <a class="tile" href={s.href || '/services/#sectors'}>{s.t}<span class="tile-arrow" aria-hidden="true">→</span></a>
+        {sectors.filter((s) => s.href && s.href !== path).map((s) => (
+          <a class="tile" href={s.href}>{s.t}<span class="tile-arrow" aria-hidden="true">→</span></a>
         ))}
       </div>
       <p class="all-line">See <a class="inl" href={S}>every enterprise AI SEO service I offer</a>.</p>

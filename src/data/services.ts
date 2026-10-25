@@ -10,10 +10,12 @@ export const services = [
 ];
 
 // Sector pages. Add a `href` when a sector page exists.
+// Sector pages. `t` is the page's exact name (its H1 and title before the |) and is
+// the anchor text everywhere the page is linked. Leave href '' until the page exists.
 export const sectors = [
-  { t: 'Luxury Hospitality & Travel', href: '/services/ai-seo-consultant-hospitality/' },
-  { t: 'Multi-Location Brands', href: '/services/ai-seo-consultant-multi-location/' },
-  { t: 'Law Firms & Solicitors', href: '/services/ai-seo-consultant-solicitors/' },
-  { t: 'Fintech & Financial Services', href: '/services/ai-seo-consultant-fintech/' },
-  { t: 'Marketplaces & Platforms', href: '' },
+  { t: 'AI SEO Consultant for Hospitality', href: '/services/ai-seo-consultant-hospitality/' },
+  { t: 'AI SEO Consultant for Multi-Location Brands', href: '/services/ai-seo-consultant-multi-location/' },
+  { t: 'AI SEO Consultant for Solicitors', href: '/services/ai-seo-consultant-solicitors/' },
+  { t: 'AI SEO Consultant for Fintech', href: '/services/ai-seo-consultant-fintech/' },
+  { t: 'AI SEO Consultant for Marketplaces', href: '' },
 ];
