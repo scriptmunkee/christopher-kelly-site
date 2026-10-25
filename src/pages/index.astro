@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Marquee from '../components/Marquee.astro';
+import { brands, anonymisedClient } from '../data/brands';
 import Faq from '../components/Faq.astro';
 import BookCall from '../components/BookCall.astro';
 import { site } from '../data/site';
@@ -122,7 +123,7 @@ const schema = [websiteSchema(), personSchema(), businessSchema(), faqSchema(faq
     </div>
   </section>
 
-  <Marquee label="Trusted by" items={['15+ luxury hotel & resort properties', '4 continents', 'Multi-year enterprise delivery', 'Google AI Overview citations won']} />
+  <Marquee label="Trusted by" brands={brands} trailing={[anonymisedClient]} />
 
   <!-- IS THIS YOU? -->
   <section class="sec bg-white" aria-labelledby="h-you">

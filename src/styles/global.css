@@ -162,6 +162,11 @@ html:has(.mnav[open]) .sticky { visibility: hidden; }
 .marq-item { display: flex; align-items: center; gap: .75rem; margin-right: 3.5rem; white-space: nowrap; font-family: var(--f-head); font-weight: 800; font-size: .85rem; letter-spacing: -.01em; color: rgba(255, 255, 255, .8); }
 .marq-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--lime); flex: none; }
 @keyframes marq { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+/* Brand logos: rendered as flat white marks on the dark band so mixed brand colours read as one set. */
+.marq-logos .marq-track { animation-duration: 40s; }
+.marq-logo { height: 28px; width: auto; max-width: 160px; display: block; filter: brightness(0) invert(1); opacity: .85; transition: opacity .2s ease; }
+.marq-item:hover .marq-logo { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .marq-track { animation: none; flex-wrap: wrap; gap: .75rem 0; width: auto; } }
 
 /* ---------- accordion cards (Is this you?) ---------- */
 .acc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr)); gap: 1.25rem; align-items: start; }

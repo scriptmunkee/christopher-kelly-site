@@ -1,15 +1,49 @@
 ---
-interface Props { label: string; items: string[]; slow?: boolean }
-const { label, items, slow = false } = Astro.props;
+import fs from 'node:fs';
+import path from 'node:path';
+import type { Brand } from '../data/brands';
+
+interface Props {
+  label: string;
+  /** Plain text items (track record claims). */
+  items?: string[];
+  /** Brand logos. Each renders its logo from public/logos/<slug>.svg|png when the file exists, otherwise its name as a text wordmark. */
+  brands?: Brand[];
+  /** Extra text items shown after the brands (e.g. the anonymised hotel group). */
+  trailing?: string[];
+  slow?: boolean;
+}
+const { label, items = [], brands = [], trailing = [], slow = false } = Astro.props;
+
+// Resolve each brand to a logo path at build time so a missing file degrades to text, never a broken image.
+const publicDir = path.join(process.cwd(), 'public');
+function logoFor(b: Brand): string | null {
+  const candidates = b.logo ? [b.logo] : [`/logos/${b.slug}.svg`, `/logos/${b.slug}.png`];
+  for (const c of candidates) if (fs.existsSync(path.join(publicDir, c))) return c;
+  return null;
+}
+type Entry = { kind: 'text'; t: string } | { kind: 'logo'; t: string; src: string };
+const entries: Entry[] = [
+  ...brands.map<Entry>((b) => { const src = logoFor(b); return src ? { kind: 'logo', t: b.name, src } : { kind: 'text', t: b.name }; }),
+  ...trailing.map<Entry>((t) => ({ kind: 'text', t })),
+  ...items.map<Entry>((t) => ({ kind: 'text', t })),
+];
 // Repeat until one set is wide enough, then duplicate for a seamless loop.
-const set = items.length < 5 ? [...items, ...items] : items;
+const set = entries.length < 5 ? [...entries, ...entries] : entries;
+const hasLogos = entries.some((e) => e.kind === 'logo');
 ---
-<section class="marq" aria-label={label}>
+<section class={`marq${hasLogos ? ' marq-logos' : ''}`} aria-label={label}>
   <span class="marq-label">{label}</span>
   <div class="marq-view">
     <div class={`marq-track${slow ? ' marq-slow' : ''}`}>
-      {set.map((t, i) => <span class="marq-item" aria-hidden={i >= items.length ? 'true' : undefined}><span class="marq-dot"></span>{t}</span>)}
-      {set.map((t) => <span class="marq-item" aria-hidden="true"><span class="marq-dot"></span>{t}</span>)}
+      {[...set, ...set].map((e, i) => (
+        <span class="marq-item" aria-hidden={i >= entries.length ? 'true' : undefined}>
+          <span class="marq-dot"></span>
+          {e.kind === 'logo'
+            ? <img class="marq-logo" src={e.src} alt={e.t} loading="lazy" decoding="async" height="28" />
+            : e.t}
+        </span>
+      ))}
     </div>
   </div>
 </section>
