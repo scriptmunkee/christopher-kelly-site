@@ -12,6 +12,6 @@ export const services = [
 // Sector pages. Add a `href` when a sector page exists.
 export const sectors = [
   { t: 'Luxury Hospitality & Travel', href: '/services/ai-seo-consultant-hospitality/' },
-  { t: 'Multi-Location Brands', href: '' },
+  { t: 'Multi-Location Brands', href: '/services/ai-seo-consultant-multi-location/' },
   { t: 'Marketplaces & Platforms', href: '' },
 ];

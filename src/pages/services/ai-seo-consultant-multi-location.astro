@@ -1,0 +1,340 @@
+---
+import Base from '../../layouts/Base.astro';
+import Marquee from '../../components/Marquee.astro';
+import Faq from '../../components/Faq.astro';
+import BookCall from '../../components/BookCall.astro';
+import { site } from '../../data/site';
+import { sectors } from '../../data/services';
+import { breadcrumbSchema, faqSchema, serviceSchema, personSchema, businessSchema } from '../../lib/schema';
+
+const S = `${site.url}/services/`;
+const title = 'Multi-Location AI SEO Consultant | Christopher Kelly';
+const description = 'AI SEO for multi-location and multi-brand businesses. Get every branch, store and site found, cited and recommended by ChatGPT and Google AI. Book a call.';
+const path = '/services/ai-seo-consultant-multi-location/';
+
+const shifts = [
+  { t: 'Customers ask AI for the nearest one.', p: '45% of US consumers now use ChatGPT and other AI tools for local recommendations, up from 6% a year earlier.' },
+  { t: "AI shortlists. It doesn't rank.", p: 'An answer names a handful of places, not a page of ten. A location is either on that shortlist or invisible.' },
+  { t: 'Your own data feeds the answer.', p: "Yext's study of 6.8 million AI citations found most come from sources brands control: their own websites and their listings." },
+  { t: 'Wrong details cost visits.', p: 'Non-Google AI assistants gave accurate business contact details only about 68% of the time. Every wrong phone number or address is a lost customer.' },
+];
+
+const stats = [
+  { n: '45%', c: 'of US consumers use AI for local recommendations', s: 'BrightLocal, 2026' },
+  { n: '68%', c: 'accuracy of non-Google AI on business contact details', s: 'SOCi, 2026' },
+  { n: '1bn+', c: 'monthly users of Google AI Mode', s: 'Google I/O, 2026' },
+  { n: '1.2bn', c: 'weekly ChatGPT users', s: 'OpenAI, Sept 2026' },
+];
+
+const ic = (d: string) => `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+const entities = [
+  { i: ic('<path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"></path><circle cx="7.5" cy="7.5" r="1.5"></circle>'), t: 'Brand and location identity', p: 'One naming convention, used the same way at every location.' },
+  { i: ic('<path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"></path><circle cx="12" cy="10" r="2.5"></circle>'), t: 'Location precision', p: 'Address, area served and nearby landmarks, disambiguated.' },
+  { i: ic('<rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M3 9h18M8 14h4"></path>'), t: 'Business profiles', p: "Every location's Google Business Profile: categories, hours and attributes." },
+  { i: ic('<path d="M8 6h13M8 12h13M8 18h13"></path><circle cx="4" cy="6" r="1"></circle><circle cx="4" cy="12" r="1"></circle><circle cx="4" cy="18" r="1"></circle>'), t: 'Listings and aggregators', p: 'Apple, Bing and the data aggregators telling the same story.' },
+  { i: ic('<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><path d="M14 3v6h6M8 13h8M8 17h5"></path>'), t: 'Location pages', p: 'One strong, unique page for every location.' },
+  { i: ic('<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"></path>'), t: 'Reviews', p: 'Volume, recency and responses, location by location.' },
+  { i: ic('<path d="M8 7l-5 5 5 5M16 7l5 5-5 5M13.5 5l-3 14"></path>'), t: 'Structured data', p: 'Organization to LocalBusiness markup for every location.' },
+  { i: ic('<path d="M3 9l1.5-5h15L21 9M3 9h18v11H3zM9 20v-6h6v6"></path>'), t: 'Services and stock', p: 'What each location actually offers, stated plainly.' },
+];
+
+const pageTypes = [
+  { t: 'Location pages', c: '[brand] near Leeds station', p: 'One page per location that AI can trust and quote.' },
+  { t: 'Service in area', c: 'emergency dentist open Sunday in Bristol', p: 'Matches the job and the place together.' },
+  { t: 'Locations directory', c: '[brand] locations in Scotland', p: 'Lets AI list every branch, not just the flagship.' },
+  { t: 'Best-of answers', c: 'best gym with a pool in Manchester', p: 'The facts AI needs to put you on the shortlist.' },
+  { t: 'Location FAQs', c: 'does [brand] Glasgow have parking', p: 'Concise answers AI can lift word for word.' },
+  { t: 'Openings and hours', c: '[brand] Christmas opening hours', p: 'Seasonal changes published before demand starts.' },
+];
+
+const governance = [
+  'Brand naming rules followed at every location',
+  'Central templates, local facts',
+  'Openings, closures, relocations and rebrands handled without losing visibility',
+  'Regional and franchise teams, one senior point of contact',
+  'Profile traffic separated from organic in your analytics',
+  'Nothing published without approval',
+  'Clients named only with permission',
+];
+
+const faqs = [
+  { q: 'What does an AI SEO consultant for multi-location brands do?',
+    a: 'An AI SEO consultant for multi-location brands makes sure ChatGPT, Google AI Mode and other answer engines know every location exists, describe it correctly and recommend it for the right local questions. The work covers business profiles, listings, location pages and structured data, then tracks which locations are mentioned, cited or missing, market by market.' },
+  { q: 'Why does AI recommend some of our locations and not others?',
+    a: `Because AI shortlists a handful of places instead of ranking a long list. Locations with complete profiles, consistent listings, a strong location page and recent reviews give the engine confident facts to repeat. Locations with gaps, duplicates or conflicting details get skipped, even when the brand is strong. Fixing that is mostly <a class="inl" href="${S}#entity-optimisation">entity and knowledge graph optimisation</a> at location level.` },
+  { q: 'We already use a listings platform. Is this different?',
+    a: "Yes. A listings platform keeps names, addresses and hours in sync, which matters. It doesn't decide what AI says about each location, which questions it answers, or whether your pages are the source it cites. I work alongside your existing platform, fix what it can't reach, and measure whether the data is turning into recommendations." },
+  { q: 'How do you measure AI visibility across hundreds of locations?',
+    a: `I track a fixed prompt set for each location type and market, such as "near me", "best in [town]" and service questions, and record whether each location is mentioned, cited with a link, or missing. That <a class="inl" href="${S}#ai-visibility-measurement">AI visibility measurement</a> rolls up to one portfolio view, so you can see which regions, brands and locations need work first.` },
+  { q: 'Can you work with franchisees and regional teams?',
+    a: `Yes. Shared templates, naming rules and approval steps keep every location on-brand, while local teams supply the facts only they know: services, parking, opening changes and local landmarks. You get one senior point of contact, and each region or franchisee gets clear, approved actions. It's how I've delivered <a class="inl" href="${S}#local-ai-seo">multi-location and local AI SEO</a> across a global hotel portfolio for years.` },
+];
+
+const cover = [
+  { e: '📍', t: 'How AI describes your locations', p: 'What ChatGPT and Google AI say about your branches today.' },
+  { e: '🔎', t: 'Which locations go missing', p: 'The local questions where a competitor gets named instead.' },
+  { e: '🗂️', t: 'Profiles and listings health', p: 'Names, hours and details across Google, Apple, Bing and aggregators.' },
+  { e: '📄', t: 'Location page gaps', p: 'Where AI has no official page to cite.' },
+  { e: '📊', t: 'What to measure', p: 'Mentions, citations and the visits behind them.' },
+  { e: '🗺️', t: "What I'd fix first", p: 'A short, prioritised list for your estate.' },
+];
+
+const check = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>';
+
+const schema = [
+  personSchema(),
+  businessSchema(),
+  serviceSchema({ name: 'AI SEO for multi-location brands', description, path, audience: 'Multi-location and multi-brand businesses' }),
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Services', path: '/services/' },
+    { name: 'Multi-Location Brands', path },
+  ]),
+  faqSchema(faqs),
+];
+---
+<Base title={title} description={description} active="services" schema={schema} hasBookSection>
+
+  <!-- BREADCRUMB + HERO -->
+  <section class="hero-band" data-hero>
+    <nav class="crumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li class="sep" aria-hidden="true">/</li>
+        <li><a href="/services/">Services</a></li>
+        <li class="sep" aria-hidden="true">/</li>
+        <li aria-current="page">Multi-Location Brands</li>
+      </ol>
+    </nav>
+    <div class="hero hero-tight">
+      <div>
+        <p class="eyebrow">Multi-Location Brands</p>
+        <h1 class="h1">AI SEO Consultant for Multi-Location Brands</h1>
+        <p class="hero-sub">Every location understood, cited and recommended where local customers now ask.</p>
+        <p class="hero-body">People ask ChatGPT and Google AI Mode for the nearest branch, the best store in town or who's open on Sunday. AI names a handful of places. I help multi-location and multi-brand businesses make sure their locations are the ones it names, with years of hands-on delivery across a global portfolio behind it.</p>
+        <div class="hero-btns">
+          <a class="btn" href="#book">👉 Book a call with Christopher</a>
+          <a class="btn btn-ghost" href="#playbook">See the playbook →</a>
+        </div>
+      </div>
+      <div class="hero-media">
+        <div class="photo photo-hero">
+          <span class="ph-label">[PLACEHOLDER]<br>Portrait of Christopher</span>
+        </div>
+        <div class="ai-card" role="img" aria-label="Illustration of an AI answer recommending one branch of a brand and citing its location page">
+          <span class="ai-head" aria-hidden="true"><span class="ai-dot"></span>AI answer</span>
+          <p class="ai-prompt" aria-hidden="true">Which [brand] near me is open late on Sunday?</p>
+          <p class="ai-ans" aria-hidden="true">The closest match is <strong>[Brand, Location]</strong>: open until 8pm on Sundays, with free parking and the full range in store.</p>
+          <span class="ai-tag" aria-hidden="true">Cited · location page</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Marquee label="Track record" slow items={[
+    '15+ properties in a global luxury portfolio',
+    'Multi-year enterprise delivery',
+    'Google Business Profiles at scale',
+    'Listings audit & write-back automation',
+    'AI visibility tracked per location',
+    'Monthly automated reporting',
+  ]} />
+
+  <!-- INTRO -->
+  <section class="sec bg-white" aria-label="Introduction">
+    <div class="wrap-760 intro">
+      <p class="lead">Local search used to be a ranking. In AI search it's a shortlist.</p>
+      <p class="body">Ask an AI assistant for the best option nearby and it names two or three places, often with a reason for each. Most locations of big brands never get named, and brand-level reports hide it, because the brand looks visible while individual branches are missing.</p>
+      <p class="body">Fixing that takes <a class="inl" href={`${S}#local-ai-seo`}>multi-location and local AI SEO</a> done location by location: accurate profiles and listings, strong location pages and a way to measure every branch, not just the flagship.</p>
+    </div>
+  </section>
+
+  <!-- THE SHIFT -->
+  <section class="sec bg-cream" id="shift" aria-labelledby="h-shift">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">The shift</p>
+        <h2 class="h2" id="h-shift">Why Multi-Location Brands Need An AI SEO Consultant.</h2>
+      </div>
+      <div class="shift-grid">
+        {shifts.map((s, i) => (
+          <div class="shift">
+            <span class="shift-n">{String(i + 1).padStart(2, '0')}</span>
+            <div><h3 class="shift-t">{s.t}</h3><p class="shift-p">{s.p}</p></div>
+          </div>
+        ))}
+      </div>
+      <div class="stat-row">
+        {stats.map((s) => (
+          <div class="stat"><span class="stat-n">{s.n}</span><span class="stat-c">{s.c}</span><span class="stat-s">{s.s}</span></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ENTITIES -->
+  <section class="sec bg-white" id="signals" aria-labelledby="h-ent">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">What AI checks</p>
+        <h2 class="h2" id="h-ent">The Signals That Decide<br>Which Location AI Recommends.</h2>
+      </div>
+      <div class="ent-grid">
+        {entities.map((e) => (
+          <div class="ent">
+            <span class="ent-ic" set:html={e.i} />
+            <h3 class="ent-t">{e.t}</h3>
+            <p class="ent-p">{e.p}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- MID CTA -->
+  <section class="mid" aria-label="Book a call">
+    <div class="mid-card">
+      <div class="mid-copy">
+        <h2 class="mid-h">Want to see which of your locations AI recommends?</h2>
+        <p class="mid-p">Book a call and I'll show you what ChatGPT and Google AI say about your locations today, which ones go missing, and what I'd fix first. Free, no hard sell.</p>
+      </div>
+      <a class="btn" href="#book">👉 Book a call with Christopher</a>
+    </div>
+  </section>
+
+  <!-- PLAYBOOK -->
+  <section class="sec bg-cream" id="playbook" aria-labelledby="h-play">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">The playbook</p>
+        <h2 class="h2" id="h-play">Every Location Understood.<br>Every Answer Earned.</h2>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num" aria-hidden="true">01</span>
+          <span class="step-emoji" aria-hidden="true">🔍</span>
+          <h3 class="step-t">Baseline every location</h3>
+          <p class="step-p">A fixed prompt set per location type and market, with each location marked mentioned, cited or missing. It starts with <a class="inl" href={`${S}#ai-visibility-audit`}>an AI visibility audit</a> across ChatGPT and Google AI.</p>
+          <span class="step-tag">Location-by-location baseline</span>
+          <span class="badge" aria-hidden="true">→</span>
+        </div>
+        <div class="step">
+          <span class="step-num" aria-hidden="true">02</span>
+          <span class="step-emoji" aria-hidden="true">🧱</span>
+          <h3 class="step-t">Fix the foundations once</h3>
+          <p class="step-p">Entity data, profiles, listings and location pages fixed at template level through <a class="inl" href={`${S}#entity-optimisation`}>entity and knowledge graph optimisation</a>, so one change reaches every location.</p>
+          <span class="step-tag">Template first</span>
+          <span class="badge" aria-hidden="true">→</span>
+        </div>
+        <div class="step">
+          <span class="step-num" aria-hidden="true">03</span>
+          <span class="step-emoji" aria-hidden="true">📈</span>
+          <h3 class="step-t">Scale and measure</h3>
+          <p class="step-p">Audit and write-back automation keeps data accurate as locations change, using <a class="inl" href={`${S}#ai-ops-automation`}>AI ops and automation</a>. Monthly reporting shows movement by region and brand.</p>
+          <span class="step-tag">Kept accurate, not fixed once</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAGE SYSTEMS -->
+  <section class="sec bg-white" id="pages" aria-labelledby="h-pages">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">Page systems</p>
+        <h2 class="h2" id="h-pages">The Pages Local Customers Actually Ask About.</h2>
+        <p class="sub">AI answers are built from specific pages, not homepages. These are the templates I build and optimise across every location.</p>
+      </div>
+      <div class="pt-grid">
+        {pageTypes.map((p) => (
+          <div class="pt"><h3 class="pt-t">{p.t}</h3><span class="chip">{p.c}</span><p class="pt-p">{p.p}</p></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- GOVERNANCE -->
+  <section class="sec bg-black" id="governance" aria-labelledby="h-gov">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">How I work</p>
+        <h2 class="h2 h2-w" id="h-gov">Hundreds Of Locations.<br>One Set Of Rules.</h2>
+      </div>
+      <ul class="gov-grid">
+        {governance.map((g) => (
+          <li class="gov"><span class="gov-ck" set:html={check} /><span class="gov-p">{g}</span></li>
+        ))}
+      </ul>
+      <div class="cta-row"><a class="btn" href="#book">👉 Talk to me about your locations</a></div>
+    </div>
+  </section>
+
+  <!-- PROOF -->
+  <section class="sec bg-cream" id="proof" aria-labelledby="h-proof">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">Proof</p>
+        <h2 class="h2" id="h-proof">Straight From The Answer Engine.</h2>
+      </div>
+      <figure class="shot shot-wide shot-on-light">
+        <div class="shot-img"><span class="ph-label">[PLACEHOLDER]<br>AI answer recommending one location and citing its page</span></div>
+        <figcaption class="shot-cap"><strong>"[Local query]"</strong> → [PLACEHOLDER: location named and cited]</figcaption>
+      </figure>
+      <div class="cases">
+        <article class="case">
+          <span class="label">Multi-location portfolio</span>
+          <h3 class="case-t">Global luxury hotel portfolio (named on request)</h3>
+          <p class="case-p">15+ properties, each with its own profiles, pages and prompt set. Multi-year delivery.</p>
+          <p class="case-m">[PLACEHOLDER: headline metric]</p>
+        </article>
+        <article class="case">
+          <span class="label">Location entity</span>
+          <h3 class="case-t">Destination entity re-anchored</h3>
+          <p class="case-p">Google's AI Overview now cites the property's destination page as the definition and getting-there source.</p>
+          <p class="case-m">[PLACEHOLDER: headline metric]</p>
+        </article>
+        <article class="case">
+          <span class="label">Local SEO &amp; AI ops</span>
+          <h3 class="case-t">Listings audit and write-back automation</h3>
+          <p class="case-p">Automated checks across every profile, with fixes written back and monthly reporting.</p>
+          <p class="case-m">[PLACEHOLDER: headline metric]</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQS -->
+  <section class="sec bg-white" id="faq" aria-labelledby="h-faq">
+    <div class="wrap-800">
+      <div class="shead">
+        <p class="eyebrow">FAQs</p>
+        <h2 class="h2" id="h-faq">Multi-Location AI SEO FAQs</h2>
+      </div>
+      <Faq items={faqs} />
+    </div>
+  </section>
+
+  <BookCall
+    heading="Start With A Call<br>About Your Locations."
+    sub="One call, direct with me, about your locations, your markets and the answers customers see today."
+    cover={cover}
+    threeCol
+  />
+
+  <!-- OTHER SECTORS -->
+  <section class="sec bg-white" aria-labelledby="h-sectors">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">Other sectors</p>
+        <h2 class="h2" id="h-sectors">The Same Playbook, Other Sectors.</h2>
+      </div>
+      <div class="tile-grid">
+        {sectors.filter((s) => s.href !== path).map((s) => (
+          <a class="tile" href={s.href || '/services/#sectors'}>{s.t}<span class="tile-arrow" aria-hidden="true">→</span></a>
+        ))}
+      </div>
+      <p class="all-line">See <a class="inl" href={S}>every enterprise AI SEO service I offer</a>.</p>
+    </div>
+  </section>
+
+</Base>
