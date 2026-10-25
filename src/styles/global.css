@@ -114,7 +114,7 @@ summary::-webkit-details-marker { display: none; }
 .mnav-close, .mnav[open] .mnav-open { display: none; }
 .mnav[open] .mnav-close { display: block; }
 /* Full-screen panel. .nav has a backdrop filter, so it is the containing block: top 100% sits under the bar. */
-.mnav-panel { position: fixed; top: 100%; left: 0; right: 0; height: calc(100dvh - 74px); overflow-y: auto; overscroll-behavior: contain; background: var(--base); border-top: 1px solid var(--hair); padding: 1.25rem 1.5rem 2rem; display: flex; flex-direction: column; }
+.mnav-panel { position: fixed; top: 100%; left: 0; right: 0; height: calc(100dvh - 73px); overflow-y: auto; overscroll-behavior: contain; background: var(--base); border-top: 1px solid var(--hair); padding: 1.25rem 1.5rem 2rem; display: flex; flex-direction: column; }
 .mnav-panel a.ml { display: flex; align-items: center; justify-content: space-between; color: var(--ink); text-decoration: none; font-family: var(--f-head); font-weight: 900; font-size: 1.75rem; letter-spacing: -.035em; padding: 1.1rem 0; border-bottom: 1px solid var(--hair); }
 .mnav-panel a.ml.active { color: var(--indigo); }
 .ml-arrow { color: var(--indigo); font-size: 1.2rem; font-weight: 700; }
