@@ -820,3 +820,12 @@ blockquote.t { margin: 0; }
   .au-scopes, .au-steps { grid-template-columns: 1fr; }
   .au-card li { flex-direction: column; align-items: flex-start; gap: .45rem; }
 }
+
+/* Proof block without its screenshot yet: copy runs full width. */
+.feat-solo { grid-template-columns: 1fr; max-width: 760px; }
+
+/* Footer without the Free tools column. */
+.foot-grid-3 { grid-template-columns: 1.6fr 1.6fr 1fr; }
+@media (max-width: 900px) {
+  .foot-grid-3 { grid-template-columns: 1fr 1fr; }
+}
