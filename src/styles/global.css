@@ -124,6 +124,24 @@ summary::-webkit-details-marker { display: none; }
 html:has(.mnav[open]) { overflow: hidden; }
 html:has(.mnav[open]) .sticky { visibility: hidden; }
 
+/* Services dropdown (desktop). Opens on hover for pointer devices, and on the chevron button for keyboard and touch. */
+.nav-dd { position: relative; display: flex; align-items: center; gap: .15rem; }
+.dd-btn { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; padding: 0; border: 0; border-radius: 6px; background: transparent; color: var(--body); cursor: pointer; transition: transform .15s ease, color .15s ease; }
+.dd-btn:hover, .nav-dd.is-open .dd-btn { color: var(--indigo); }
+.nav-dd.is-open .dd-btn { transform: rotate(180deg); }
+.dd-panel { display: none; position: absolute; top: calc(100% + 1.1rem); left: -1.25rem; width: 340px; background: #fff; border: 1px solid var(--hair); border-radius: 8px; box-shadow: 0 18px 40px rgba(11, 15, 26, .14); padding: .6rem; z-index: 55; }
+.dd-panel::before { content: ''; position: absolute; left: 0; right: 0; top: -1.2rem; height: 1.2rem; }
+.nav-dd.is-open .dd-panel { display: block; }
+@media (hover: hover) { .nav-dd:hover .dd-panel { display: block; } .nav-dd:hover .dd-btn { transform: rotate(180deg); color: var(--indigo); } }
+.nav-links .dd-panel a { display: flex; border-bottom: 0; padding: 0; font-weight: 400; }
+.nav-links .dd-panel a.dd-item { flex-direction: column; gap: .25rem; padding: .85rem .9rem; border-radius: 6px; }
+.nav-links .dd-panel a.dd-item:hover, .nav-links .dd-panel a.dd-item.is-here { background: var(--indigo-tint); }
+.dd-t { font-family: var(--f-head); font-weight: 800; font-size: .9rem; line-height: 1.3; color: var(--ink); }
+.dd-p { font-size: .8rem; line-height: 1.5; color: var(--grey-3); }
+.nav-links .dd-panel a.dd-all { justify-content: space-between; margin-top: .35rem; padding: .75rem .9rem .5rem; border-top: 1px solid var(--hair); font-size: .82rem; font-weight: 700; color: var(--indigo); }
+.mnav-panel a.ml-sub { display: flex; align-items: center; justify-content: space-between; gap: 1rem; color: var(--body); text-decoration: none; font-family: var(--f-head); font-weight: 800; font-size: 1.05rem; padding: .9rem 0 .9rem 1.25rem; border-bottom: 1px solid var(--hair); }
+.mnav-panel a.ml-sub.active { color: var(--indigo); }
+
 /* ---------- breadcrumb ---------- */
 .crumb { max-width: 1200px; margin: 0 auto; padding: 1.25rem 2.5rem 0; }
 .crumb ol { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: .5rem; font-size: .78rem; color: var(--label); }

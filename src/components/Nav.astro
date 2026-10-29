@@ -4,12 +4,28 @@ interface Props { active?: NavKey; bookHref?: string }
 const { active, bookHref = '#book' } = Astro.props;
 const bookAttrs = bookHref.startsWith('http') ? { target: '_blank', rel: 'noopener' } : {};
 const links = mainNav;
+const here = Astro.url.pathname;
+const chevron = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>';
 ---
 <header class="nav">
   <div class="nav-in">
     <a class="logo" href="/">Christopher Kelly</a>
     <nav class="nav-links" aria-label="Main">
-      {links.map((l) => (
+      {links.map((l) => l.children && l.children.length ? (
+        <div class="nav-dd" data-dd>
+          <a href={l.href} class={active === l.key ? 'active' : undefined} aria-current={here === l.href ? 'page' : undefined}>{l.label}</a>
+          <button type="button" class="dd-btn" aria-expanded="false" aria-controls={`dd-${l.key}`} aria-label={`${l.label} menu`} set:html={chevron} />
+          <div class="dd-panel" id={`dd-${l.key}`}>
+            {l.children.map((c) => (
+              <a class={`dd-item${here === c.href ? ' is-here' : ''}`} href={c.href} aria-current={here === c.href ? 'page' : undefined}>
+                <span class="dd-t">{c.label}</span>
+                <span class="dd-p">{c.desc}</span>
+              </a>
+            ))}
+            <a class="dd-all" href={l.href}>All services <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      ) : (
         <a href={l.href} class={active === l.key ? 'active' : undefined} aria-current={active === l.key ? 'page' : undefined}>{l.label}</a>
       ))}
     </nav>
@@ -22,7 +38,12 @@ const links = mainNav;
         </summary>
         <nav class="mnav-panel" aria-label="Mobile">
           {links.map((l) => (
-            <a class={`ml${active === l.key ? ' active' : ''}`} href={l.href} aria-current={active === l.key ? 'page' : undefined}>{l.label}<span class="ml-arrow" aria-hidden="true">→</span></a>
+            <>
+              <a class={`ml${active === l.key ? ' active' : ''}`} href={l.href} aria-current={here === l.href ? 'page' : undefined}>{l.label}<span class="ml-arrow" aria-hidden="true">→</span></a>
+              {l.children && l.children.map((c) => (
+                <a class={`ml-sub${here === c.href ? ' active' : ''}`} href={c.href} aria-current={here === c.href ? 'page' : undefined}>{c.label}<span class="ml-arrow" aria-hidden="true">→</span></a>
+              ))}
+            </>
           ))}
           <div class="mnav-foot">
             <a class="btn" href={bookHref} {...bookAttrs}>👉 Book a call with Christopher</a>
@@ -40,5 +61,16 @@ const links = mainNav;
     if (!m) return;
     m.querySelectorAll('.mnav-panel a').forEach(function (a) { a.addEventListener('click', function () { m.open = false; }); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && m.open) { m.open = false; m.querySelector('summary').focus(); } });
+  })();
+  // Desktop dropdowns: the chevron button toggles the panel for keyboard and touch; hover opens it on pointer devices.
+  (function () {
+    document.querySelectorAll('[data-dd]').forEach(function (dd) {
+      var btn = dd.querySelector('.dd-btn');
+      function set(open) { dd.classList.toggle('is-open', open); btn.setAttribute('aria-expanded', open ? 'true' : 'false'); }
+      btn.addEventListener('click', function () { set(!dd.classList.contains('is-open')); });
+      dd.addEventListener('focusout', function (e) { if (!dd.contains(e.relatedTarget)) set(false); });
+      dd.addEventListener('keydown', function (e) { if (e.key === 'Escape' && dd.classList.contains('is-open')) { set(false); btn.focus(); } });
+      document.addEventListener('click', function (e) { if (!dd.contains(e.target)) set(false); });
+    });
   })();
 </script>
