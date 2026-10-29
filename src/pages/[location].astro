@@ -1,0 +1,13 @@
+---
+// North East location pages at the site root, e.g. /ai-seo-consultant-newcastle/.
+// Built from src/data/locations.ts. Reached through the sitemap only; nothing on the site links here.
+import LocationPage from '../components/LocationPage.astro';
+import { locations, type LocationPage as Data } from '../data/locations';
+
+export function getStaticPaths() {
+  return locations.map((l) => ({ params: { location: l.slug }, props: l }));
+}
+
+const props = Astro.props as Data;
+---
+<LocationPage {...props} />

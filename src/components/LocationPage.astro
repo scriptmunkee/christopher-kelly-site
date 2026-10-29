@@ -1,0 +1,284 @@
+---
+// One template for every North East location page. Content lives in src/data/locations.ts.
+// These pages link out to the main site, but nothing links in: they are found through the sitemap.
+import Base from '../layouts/Base.astro';
+import Portrait from './Portrait.astro';
+import Faq from './Faq.astro';
+import BookCall from './BookCall.astro';
+import { site } from '../data/site';
+import { sectors } from '../data/services';
+import { breadcrumbSchema, faqSchema, serviceSchema, personSchema, businessSchema } from '../lib/schema';
+import type { LocationPage } from '../data/locations';
+
+type Props = LocationPage;
+const p = Astro.props;
+const U = site.url;
+const path = `/${p.slug}/`;
+const audit = `${U}/services/seo-ai-visibility-audit/`;
+const title = `${p.name} | Christopher Kelly`;
+const short = p.place.replace(/^the /, '');
+const relation3 = p.relation.replace(/^I'm/, 'He is').replace(/ for me$/, ' for him').replace(/ and work /, ' and works ');
+const sectorLinks = p.sectors
+  .map((s) => ({ ...s, page: sectors.find((x) => x.href === `/services/ai-seo-consultant-${s.slug}/`) }))
+  .filter((s) => s.page && s.page.href);
+
+const strip = [
+  { n: '5', l: 'AI engines tested for every question' },
+  { n: '15+', l: 'luxury hotel properties delivered' },
+  { n: '12', l: 'named clients across four sectors' },
+  { n: '0', l: 'juniors: you work with me directly' },
+];
+
+const help = [
+  { t: 'Find out what AI says about you', p: `I run the questions your ${p.place} customers ask through ChatGPT, Gemini, Perplexity, Copilot and Google AI Mode, and show you who gets named instead, and why.`, link: true },
+  { t: 'Make your business unambiguous', p: 'One clear, consistent set of facts across your website, Google Business Profile, listings and structured data, so AI can describe you with confidence.' },
+  { t: 'Give AI the best answer', p: `Pages that answer the questions ${p.place} customers actually ask, in the first sentence, so the engines quote you rather than a directory.` },
+  { t: 'Earn the mentions AI trusts', p: 'Reviews, local press and trusted sites that back up what you say about yourself. AI recommends businesses other people vouch for.' },
+];
+
+const ladder = [
+  { n: '0', t: 'Missing', p: 'Not named in the answer.', c: 'mis' },
+  { n: '1', t: 'Mentioned', p: 'Named, but no link to you.', c: 'men' },
+  { n: '2', t: 'Cited', p: 'Your page used as a source.', c: 'cit' },
+  { n: '3', t: 'Recommended', p: 'Named as the answer.', c: 'rec' },
+];
+const engines = ['ChatGPT', 'Gemini', 'Perplexity', 'Copilot', 'Google AI Mode'];
+const pattern = [['mis', 'men', 'mis', 'mis', 'men'], ['men', 'mis', 'cit', 'mis', 'mis'], ['cit', 'cit', 'men', 'mis', 'cit'], ['mis', 'mis', 'men', 'mis', 'mis']];
+const tagName: Record<string, string> = { mis: 'Missing', men: 'Mentioned', cit: 'Cited', rec: 'Recommended' };
+
+const compare = [
+  ['Who does the work', 'An account manager passes it to whoever is free', 'Me, from the first audit to the last fix'],
+  ['What gets measured', 'Rankings and traffic', 'Whether AI names, cites and recommends you, and who wins instead'],
+  ['What you get', 'A monthly report', 'Fixes that ship, ranked by what they are worth'],
+  ['How you start', 'A long contract', 'A 15 minute conversation'],
+];
+
+const named = ['Stowe Family Law', 'Simpson Millar', 'Fulham Road Dental', 'Direct Dental', 'Bankless', 'RedStone Finance', 'Bity', 'Mezo'];
+
+const steps = [
+  { t: 'A conversation', p: `15 minutes on what you sell in ${p.place}, who you compete with and what you want from AI search.` },
+  { t: 'A baseline', p: 'What AI says about you today, across the engines that matter, scored question by question.' },
+  { t: 'The fixes', p: 'A short, ranked list: what to change, why, and what it is worth to the business.' },
+  { t: 'Results you can see', p: 'The same questions re-run every month, so you can watch your business move up the answer.' },
+];
+
+const cover = [
+  { e: '🤖', t: 'What AI says about you', p: `How ChatGPT and Google AI describe your ${p.place} business today.` },
+  { e: '🔎', t: 'Who gets named instead', p: 'The questions where a competitor wins.' },
+  { e: '🧠', t: 'Entity gaps', p: 'Where the engines get confused about who you are.' },
+  { e: '📍', t: 'Location details', p: 'Drift across your site, profiles and listings.' },
+  { e: '⭐', t: 'Reviews and mentions', p: 'What other sites say, and whether AI trusts it.' },
+  { e: '🗺️', t: "What I'd fix first", p: 'A short, prioritised list.' },
+];
+
+const area = p.slug === 'ai-seo-consultant-north-east'
+  ? { '@type': 'AdministrativeArea', name: 'North East England' }
+  : { '@type': 'City', name: p.place };
+
+const schema = [
+  personSchema(),
+  businessSchema(),
+  serviceSchema({ name: p.name, description: p.description, path, serviceType: ['AI SEO consulting', 'AI visibility audit'], areaServed: [area] }),
+  breadcrumbSchema([{ name: 'Home', path: '/' }, { name: p.name, path }]),
+  faqSchema(p.faqs),
+];
+---
+<Base title={title} description={p.description} active="home" schema={schema} hasBookSection>
+
+  <section class="hero-band" data-hero>
+    <nav class="crumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li class="sep" aria-hidden="true">/</li>
+        <li aria-current="page">{p.name}</li>
+      </ol>
+    </nav>
+    <div class="hero hero-tight">
+      <div>
+        <p class="eyebrow">AI SEO consultant · {short}</p>
+        <h1 class="h1">{p.name}</h1>
+        <p class="hero-sub">{p.heroSub}</p>
+        <p class="hero-body">{p.heroBody}</p>
+        <div class="hero-btns">
+          <a class="btn" href="#book">👉 Book a 15 minute call</a>
+          <a class="btn btn-ghost" href={audit}>See the audit →</a>
+        </div>
+      </div>
+      <div class="hero-media">
+        <div class="photo photo-hero">
+          <Portrait variant="hero" eager />
+        </div>
+        <div class="ai-card" role="img" aria-label={`An AI answer recommending a ${p.place} business`}>
+          <span class="ai-head" aria-hidden="true"><span class="ai-dot"></span>AI answer</span>
+          <p class="ai-prompt" aria-hidden="true">{p.aiCard.prompt}</p>
+          <p class="ai-ans" aria-hidden="true" set:html={p.aiCard.answer} />
+          <span class="ai-tag" aria-hidden="true">The answer you want to be in</span>
+        </div>
+      </div>
+    </div>
+    <ul class="ab-strip" aria-label="At a glance">
+      {strip.map((s) => <li><span class="ab-strip-n">{s.n}</span><span class="ab-strip-l">{s.l}</span></li>)}
+    </ul>
+  </section>
+
+  <!-- SHORT ANSWER -->
+  <section class="sec bg-white" id="who" aria-labelledby="h-who">
+    <div class="wrap-800">
+      <div class="shead">
+        <p class="eyebrow">The short answer</p>
+        <h2 class="h2" id="h-who">Who Helps {short} Businesses Get Recommended by AI?</h2>
+      </div>
+      <p class="au-answer">Christopher Kelly is a senior, hands-on AI SEO consultant. {relation3}. He gets businesses named, cited and recommended by ChatGPT, Gemini, Perplexity, Copilot and Google AI Mode, using the same methods he uses for a global luxury hotel group across 15+ properties. You work with him directly, and every engagement starts with a 15 minute conversation.</p>
+    </div>
+  </section>
+
+  <!-- LOCAL -->
+  <section class="sec bg-cream" id="local" aria-labelledby="h-local">
+    <div class="wrap lp-local">
+      <div class="lp-local-c">
+        <p class="eyebrow">Why it matters here</p>
+        <h2 class="h2" id="h-local">{p.localH2}</h2>
+        {p.local.map((para) => <p>{para}</p>)}
+      </div>
+      <div class="lp-prompts">
+        <p class="cs-gk">Questions {short} customers ask AI</p>
+        <ul>{p.prompts.map((q) => <li class="au-q">{q}</li>)}</ul>
+        <p class="lp-prompts-foot">Is your business in the answer? <a class="inl" href="#book">Find out on a 15 minute call</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW I HELP -->
+  <section class="sec bg-white" id="how" aria-labelledby="h-how">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">What I do</p>
+        <h2 class="h2" id="h-how">How I Get {short} Businesses Named by AI</h2>
+      </div>
+      <div class="ab-principles">
+        {help.map((h, i) => (
+          <div class="svc lift">
+            <span class="svc-n">{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="svc-t">{h.t}</h3>
+            <p class="svc-d">{h.p}</p>
+            {h.link && <p class="svc-d">It starts with an <a class="inl" href={audit}>SEO and AI visibility audit</a>.</p>}
+          </div>
+        ))}
+      </div>
+      <div class="cta-row"><a class="btn" href="#book">👉 Find out what AI says about you</a></div>
+    </div>
+  </section>
+
+  <!-- SCORECARD -->
+  <section class="sec bg-cream" id="scorecard" aria-labelledby="h-score">
+    <div class="wrap-1100">
+      <div class="shead">
+        <p class="eyebrow">How it's measured</p>
+        <h2 class="h2" id="h-score">How Do You Know If AI Recommends You?</h2>
+        <p class="sub">Every answer is scored on the same four-step ladder, for every engine, every month.</p>
+      </div>
+      <ol class="au-ladder">
+        {ladder.map((l) => <li class={`au-rung au-rung-${l.c}`}><span class="au-rung-n">{l.n}</span><span class="au-rung-t">{l.t}</span><span class="au-rung-p">{l.p}</span></li>)}
+      </ol>
+      <div class="cs-table-wrap">
+        <table class="cs-table au-grid">
+          <caption>Example layout using typical {short} questions, not client data. This is what most businesses see before the work starts.</caption>
+          <thead><tr><th scope="col">Customer question</th>{engines.map((e) => <th scope="col">{e}</th>)}</tr></thead>
+          <tbody>
+            {p.prompts.slice(0, 4).map((q, i) => (
+              <tr><th scope="row"><span class="au-q">{q}</span></th>{pattern[i].map((c) => <td><span class={`au-t au-t-${c}`}>{tagName[c]}</span></td>)}</tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARE -->
+  <section class="sec bg-white" id="compare" aria-labelledby="h-compare">
+    <div class="wrap-1100">
+      <div class="shead">
+        <p class="eyebrow">Not another agency layer</p>
+        <h2 class="h2" id="h-compare">Agency Retainer or Senior Consultant?</h2>
+      </div>
+      <div class="cs-table-wrap">
+        <table class="cs-table lp-compare">
+          <caption class="sr-only">How working with Christopher compares with a typical agency retainer</caption>
+          <thead><tr><th scope="col"></th><th scope="col">Typical agency retainer</th><th scope="col">Working with me</th></tr></thead>
+          <tbody>{compare.map(([k, a, b]) => <tr><th scope="row">{k}</th><td>{a}</td><td><strong>{b}</strong></td></tr>)}</tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROOF -->
+  <section class="sec bg-black" id="proof" aria-labelledby="h-proof">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">Proof</p>
+        <h2 class="h2 h2-w" id="h-proof">The Work Behind the Promise</h2>
+      </div>
+      <div class="stat-grid">
+        <div class="stat-d"><span class="stat-n">15+</span><span class="stat-c">luxury hotel and resort properties, multi-year delivery</span><span class="stat-s">Global hotel group, named on request</span></div>
+        <div class="stat-d"><span class="stat-n">Cited</span><span class="stat-c">by Google's AI Overview as a resort's definition and getting-there source</span><span class="stat-s">Destination entity work</span></div>
+        <div class="stat-d"><span class="stat-n">~2 min</span><span class="stat-c">to generate a full local SEO audit, down from most of a day</span><span class="stat-s">Documented: automated workflow</span></div>
+        <div class="stat-d"><span class="stat-n">12</span><span class="stat-c">named clients across legal, dental and web3</span><span class="stat-s">Permission to name confirmed</span></div>
+      </div>
+      <p class="sub sub-w lp-proof-line">How the resort won that answer is in the <a class="inl ab-on-dark" href={`${U}/blog/resort-ai-overview-case-study/`}>destination AI Overview case study</a>, and the hours behind the automated audit are in the <a class="inl ab-on-dark" href={`${U}/case-studies/local-seo-automation-luxury-hotel-portfolio/`}>local SEO automation case study</a>.</p>
+      <ul class="lp-named" aria-label="Clients I've worked with">{named.map((n) => <li>{n}</li>)}</ul>
+    </div>
+  </section>
+
+  <!-- SECTORS -->
+  {sectorLinks.length > 0 && (
+    <section class="sec bg-cream" id="sectors" aria-labelledby="h-sectors">
+      <div class="wrap">
+        <div class="shead">
+          <p class="eyebrow">Your sector</p>
+          <h2 class="h2" id="h-sectors">AI SEO for {p.place}'s Key Sectors</h2>
+        </div>
+        <div class="lp-sectors">
+          {sectorLinks.map((s) => (
+            <a class="tile lp-sector" href={`${U}${s.page!.href}`}>
+              <span><span class="lp-sector-t">{s.page!.t}</span><span class="lp-sector-p">{s.why}</span></span>
+              <span class="tile-arrow" aria-hidden="true">→</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- PROCESS -->
+  <section class="sec bg-white" id="process" aria-labelledby="h-process">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">How we start</p>
+        <h2 class="h2" id="h-process">Every Engagement Starts With a Conversation</h2>
+      </div>
+      <ol class="au-steps lp-steps">
+        {steps.map((s, i) => <li class="au-step"><span class="au-step-n">{String(i + 1).padStart(2, '0')}</span><span class="au-step-t">{s.t}</span><span class="au-step-p">{s.p}</span></li>)}
+      </ol>
+      <div class="cta-row"><a class="btn" href="#book">👉 Start with a 15 minute call</a></div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="sec bg-cream" id="faq" aria-labelledby="h-faq">
+    <div class="wrap-800">
+      <div class="shead">
+        <p class="eyebrow">FAQ</p>
+        <h2 class="h2" id="h-faq">Questions From {short} Businesses</h2>
+      </div>
+      <Faq items={p.faqs} />
+    </div>
+  </section>
+
+  <BookCall
+    heading={`Find Out If AI Recommends<br>Your ${short} Business`}
+    sub="One call, direct with me. You leave knowing what AI says about you today and the three fixes I'd make first."
+    cover={cover}
+    threeCol
+  />
+
+</Base>

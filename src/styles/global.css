@@ -829,3 +829,30 @@ blockquote.t { margin: 0; }
 @media (max-width: 900px) {
   .foot-grid-3 { grid-template-columns: 1fr 1fr; }
 }
+
+/* =========================================================
+   North East location pages
+   ========================================================= */
+.lp-local { display: grid; grid-template-columns: 1.25fr 1fr; gap: 4rem; align-items: start; }
+.lp-local-c { display: flex; flex-direction: column; gap: 1.1rem; }
+.lp-local-c .eyebrow { margin-bottom: 0; }
+.lp-local-c .h2 { margin-bottom: .4rem; }
+.lp-local-c p:not(.eyebrow) { font-size: 1rem; line-height: 1.78; color: var(--body); }
+.lp-prompts { background: #fff; border: 1px solid var(--hair); box-shadow: 0 18px 40px rgba(11, 15, 26, .08); padding: 1.6rem 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
+.lp-prompts ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: .55rem; }
+.lp-prompts li { display: block; background: var(--chip); border: 1px solid var(--hair); padding: .7rem .85rem; font-size: .82rem; line-height: 1.45; }
+.lp-prompts-foot { font-size: .9rem; line-height: 1.6; color: var(--body); }
+.lp-compare td { white-space: normal; }
+.lp-compare thead th:last-child { color: var(--indigo); }
+.lp-proof-line { text-align: center; margin: 2rem auto 0; max-width: 760px; }
+.lp-named { list-style: none; margin: 2rem auto 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem 1.75rem; max-width: 900px; }
+.lp-named li { font-family: var(--f-head); font-weight: 800; font-size: .95rem; color: rgba(255, 255, 255, .78); }
+.lp-sectors { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.lp-sector { align-items: center; }
+.lp-sector > span:first-child { display: flex; flex-direction: column; gap: .3rem; }
+.lp-sector-t { font-family: var(--f-head); font-weight: 800; font-size: .98rem; color: var(--ink); }
+.lp-sector-p { font-family: var(--f-body); font-weight: 400; font-size: .84rem; line-height: 1.5; color: var(--grey-3); }
+.lp-steps { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 1000px) { .lp-steps { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 860px) { .lp-local, .lp-sectors { grid-template-columns: 1fr; gap: 2rem; } }
+@media (max-width: 560px) { .lp-steps { grid-template-columns: 1fr; } }
