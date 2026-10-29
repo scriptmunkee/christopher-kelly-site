@@ -1,0 +1,83 @@
+---
+// HTML sitemap, linked from the footer. Every page on the site except the North East
+// location pages, which stay orphaned on purpose (the XML sitemap is their only way in).
+import Base from '../layouts/Base.astro';
+import { services, sectors } from '../data/services';
+import { seoSectors } from '../data/seoSectors';
+import { mainNav } from '../lib/nav';
+import { getPosts } from '../lib/blog';
+import { getCaseStudies } from '../lib/caseStudies';
+import { collectionSchema, breadcrumbSchema, personSchema, businessSchema } from '../lib/schema';
+
+type L = { t: string; href: string };
+const posts = await getPosts();
+const studies = await getCaseStudies();
+
+const groups: { h: string; links: L[] }[] = [
+  {
+    h: 'Main Pages',
+    links: [
+      { t: 'Home', href: '/' },
+      ...mainNav.map((l) => ({ t: l.footLabel, href: l.href })),
+      { t: 'Privacy notice', href: '/privacy/' },
+    ],
+  },
+  { h: 'Services', links: services.filter((s) => s.href).map((s) => ({ t: s.t, href: s.href! })) },
+  { h: 'AI SEO Consultant Pages', links: sectors.filter((s) => s.href).map((s) => ({ t: s.t, href: s.href })) },
+  { h: 'SEO Consultant Pages', links: seoSectors.map((s) => ({ t: s.name, href: `/services/seo-consultant-${s.slug}/` })) },
+  { h: 'Case Studies', links: studies.map((c) => ({ t: c.data.title, href: `/case-studies/${c.id}/` })) },
+  { h: 'Blog Posts', links: posts.map((p) => ({ t: p.data.title, href: `/blog/${p.id}/` })) },
+  {
+    h: 'Feeds',
+    links: [
+      { t: 'Blog RSS feed', href: '/rss.xml' },
+      { t: 'XML sitemap', href: '/sitemap-index.xml' },
+    ],
+  },
+].filter((g) => g.links.length);
+
+const title = 'Sitemap | Christopher Kelly';
+const description = 'Every page on christopher-kelly.co.uk in one list: services, AI SEO and SEO consultant pages by sector, case studies and blog posts.';
+const schema = [
+  personSchema(),
+  businessSchema(),
+  collectionSchema({
+    path: '/sitemap/',
+    name: title,
+    items: groups.flatMap((g) => g.links).filter((l) => l.href.endsWith('/')).map((l) => ({ title: l.t, path: l.href })),
+  }),
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Sitemap', path: '/sitemap/' },
+  ]),
+];
+---
+<Base title={title} description={description} active="home" schema={schema}>
+  <section class="hero-band" data-hero>
+    <nav class="crumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li class="sep" aria-hidden="true">/</li>
+        <li aria-current="page">Sitemap</li>
+      </ol>
+    </nav>
+    <div class="wrap sm-head">
+      <p class="eyebrow">Sitemap</p>
+      <h1 class="h1">Sitemap</h1>
+      <p class="sub">Every page on the site, grouped by type.</p>
+    </div>
+  </section>
+
+  <section class="sec bg-cream" aria-label="All pages">
+    <div class="wrap sm-grid">
+      {groups.map((g, i) => (
+        <section class="sm-group" aria-labelledby={`sm-${i}`}>
+          <h2 class="sm-h" id={`sm-${i}`}>{g.h} <span class="sm-n">{g.links.length}</span></h2>
+          <ul class="sm-links">
+            {g.links.map((l) => <li><a href={l.href}>{l.t}</a></li>)}
+          </ul>
+        </section>
+      ))}
+    </div>
+  </section>
+</Base>

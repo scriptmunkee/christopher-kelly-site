@@ -416,7 +416,7 @@ blockquote.t { margin: 0; }
 
 /* ---------- footer ---------- */
 .foot { background: var(--stone); border-top: 1px solid var(--hair); padding: 4rem 2.5rem 6.5rem; }
-.foot-grid { display: grid; grid-template-columns: 1.6fr 1fr 1.6fr 1fr; gap: 2.5rem; }
+.foot-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 2.5rem; }
 .foot-brand { display: flex; flex-direction: column; gap: .9rem; max-width: 360px; }
 .foot-brand p { font-size: .85rem; line-height: 1.65; color: var(--grey-3); }
 .foot-brand .btn { align-self: flex-start; }
@@ -469,7 +469,6 @@ blockquote.t { margin: 0; }
   .photo-about { min-height: 320px; }
   .about-c { padding: 3rem 1.5rem; }
   .foot-grid { grid-template-columns: 1fr 1fr; }
-  .foot-svc { grid-column: 1 / -1; order: 3; }
   .foot-brand { grid-column: 1 / -1; }
 }
 @media (max-width: 860px) {
@@ -824,10 +823,10 @@ blockquote.t { margin: 0; }
 /* Proof block without its screenshot yet: copy runs full width. */
 .feat-solo { grid-template-columns: 1fr; max-width: 760px; }
 
-/* Footer without the Free tools column. */
-.foot-grid-3 { grid-template-columns: 1.6fr 1.6fr 1fr; }
+/* Footer without the Free tools column: brand and Explore. */
+.foot-grid-2 { grid-template-columns: 2fr 1fr; }
 @media (max-width: 900px) {
-  .foot-grid-3 { grid-template-columns: 1fr 1fr; }
+  .foot-grid-2 { grid-template-columns: 1fr; }
 }
 
 /* =========================================================
@@ -886,3 +885,14 @@ blockquote.t { margin: 0; }
 .sp-names li { border: 1px solid rgba(255, 255, 255, .16); color: #fff; padding: .65rem 1.05rem; font-family: var(--f-head); font-weight: 800; font-size: .92rem; letter-spacing: -.01em; }
 .sp-other { font-size: 1rem; line-height: 1.75; color: var(--body); text-align: center; }
 .sp-other + .sp-other { margin-top: 1rem; }
+
+/* HTML sitemap (/sitemap/) */
+.sm-head { padding-top: 2.5rem; padding-bottom: 3.5rem; display: flex; flex-direction: column; gap: .9rem; }
+.sm-head .sub { text-align: left; margin: 0; max-width: none; }
+.sm-grid { columns: 3 300px; column-gap: 1.25rem; }
+.sm-group { background: #fff; border: 1px solid var(--hair); padding: 1.6rem 1.6rem 1.75rem; break-inside: avoid; margin-bottom: 1.25rem; }
+.sm-h { font-family: var(--f-head); font-weight: 800; font-size: 1.05rem; letter-spacing: -.015em; color: var(--ink); display: flex; align-items: center; gap: .6rem; margin-bottom: 1rem; padding-bottom: .9rem; border-bottom: 1px solid var(--hair); }
+.sm-n { font-family: var(--f-body); font-size: .72rem; font-weight: 700; color: var(--indigo); background: var(--indigo-tint); padding: .15rem .5rem; }
+.sm-links { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: .6rem; }
+.sm-links a { font-size: .92rem; line-height: 1.45; color: var(--body); text-decoration: none; }
+.sm-links a:hover { color: var(--indigo); text-decoration: underline; }
