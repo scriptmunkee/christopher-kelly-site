@@ -26,6 +26,7 @@ Full infrastructure map, recipes and open items live in the `christopher-kelly-s
 - `src/lib/ph.ts`: placeholder guard. Copy marked [PLACEHOLDER] or [CONFIRM] is never shown to visitors; templates skip it until real text replaces the marker.
 - `astro.config.mjs` writes `dist/_redirects` on every build: `/sitemap.xml` and every page without its trailing slash get a 301.
 - `src/components/SectorPage.astro` + `src/lib/sector.ts`: the shared sector page template and its content type (with the entity icon set). Content lives in `src/data/sectors/<slug>.ts`, registered in `src/data/sectors/index.ts`.
+- `src/data/seoSectors.ts` + `src/components/SeoSectorPage.astro` + `src/pages/services/seo-consultant-[sector].astro`: the 14 classic "SEO Consultant for <Sector>" pages (rankings, traffic, enquiries; AI as a bonus). Same slugs as the AI set. Each links in-sentence to 3 siblings and its AI counterpart; every AI sector page links back. Linked from the /services/ hub tiles, `llms.txt` and the sitemap, not the footer.
 - `src/content/blog/*.md` + `src/content.config.ts`: blog posts (the filename is the URL slug) and their frontmatter rules. `src/lib/blog.ts` sorts posts and works out read time; `src/pages/blog/` holds the hub and the post template; `src/pages/rss.xml.js` the feed.
 - `src/content/case-studies/*.md` + `src/lib/caseStudies.ts`: case studies (filename is the slug). `src/pages/case-studies/` holds the hub and the template. The nav "Work" link and footer "Case studies" point to the hub.
 - `public/og.png`: the 1200×630 share image used by every page.
