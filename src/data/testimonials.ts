@@ -51,7 +51,7 @@ export const testimonials: Testimonial[] = [
     quote: 'His understanding of SEO tools, analytics, and algorithms is unparalleled, and he stays ahead of industry trends, always ensuring that our strategies are cutting-edge. As part of this, he takes on a proactive approach to streamlining effectiveness through building custom scripts for processes. Beyond their technical skills, Chris is a natural leader who fosters a collaborative environment.',
     name: 'Evi Dunphy',
     role: 'SEO Manager',
-    relation: 'Managed Christopher directly',
+    relation: 'Worked alongside Christopher',
     initials: 'ED',
   },
   {
