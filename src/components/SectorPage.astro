@@ -8,6 +8,7 @@ import Faq from './Faq.astro';
 import BookCall from './BookCall.astro';
 import { site } from '../data/site';
 import { sectors } from '../data/services';
+import { seoSectors } from '../data/seoSectors';
 import { icons, S, type SectorPageData } from '../lib/sector';
 import { isPh } from '../lib/ph';
 import { breadcrumbSchema, faqSchema, serviceSchema, personSchema, businessSchema } from '../lib/schema';
@@ -16,6 +17,7 @@ type Props = SectorPageData;
 const p = Astro.props;
 const path = `/services/${p.slug}/`;
 const title = `${p.name} | Christopher Kelly`;
+const seo = seoSectors.find((s) => `ai-seo-consultant-${s.slug}` === p.slug);
 const check = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>';
 
 const schema = [
@@ -261,6 +263,7 @@ const schema = [
           <a class="tile" href={s.href}>{s.t}<span class="tile-arrow" aria-hidden="true">→</span></a>
         ))}
       </div>
+      {seo && <p class="all-line">And if classic Google rankings are the bigger prize for you, there is a dedicated page for the <a class="inl" href={`/services/seo-consultant-${seo.slug}/`}>{seo.name}</a> side of the same market.</p>}
       <p class="all-line">See <a class="inl" href={S}>every enterprise AI SEO service I offer</a>.</p>
     </div>
   </section>

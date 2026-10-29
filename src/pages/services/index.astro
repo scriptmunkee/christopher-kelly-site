@@ -3,6 +3,7 @@
 import Base from '../../layouts/Base.astro';
 import BookCall from '../../components/BookCall.astro';
 import { services, sectors } from '../../data/services';
+import { seoSectors } from '../../data/seoSectors';
 import { breadcrumbSchema, personSchema, businessSchema, serviceSchema } from '../../lib/schema';
 
 const title = 'Enterprise SEO & AI Search Services | Christopher Kelly';
@@ -71,6 +72,21 @@ const schema = [
           ? <a class="tile" href={s.href}>{s.t}<span class="tile-arrow" aria-hidden="true">→</span></a>
           : <div class="tile" style="cursor:default">{s.t}<span class="tile-add">Page coming soon</span></div>
         )}
+      </div>
+    </div>
+  </section>
+
+  <section class="sec bg-white" id="seo-sectors" aria-labelledby="h-seo-sectors">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">Classic SEO</p>
+        <h2 class="h2" id="h-seo-sectors">SEO Consultant for Rankings, Traffic and Enquiries</h2>
+        <p class="sub">When Google rankings are the bigger prize, the same senior, hands-on approach applies to the classic side of search.</p>
+      </div>
+      <div class="tile-grid">
+        {seoSectors.map((s) => (
+          <a class="tile" href={`/services/seo-consultant-${s.slug}/`}>{s.name}<span class="tile-arrow" aria-hidden="true">→</span></a>
+        ))}
       </div>
     </div>
   </section>
