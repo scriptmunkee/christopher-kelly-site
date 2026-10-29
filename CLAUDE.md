@@ -17,7 +17,7 @@ Full infrastructure map, recipes and open items live in the `christopher-kelly-s
 - `src/data/services.ts`: the six services (ids are `/services/#anchors`, keep them stable) and sector pages.
 - `src/layouts/Base.astro`: head, SEO meta, JSON-LD, nav, footer, sticky CTA. Pass `hasBookSection` on any page that renders `BookCall` (`#book`); without it the nav, sticky bar and footer "Book a call" buttons link to TidyCal instead.
 - `wrangler.jsonc`: Worker config read by Workers Builds. Serves `404.html` for missing URLs and declares both custom domains; keep the domains listed here or a deploy could drop them.
-- `src/lib/nav.ts`: the main nav and footer "Explore" links. Real pages only, never jump links; an item shows only once its page file exists (About appears when `src/pages/about/index.astro` is added).
+- `src/lib/nav.ts`: the main nav and footer "Explore" links. Real pages only, never jump links; an item shows only once its page file exists (About appears when `src/pages/about/index.astro` is added). Services has a dropdown of the service pages that exist (any `services.ts` entry with an `href`), plus "All services"; add a one-line blurb for each in `serviceBlurbs`. On mobile they show indented under Services.
 - `src/lib/schema.ts`: JSON-LD helpers (Person, ProfessionalService, Service, FAQPage, BreadcrumbList).
 - `src/components/`: Nav, Footer, StickyCta, Marquee, Faq, BookCall, Consent (cookie banner and PostHog loader).
 - `src/pages/`: `/`, `/services/`, `/about/` (ProfilePage; its facts tables must match the Person schema), `/privacy/`, 404, the hand-built sector pages `/services/ai-seo-consultant-hospitality/` and `-multi-location/`, and `services/[slug].astro`, which builds every other sector page.
