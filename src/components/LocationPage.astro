@@ -5,6 +5,7 @@ import Base from '../layouts/Base.astro';
 import Portrait from './Portrait.astro';
 import Faq from './Faq.astro';
 import BookCall from './BookCall.astro';
+import NeMap from './NeMap.astro';
 import { site } from '../data/site';
 import { sectors } from '../data/services';
 import { breadcrumbSchema, faqSchema, serviceSchema, personSchema, businessSchema } from '../lib/schema';
@@ -17,6 +18,10 @@ const path = `/${p.slug}/`;
 const audit = `${U}/services/seo-ai-visibility-audit/`;
 const title = `${p.name} | Christopher Kelly`;
 const short = p.place.replace(/^the /, '');
+const mapKey = p.slug.replace('ai-seo-consultant-', '');
+const focus = mapKey === 'north-east' ? undefined : mapKey;
+const mapH2 = mapKey === 'newcastle' ? 'Based Here in Newcastle' : mapKey === 'north-east' ? 'Working Across the North East' : `From Newcastle to ${p.place}`;
+const mapQuery = mapKey === 'north-east' ? 'North East England' : `${mapKey === 'newcastle' ? 'Newcastle upon Tyne' : p.place}, UK`;
 const relation3 = p.relation.replace(/^I'm/, 'He is').replace(/ for me$/, ' for him').replace(/ and work /, ' and works ');
 const sectorLinks = p.sectors
   .map((s) => ({ ...s, page: sectors.find((x) => x.href === `/services/ai-seo-consultant-${s.slug}/`) }))
@@ -148,8 +153,22 @@ const schema = [
     </div>
   </section>
 
+  <!-- MAP -->
+  <section class="sec bg-white" id="where" aria-labelledby="h-where">
+    <div class="wrap lp-map">
+      <NeMap focus={focus} query={mapQuery} label={`Map of North East England showing ${focus ? p.place + ' and ' : ''}Newcastle upon Tyne, where Christopher Kelly is based`} />
+      <div class="lp-map-c">
+        <p class="eyebrow">Where I work</p>
+        <h2 class="h2" id="h-where">{mapH2}</h2>
+        <p>{p.relation}. Most of the work happens inside your website, Google Business Profile and analytics, so it runs just as well whether you're down the road or across the region.</p>
+        <p>I work with businesses across Newcastle, Gateshead, Sunderland, Durham, Teesside and Darlington, and with enterprise brands worldwide. Wherever you are, you deal with me directly.</p>
+        <div class="hero-btns"><a class="btn" href="#book">👉 Book a 15 minute call</a></div>
+      </div>
+    </div>
+  </section>
+
   <!-- HOW I HELP -->
-  <section class="sec bg-white" id="how" aria-labelledby="h-how">
+  <section class="sec bg-cream" id="how" aria-labelledby="h-how">
     <div class="wrap">
       <div class="shead">
         <p class="eyebrow">What I do</p>
@@ -170,7 +189,7 @@ const schema = [
   </section>
 
   <!-- SCORECARD -->
-  <section class="sec bg-cream" id="scorecard" aria-labelledby="h-score">
+  <section class="sec bg-white" id="scorecard" aria-labelledby="h-score">
     <div class="wrap-1100">
       <div class="shead">
         <p class="eyebrow">How it's measured</p>
@@ -195,7 +214,7 @@ const schema = [
   </section>
 
   <!-- COMPARE -->
-  <section class="sec bg-white" id="compare" aria-labelledby="h-compare">
+  <section class="sec bg-cream" id="compare" aria-labelledby="h-compare">
     <div class="wrap-1100">
       <div class="shead">
         <p class="eyebrow">Not another agency layer</p>

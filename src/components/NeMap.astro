@@ -1,0 +1,71 @@
+---
+// Branded North East map (static SVG, drawn at build) with an optional Google Map that only
+// loads when the visitor clicks. Nothing is fetched from Google until then.
+import { W, H, landPath, places, xy } from '../lib/neMap';
+
+interface Props {
+  focus?: string;      // key in `places`, or undefined for the whole region
+  query: string;       // Google Maps search, e.g. "Sunderland, UK"
+  label: string;       // accessible description of the map
+}
+const { focus, query, label } = Astro.props;
+const base = xy(places.newcastle.lon, places.newcastle.lat);
+const f = focus ? xy(places[focus].lon, places[focus].lat) : undefined;
+const showLine = focus && focus !== 'newcastle' && focus !== 'gateshead';
+const all = Object.entries(places).map(([k, p]) => ({ k, ...p, ...xy(p.lon, p.lat) }));
+const gmap = `https://www.google.com/maps?q=${encodeURIComponent(query)}&z=11&output=embed`;
+---
+<figure class="nem" data-nem>
+  <div class="nem-frame">
+    <svg class="nem-svg" viewBox={`0 0 ${W} ${H}`} role="img" aria-label={label} preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <pattern id="nem-grid" width="44" height="44" patternUnits="userSpaceOnUse">
+          <path d="M44 0H0V44" fill="none" stroke="rgba(255,255,255,.045)" stroke-width="1" />
+        </pattern>
+      </defs>
+      <rect width={W} height={H} fill="#0B0F1A" />
+      <rect width={W} height={H} fill="url(#nem-grid)" />
+      <path d={landPath} fill="#1E2639" stroke="rgba(198,244,50,.35)" stroke-width="1.2" stroke-linejoin="round" />
+      <text x={W - 40} y={150} class="nem-sea" text-anchor="end">North Sea</text>
+      {showLine && f && (
+        <line x1={base.x} y1={base.y} x2={f.x} y2={f.y} stroke="#C6F432" stroke-width="2" stroke-dasharray="5 6" stroke-linecap="round" />
+      )}
+      {all.map((p) => {
+        const isFocus = !focus || p.k === focus;
+        const isBase = p.k === 'newcastle';
+        return (
+          <g>
+            {isFocus && <circle cx={p.x} cy={p.y} r="16" fill="rgba(198,244,50,.18)" />}
+            <circle cx={p.x} cy={p.y} r={isFocus ? 7 : isBase ? 6 : 4} fill={isFocus ? '#C6F432' : isBase ? '#3D3BFF' : 'rgba(255,255,255,.7)'} stroke={isBase && !isFocus ? '#fff' : 'none'} stroke-width="2" />
+            <text x={p.x + (p.dx ?? 12)} y={p.y + (p.dy ?? 5)} text-anchor={p.anchor ?? 'start'} class={isFocus ? 'nem-l nem-l-on' : 'nem-l'}>{p.label}</text>
+          </g>
+        );
+      })}
+      {focus !== 'newcastle' && (
+        <text x={base.x - 10} y={base.y - 28} text-anchor="end" class="nem-base">Based here</text>
+      )}
+    </svg>
+    <div class="nem-live" hidden></div>
+  </div>
+  <figcaption class="nem-cap">
+    <button type="button" class="btn btn-ghost btn-sm nem-btn" data-gmap={gmap} data-title={`Google Map of ${query}`}>View on Google Maps</button>
+    <span class="note">Loads an interactive map from Google, which may set its own cookies.</span>
+  </figcaption>
+</figure>
+<script is:inline>
+  // Swap the branded map for Google Maps only when the visitor asks for it.
+  document.querySelectorAll('[data-nem]').forEach(function (fig) {
+    var btn = fig.querySelector('.nem-btn');
+    if (!btn || btn.dataset.bound) return;
+    btn.dataset.bound = '1';
+    btn.addEventListener('click', function () {
+      var live = fig.querySelector('.nem-live');
+      var f = document.createElement('iframe');
+      f.src = btn.dataset.gmap; f.title = btn.dataset.title; f.loading = 'lazy';
+      f.referrerPolicy = 'no-referrer-when-downgrade'; f.allowFullscreen = true;
+      live.appendChild(f); live.hidden = false;
+      fig.querySelector('.nem-svg').style.visibility = 'hidden';
+      btn.remove();
+    });
+  });
+</script>

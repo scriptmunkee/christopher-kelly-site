@@ -856,3 +856,23 @@ blockquote.t { margin: 0; }
 @media (max-width: 1000px) { .lp-steps { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 860px) { .lp-local, .lp-sectors { grid-template-columns: 1fr; gap: 2rem; } }
 @media (max-width: 560px) { .lp-steps { grid-template-columns: 1fr; } }
+
+/* North East map on location pages */
+.lp-map { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+.lp-map-c { display: flex; flex-direction: column; gap: 1.1rem; }
+.lp-map-c .eyebrow { margin-bottom: 0; }
+.lp-map-c p:not(.eyebrow) { font-size: 1rem; line-height: 1.78; color: var(--body); }
+.lp-map-c .hero-btns { margin-top: .5rem; }
+.nem { margin: 0; display: flex; flex-direction: column; gap: .9rem; }
+.nem-frame { position: relative; aspect-ratio: 560 / 520; border: 1px solid var(--hair); box-shadow: 0 18px 40px rgba(11, 15, 26, .14); overflow: hidden; background: #0B0F1A; }
+.nem-svg { display: block; width: 100%; height: 100%; }
+.nem-live { position: absolute; inset: 0; }
+.nem-live iframe { width: 100%; height: 100%; border: 0; display: block; }
+.nem-l { font-family: var(--f-body); font-size: 13px; font-weight: 600; fill: rgba(255, 255, 255, .72); }
+.nem-l-on { font-family: var(--f-head); font-size: 16px; font-weight: 800; fill: #C6F432; }
+.nem-base { font-family: var(--f-body); font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; fill: #9C9BFF; }
+.nem-sea { font-family: var(--f-body); font-size: 13px; font-style: italic; letter-spacing: .2em; text-transform: uppercase; fill: rgba(255, 255, 255, .28); }
+.nem-cap { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1rem; }
+@media (max-width: 860px) {
+  .lp-map { grid-template-columns: 1fr; gap: 2.5rem; }
+}
