@@ -1,0 +1,390 @@
+---
+import Base from '../../layouts/Base.astro';
+import Faq from '../../components/Faq.astro';
+import BookCall from '../../components/BookCall.astro';
+import { site } from '../../data/site';
+import { sectors } from '../../data/services';
+import { personSchema, businessSchema, serviceSchema, breadcrumbSchema, faqSchema } from '../../lib/schema';
+
+const U = site.url;
+const path = '/services/seo-ai-visibility-audit/';
+const name = 'Enterprise SEO and AI Visibility Audit';
+const title = `${name} | Christopher Kelly`;
+const description = 'Christopher Kelly runs SEO and AI visibility audits for enterprise and multi-location brands: what AI says about you, why, and what to fix first. Book a call.';
+
+const heroCard = [
+  { q: 'best [service] in [city]', r: 'Recommended', c: 'rec' },
+  { q: 'is [Brand] good for [use]?', r: 'Cited', c: 'cit' },
+  { q: '[Brand] vs [Competitor]', r: 'Missing', c: 'mis' },
+];
+
+const strip = [
+  { n: '5', l: 'AI engines tested, plus Google' },
+  { n: '4', l: 'audit scopes to choose from' },
+  { n: '1', l: 'prioritised roadmap with owners' },
+  { n: '0', l: 'juniors: I do every audit myself' },
+];
+
+const reasons = [
+  { t: "Crawlers can't read you", p: 'AI bots blocked in robots.txt or at the CDN, pages that only render with JavaScript, or key pages left out of the index.' },
+  { t: "The engines can't resolve who you are", p: 'Names, addresses and facts that disagree across your site, Google Business Profiles, listings and Wikidata, so AI hedges or picks someone else.' },
+  { t: 'A better source answers the question', p: 'A competitor page, a directory, a review site or a press article answers more clearly than you do, so it gets cited instead.' },
+  { t: 'Your data drifts by location', p: 'Branches with thin pages, old reviews or the wrong hours. The flagship gets named; the rest disappear.' },
+];
+
+const scopes = [
+  { tag: 'AI visibility', t: 'AI Visibility Audit', when: 'Choose this when the question is how AI describes you.',
+    items: ['Buyer questions by engine and market', 'The missing, mentioned, cited, recommended scorecard', 'Who is named instead, and why', 'The sources each engine relies on', 'Whether the facts AI repeats are right'] },
+  { tag: 'Technical and entity', t: 'Technical and Entity SEO Audit', when: "Choose this when Google performance has dropped, or you can't say why.",
+    items: ['Crawl, indexation and canonicals', 'AI crawler access and rendering', 'Structured data and entity consistency', 'Page roles, overlaps and internal links', 'Findings checked by hand, not just by a tool'] },
+  { tag: 'Multi-location', t: 'Multi-Location Audit', when: `Choose this when you run many branches, hotels or sites, the work I do as an <a class="inl" href="${U}/services/ai-seo-consultant-multi-location/">AI SEO Consultant for Multi-Location Brands</a>.`,
+    items: ['A scorecard for every location', 'Location pages, branch by branch', 'Google Business Profile and listings data', 'Reviews and local mentions', 'Where drift starts, and how to stop it'] },
+  { tag: 'Full audit', t: 'Full SEO and AI Visibility Audit', when: "Choose this when the problem crosses all three, or you don't know where it sits yet.", best: true,
+    items: ['Everything in the three audits above', 'One plan, so fixes don\'t compete for budget', 'One priority list for developers and content', 'One walkthrough for every team involved'] },
+];
+
+const deliverables = [
+  'An executive summary written for leadership',
+  'The AI answer scorecard, by engine and market',
+  'Competitor share of answer',
+  'A source map of the pages and sites AI relies on',
+  'Entity and location data findings',
+  'Technical findings checked by hand',
+  'A priority matrix by value, effort and dependency',
+  'A prioritised roadmap with owners',
+  'Tickets ready for Jira or your CMS',
+  'A walkthrough session with your team',
+];
+
+const ladder = [
+  { n: '0', t: 'Missing', p: 'Not named in the answer at all.', c: 'mis' },
+  { n: '1', t: 'Mentioned', p: 'Named, but with no link to you.', c: 'men' },
+  { n: '2', t: 'Cited', p: 'Your own page is used as a source.', c: 'cit' },
+  { n: '3', t: 'Recommended', p: 'Named as the answer to the question.', c: 'rec' },
+];
+const engines = ['ChatGPT', 'Gemini', 'Perplexity', 'Copilot', 'Google AI Mode'];
+const sampleRows = [
+  { q: 'best [service] in [city]', r: ['rec', 'cit', 'rec', 'men', 'cit'] },
+  { q: '[Brand] opening hours [city]', r: ['cit', 'cit', 'men', 'mis', 'cit'] },
+  { q: 'which [category] should I choose for [need]?', r: ['mis', 'men', 'mis', 'mis', 'men'] },
+  { q: '[Brand] vs [Competitor]', r: ['men', 'mis', 'cit', 'mis', 'mis'] },
+];
+const tagName: Record<string, string> = { mis: 'Missing', men: 'Mentioned', cit: 'Cited', rec: 'Recommended' };
+
+const evidence = ['Google Search Console', 'GA4 or Adobe Analytics', 'Site crawl and direct HTML checks', 'AI crawler access tests', 'DataForSEO: demand, rankings, competitors, backlinks', 'Your listings platform', 'Google Business Profiles', 'Direct tests in five AI engines', 'Reviews, press and directories'];
+
+const questions = [
+  'Does it cost customers in a market or location that matters?',
+  "Is there evidence it's happening now?",
+  'What has to be fixed first for anything else to work?',
+  'Who can ship it, and through which approval chain?',
+  'How will we know it worked?',
+];
+
+const steps = [
+  { t: 'Scope', p: 'We agree the decisions the audit has to support: markets, brands, locations and the questions buyers ask.' },
+  { t: 'Access and baseline', p: 'I confirm the data available, set the measurement period and note any gaps before drawing conclusions.' },
+  { t: 'Run the questions', p: 'The fixed question set runs across the engines and markets, recorded with date, engine, model and location.' },
+  { t: 'Analyse and verify', p: 'Technical, entity, content and source findings, each checked against direct evidence, not just a tool warning.' },
+  { t: 'Prioritise', p: 'Findings ranked by commercial value, effort and dependency, with an owner for each one.' },
+  { t: 'Walkthrough and handover', p: 'A working session with your team, and tickets ready to drop into Jira or your CMS.' },
+];
+
+const faqs = [
+  { q: 'How much does an SEO and AI visibility audit cost?',
+    a: 'Every audit is scoped and priced before it starts. The fee depends on the number of markets, locations and brands, the size of the site and whether you want the AI audit, the SEO audit, the multi-location audit or all three. You get a fixed quote in writing after a 15 minute call, with no retainer attached.' },
+  { q: 'How long does an audit take?',
+    a: 'It depends on the scope and how quickly access arrives. A single brand in one market is quicker than a portfolio across several countries. I agree the delivery date in writing before starting, and the AI questions run over a set period, so one odd day of answers never skews the results.' },
+  { q: 'What access do you need?',
+    a: 'Google Search Console and analytics, either GA4 or Adobe, at minimum. For a multi-location audit, read access to your listings platform or Google Business Profiles helps. I ask only for the access the agreed scope needs, and the written scope lists every account and permission before anything is shared.' },
+  { q: 'Can you fix what the audit finds?',
+    a: 'Yes. I can deliver the fixes myself, brief your developers and content team, or oversee an agency. Findings arrive as tickets ready for Jira or your CMS, so nothing sits in a PDF. Implementation is quoted separately, so the audit stays an honest diagnosis rather than a sales document for more work.' },
+  { q: "What's the difference between an SEO audit, a GEO audit and an AI visibility audit?",
+    a: 'An SEO audit checks how well Google can crawl, understand and rank your pages. A GEO audit checks whether generative engines use your content in their answers. An AI visibility audit measures the result: whether ChatGPT, Gemini, Perplexity, Copilot and Google AI name, cite or recommend you. They overlap, so the full audit covers all three in one plan.' },
+  { q: "Can you guarantee we'll appear in AI answers?",
+    a: "No, and be wary of anyone who does. AI answers change by engine, model, location, account and day. What I can do is fix the entities, content and sources the engines rely on, then measure the same questions every month so you can see the trend. The audit gives you that starting baseline." },
+  { q: 'Why not just buy an AI visibility tracking tool?',
+    a: "Tools give you a score. They don't tell you why you're missing, which fix matters most or how to get it through your approval chain. I use tracking data as one input, then check it by hand, trace the sources behind each answer and turn it into a ranked plan with owners." },
+];
+
+const cover = [
+  { e: '🤖', t: 'How AI describes you today', p: 'What ChatGPT, Gemini and Google AI say about your brand.' },
+  { e: '🔎', t: 'Who gets named instead', p: 'The questions where a competitor wins.' },
+  { e: '🧠', t: 'Entity gaps', p: 'Where machines get confused about who you are.' },
+  { e: '📍', t: 'Location data health', p: 'Drift across your site, profiles and listings.' },
+  { e: '🕷️', t: 'AI crawler access', p: 'Whether AI bots can fetch and read your pages.' },
+  { e: '🗺️', t: "What I'd fix first", p: 'A short, prioritised list.' },
+];
+
+const schema = [
+  personSchema(),
+  businessSchema(),
+  serviceSchema({
+    name,
+    description,
+    path,
+    serviceType: ['SEO audit', 'AI visibility audit'],
+    audience: 'Marketing and digital leaders at enterprise and multi-location brands',
+    areaServed: [{ '@type': 'City', name: 'Newcastle upon Tyne' }, { '@type': 'Country', name: 'United Kingdom' }, 'Worldwide'],
+  }),
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Services', path: '/services/' },
+    { name: 'SEO and AI Visibility Audit', path },
+  ]),
+  faqSchema(faqs),
+];
+---
+<Base title={title} description={description} active="services" schema={schema} hasBookSection>
+
+  <section class="hero-band" data-hero>
+    <nav class="crumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li class="sep" aria-hidden="true">/</li>
+        <li><a href="/services/">Services</a></li>
+        <li class="sep" aria-hidden="true">/</li>
+        <li aria-current="page">SEO and AI Visibility Audit</li>
+      </ol>
+    </nav>
+    <div class="hero hero-tight">
+      <div>
+        <p class="eyebrow">Services · Audit</p>
+        <h1 class="h1">{name}</h1>
+        <p class="hero-sub">Find out what AI says about your brand, why, and what to fix first.</p>
+        <p class="hero-body">Most audits hand you a list of warnings. This one tells you which problems are costing you customers, what to fix first and who should do it, across Google and the AI engines your buyers now use.</p>
+        <div class="hero-btns">
+          <a class="btn" href="#book">👉 Book a 15 minute call</a>
+          <a class="btn btn-ghost" href="#deliverables">See what you get →</a>
+        </div>
+      </div>
+      <div class="au-card" role="img" aria-label="Example of an AI answer scorecard with three buyer questions marked recommended, cited and missing">
+        <div class="au-card-head" aria-hidden="true"><span class="ai-head"><span class="ai-dot"></span>AI answer scorecard</span><span class="au-card-ex">Example layout</span></div>
+        <ul aria-hidden="true">
+          {heroCard.map((r) => <li><span class="au-q">{r.q}</span><span class={`au-t au-t-${r.c}`}>{r.r}</span></li>)}
+        </ul>
+        <p class="au-card-foot" aria-hidden="true">ChatGPT · Gemini · Perplexity · Copilot · Google AI Mode</p>
+      </div>
+    </div>
+    <ul class="ab-strip" aria-label="At a glance">
+      {strip.map((s) => <li><span class="ab-strip-n">{s.n}</span><span class="ab-strip-l">{s.l}</span></li>)}
+    </ul>
+  </section>
+
+  <!-- SHORT ANSWER -->
+  <section class="sec bg-white" id="who" aria-labelledby="h-who">
+    <div class="wrap-800">
+      <div class="shead">
+        <p class="eyebrow">The short answer</p>
+        <h2 class="h2" id="h-who">Who Runs Enterprise SEO and AI Visibility Audits?</h2>
+      </div>
+      <p class="au-answer">Christopher Kelly runs SEO and AI visibility audits for enterprise and multi-location brands, from Newcastle upon Tyne and for clients worldwide. He does every audit himself. The AI part tests a fixed set of buyer questions across ChatGPT, Gemini, Perplexity, Copilot and Google AI Mode, for each market or location, and marks every answer missing, mentioned, cited or recommended. It records who is named instead and which sources each engine relies on. Every audit ends with a prioritised roadmap ranked by commercial value and a walkthrough with your team.</p>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section class="sec bg-cream" id="why" aria-labelledby="h-why">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">The problem</p>
+        <h2 class="h2" id="h-why">Why Isn't Your Brand in the AI Answer?</h2>
+        <p class="sub">Usually one of four things, and the audit tells you which.</p>
+      </div>
+      <div class="ab-principles">
+        {reasons.map((r, i) => (
+          <div class="svc lift">
+            <span class="svc-n">{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="svc-t">{r.t}</h3>
+            <p class="svc-d">{r.p}</p>
+          </div>
+        ))}
+      </div>
+      <p class="au-under">The fourth is the one multi-location brands miss most, and I've written up <a class="inl" href={`${U}/blog/why-branches-disappear-from-ai-answers/`}>why branches disappear from AI answers</a> and how to fix it.</p>
+    </div>
+  </section>
+
+  <!-- SCOPES -->
+  <section class="sec bg-white" id="scopes" aria-labelledby="h-scopes">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">Choose the right audit</p>
+        <h2 class="h2" id="h-scopes">Which Audit Do You Need?</h2>
+      </div>
+      <div class="au-scopes">
+        {scopes.map((s) => (
+          <article class={`au-scope${s.best ? ' is-best' : ''}`}>
+            {s.best && <span class="tag tag-lime au-best">Where most enterprises start</span>}
+            <span class="tag tag-indigo">{s.tag}</span>
+            <h3 class="au-scope-t">{s.t}</h3>
+            <p class="au-scope-when" set:html={s.when} />
+            <ul class="au-checks">{s.items.map((i) => <li>{i}</li>)}</ul>
+          </article>
+        ))}
+      </div>
+      <p class="au-under">Not sure which? Tell me the problem, and I'll recommend the smallest scope that answers it before you commit.</p>
+    </div>
+  </section>
+
+  <!-- DELIVERABLES -->
+  <section class="sec bg-black" id="deliverables" aria-labelledby="h-deliv">
+    <div class="wrap-1100">
+      <div class="shead">
+        <p class="eyebrow">Deliverables</p>
+        <h2 class="h2 h2-w" id="h-deliv">What You Get From the Audit</h2>
+      </div>
+      <ul class="au-deliv">
+        {deliverables.map((d) => <li><b aria-hidden="true">✓</b>{d}</li>)}
+      </ul>
+      <p class="au-deliv-close">No 150-page PDF of warnings. Every finding comes with a reason and an owner.</p>
+    </div>
+  </section>
+
+  <!-- SCORECARD -->
+  <section class="sec bg-white" id="scorecard" aria-labelledby="h-score">
+    <div class="wrap-1100">
+      <div class="shead">
+        <p class="eyebrow">The scorecard</p>
+        <h2 class="h2" id="h-score">How Is Every AI Answer Scored?</h2>
+        <p class="sub">On the same four-step ladder used across this site, so results are easy to compare from one month to the next.</p>
+      </div>
+      <ol class="au-ladder">
+        {ladder.map((l) => (
+          <li class={`au-rung au-rung-${l.c}`}><span class="au-rung-n">{l.n}</span><span class="au-rung-t">{l.t}</span><span class="au-rung-p">{l.p}</span></li>
+        ))}
+      </ol>
+      <div class="cs-table-wrap au-grid-wrap">
+        <table class="cs-table au-grid">
+          <caption>Example layout, not client data. Every run is recorded with date, engine, model and location so it can be repeated.</caption>
+          <thead><tr><th scope="col">Buyer question</th>{engines.map((e) => <th scope="col">{e}</th>)}</tr></thead>
+          <tbody>
+            {sampleRows.map((r) => (
+              <tr><th scope="row"><span class="au-q">{r.q}</span></th>{r.r.map((c) => <td><span class={`au-t au-t-${c}`}>{tagName[c]}</span></td>)}</tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- EVIDENCE -->
+  <section class="sec bg-cream" id="evidence" aria-labelledby="h-evidence">
+    <div class="wrap-1100">
+      <div class="shead">
+        <p class="eyebrow">Evidence</p>
+        <h2 class="h2" id="h-evidence">What Evidence Is Each Finding Based On?</h2>
+        <p class="sub">Whatever the scope needs from this list. No single tool tells the whole story.</p>
+      </div>
+      <ul class="chips ab-chips au-chips">{evidence.map((e) => <li class="chip">{e}</li>)}</ul>
+      <p class="au-under">Every finding records its source, the date range it covers and where the data is incomplete.</p>
+    </div>
+  </section>
+
+  <!-- PRIORITIES -->
+  <section class="sec bg-white" id="priorities" aria-labelledby="h-prio">
+    <div class="wrap">
+      <div class="au-prio">
+        <div>
+          <p class="eyebrow">Priorities</p>
+          <h2 class="h2" id="h-prio">How Are the Findings Prioritised?</h2>
+          <p class="au-lead">By what each fix is worth, not by how many warnings a tool raised. Every finding answers five questions:</p>
+          <ol class="au-qs">{questions.map((q) => <li>{q}</li>)}</ol>
+        </div>
+        <figure class="au-matrix" aria-labelledby="au-matrix-cap">
+          <div class="au-matrix-grid">
+            <div class="au-mq au-mq-plan"><span class="au-mq-t">Plan next</span><span class="au-mq-p">High value, high effort</span></div>
+            <div class="au-mq au-mq-do"><span class="au-mq-t">Do first</span><span class="au-mq-p">High value, low effort</span></div>
+            <div class="au-mq au-mq-park"><span class="au-mq-t">Park</span><span class="au-mq-p">Low value, high effort</span></div>
+            <div class="au-mq au-mq-tidy"><span class="au-mq-t">Quick tidy</span><span class="au-mq-p">Low value, low effort</span></div>
+          </div>
+          <span class="au-ax au-ax-y" aria-hidden="true">Commercial value ↑</span>
+          <span class="au-ax au-ax-x" aria-hidden="true">← More effort · Less effort →</span>
+          <figcaption id="au-matrix-cap" class="note">The priority matrix in every audit</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXAMPLES -->
+  <section class="sec bg-cream" id="examples" aria-labelledby="h-examples">
+    <div class="wrap-1100">
+      <div class="shead">
+        <p class="eyebrow">In practice</p>
+        <h2 class="h2" id="h-examples">What Does This Look Like in Practice?</h2>
+      </div>
+      <div class="ab-cases">
+        <article class="post-card">
+          <span class="label">Entity clash</span>
+          <h3 class="post-card-t">A resort AI kept confusing with a town abroad</h3>
+          <p class="post-card-p">AI answers blended the resort with a better-known town in another country that shares its place name. Once the entity was re-anchored to its true region, the destination page was <a class="inl" href={`${U}/blog/resort-ai-overview-case-study/`}>cited by Google's AI Overview</a> as both the definition and the getting-there source.</p>
+          <p class="ab-case-stat">From blended answers to the cited source</p>
+        </article>
+        <article class="post-card">
+          <span class="label">Location data</span>
+          <h3 class="post-card-t">A luxury hotel portfolio's local entities</h3>
+          <p class="post-card-p">One resort audit covered 9 entities, the resort, its spa and seven restaurants and bars, with 22 core fields each. The audit workbook is now automated and <a class="inl" href={`${U}/case-studies/local-seo-automation-luxury-hotel-portfolio/`}>generates in about two minutes</a>, down from most of a day.</p>
+          <p class="ab-case-stat">~2 minutes per audit, documented</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="sec bg-white" id="process" aria-labelledby="h-process">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">Process</p>
+        <h2 class="h2" id="h-process">How Does the Audit Run?</h2>
+      </div>
+      <ol class="au-steps">
+        {steps.map((s, i) => (
+          <li class="au-step"><span class="au-step-n">{String(i + 1).padStart(2, '0')}</span><span class="au-step-t">{s.t}</span><span class="au-step-p">{s.p}</span></li>
+        ))}
+      </ol>
+      <p class="au-under">The scope, delivery date and fee are confirmed in writing before any access is shared.</p>
+    </div>
+  </section>
+
+  <!-- LIMITS -->
+  <section class="sec bg-cream" id="limits" aria-labelledby="h-limits">
+    <div class="wrap-800 au-limits">
+      <p class="eyebrow">Limits</p>
+      <h2 class="h2" id="h-limits">What Can't an AI Visibility Audit Tell You?</h2>
+      <p class="lead">It can't promise that every person sees the same answer.</p>
+      <p>AI answers change by engine, model, account, location and day. There is no single, complete measure of visibility across every AI system, and anyone who sells you one is overselling.</p>
+      <p>What the audit gives you is a fixed, repeatable baseline and a ranked set of fixes. Those fixes make your brand clearer to AI engines, to Google and to the people reading both, which is why they hold up as the engines change.</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="sec bg-white" id="faq" aria-labelledby="h-faq">
+    <div class="wrap-800">
+      <div class="shead">
+        <p class="eyebrow">FAQ</p>
+        <h2 class="h2" id="h-faq">Questions About the Audit</h2>
+      </div>
+      <Faq items={faqs} />
+    </div>
+  </section>
+
+  <!-- AFTER -->
+  <section class="sec bg-cream" aria-labelledby="h-after">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">After the audit</p>
+        <h2 class="h2" id="h-after">What Happens After the Audit?</h2>
+        <p class="sub au-after">Most audits lead to ongoing work on the roadmap, measured month by month. For portfolios that's my work as an <a class="inl" href={`${U}/services/ai-seo-consultant-multi-location/`}>AI SEO Consultant for Multi-Location Brands</a>, for hotel and resort groups as an <a class="inl" href={`${U}/services/ai-seo-consultant-hospitality/`}>AI SEO Consultant for Hospitality</a>, and the <a class="inl" href={`${U}/case-studies/`}>case studies</a> show where that leads.</p>
+      </div>
+      <div class="tile-grid">
+        {sectors.filter((s) => s.href).map((s) => <a class="tile" href={s.href}>{s.t}<span class="tile-arrow" aria-hidden="true">→</span></a>)}
+      </div>
+    </div>
+  </section>
+
+  <BookCall
+    heading="Find Out What AI Says<br>About Your Brand"
+    sub="One call, direct with me. You leave knowing which audit you need, and what I'd look at first."
+    cover={cover}
+    threeCol
+  />
+
+</Base>

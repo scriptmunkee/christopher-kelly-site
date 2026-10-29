@@ -1,6 +1,6 @@
 ---
 import { site } from '../data/site';
-import { sectors } from '../data/services';
+import { services, sectors } from '../data/services';
 import { mainNav } from '../lib/nav';
 interface Props { bookHref?: string }
 const { bookHref = '#book' } = Astro.props;
@@ -32,7 +32,12 @@ const year = new Date().getFullYear();
       <div>
         <p class="foot-t">Explore</p>
         <ul class="foot-links">
-          {mainNav.map((l) => <li><a href={l.href}>{l.footLabel}</a></li>)}
+          {mainNav.map((l) => (
+            <>
+              <li><a href={l.href}>{l.footLabel}</a></li>
+              {l.key === 'services' && services.filter((sv) => sv.href).map((sv) => <li><a href={sv.href}>{sv.t.replace(/^Enterprise /, '')}</a></li>)}
+            </>
+          ))}
           <li><a href={bookHref} {...bookAttrs}>Book a call</a></li>
         </ul>
       </div>

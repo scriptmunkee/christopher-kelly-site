@@ -6,7 +6,7 @@ import { services, sectors } from '../../data/services';
 import { breadcrumbSchema, personSchema, businessSchema, serviceSchema } from '../../lib/schema';
 
 const title = 'Enterprise SEO & AI Search Services | Christopher Kelly';
-const description = 'Enterprise AI SEO services: AI visibility audits, entity optimisation, multi-location SEO, content engineering, measurement and automation. Book a call.';
+const description = 'Enterprise AI SEO services: SEO and AI visibility audits, entity optimisation, multi-location SEO, content, measurement and automation. Book a call.';
 
 const cover = [
   { e: '🤖', t: 'AI visibility baseline', p: 'How AI engines describe you today.' },
@@ -17,7 +17,7 @@ const cover = [
 const schema = [
   personSchema(),
   businessSchema(),
-  ...services.map((s) => serviceSchema({ name: s.t, description: s.d, path: `/services/#${s.id}` })),
+  ...services.filter((s) => !s.href).map((s) => serviceSchema({ name: s.t, description: s.d, path: `/services/#${s.id}` })),
   breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Services', path: '/services/' }]),
 ];
 ---
@@ -51,7 +51,7 @@ const schema = [
         {services.map((s, i) => (
           <article class="svc lift" id={s.id}>
             <span class="svc-n">{String(i + 1).padStart(2, '0')}</span>
-            <h3 class="svc-t">{s.t}</h3>
+            <h3 class="svc-t">{s.href ? <a href={s.href} style="color:inherit;text-decoration:none">{s.t}</a> : s.t}</h3>
             <p class="svc-d">{s.d}</p>
             <a class="svc-a" href="#book">Talk to me about this →</a>
           </article>

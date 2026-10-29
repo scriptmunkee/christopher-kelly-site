@@ -1,7 +1,8 @@
 // The six core services. Used on the homepage and the /services/ hub.
 // `id` is the anchor on /services/ (e.g. /services/#ai-visibility-audit), so keep ids stable once live.
-export const services = [
-  { id: 'ai-visibility-audit', t: 'AI Search Visibility Audit', d: "Where you stand across ChatGPT, Gemini, Perplexity, Copilot and Google AI Mode. Which prompts you win, which you lose, and who's taking your place." },
+// `href` is set once a service has its own page; the homepage, /services/, footer and schema link to it.
+export const services: { id: string; t: string; d: string; href?: string }[] = [
+  { id: 'ai-visibility-audit', t: 'Enterprise SEO and AI Visibility Audit', href: '/services/seo-ai-visibility-audit/', d: "Where you stand across Google, ChatGPT, Gemini, Perplexity, Copilot and Google AI Mode. Which questions you win, which you lose, who's taking your place and what to fix first." },
   { id: 'entity-optimisation', t: 'Entity & Knowledge Graph Optimisation', d: 'Make your brand, locations and offers unambiguous to machines. Structured data, Wikidata, profiles and on-site entities that all tell the same story.' },
   { id: 'local-ai-seo', t: 'Multi-location & Local AI SEO', d: 'Google Business Profiles, listings and location pages managed at portfolio scale, so every property is understood and recommended in its own market.' },
   { id: 'content-engineering', t: 'Content Engineering at Scale', d: 'Answer-first pages, FAQ systems and seasonal content built to be cited, then rolled out across properties without losing the brand voice.' },

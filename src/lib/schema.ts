@@ -68,7 +68,7 @@ export function businessSchema() {
       name: 'Enterprise AI SEO services',
       itemListElement: services.map((s) => ({
         '@type': 'Offer',
-        itemOffered: { '@type': 'Service', name: s.t, description: s.d, url: `${site.url}/services/#${s.id}` },
+        itemOffered: { '@type': 'Service', name: s.t, description: s.d, url: `${site.url}${s.href ?? `/services/#${s.id}`}` },
       })),
     },
     ...(site.linkedinUrl ? { sameAs: [site.linkedinUrl] } : {}),
@@ -109,15 +109,16 @@ export function breadcrumbSchema(trail: { name: string; path: string }[]) {
   };
 }
 
-export function serviceSchema(opts: { name: string; description: string; path: string; audience?: string }) {
+export function serviceSchema(opts: { name: string; description: string; path: string; audience?: string; serviceType?: string[]; areaServed?: unknown }) {
   return {
     '@type': 'Service',
     name: opts.name,
+    ...(opts.serviceType ? { serviceType: opts.serviceType } : {}),
     // Page metas end with a call to action; a schema description shouldn't.
     description: opts.description.replace(/\s*Book a call\.?$/, ''),
     url: `${site.url}${opts.path}`,
     provider: { '@id': orgId },
-    areaServed: 'Worldwide',
+    areaServed: opts.areaServed ?? 'Worldwide',
     ...(opts.audience ? { audience: { '@type': 'BusinessAudience', name: opts.audience } } : {}),
   };
 }
