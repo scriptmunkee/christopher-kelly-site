@@ -1,0 +1,224 @@
+---
+// One template for every "SEO Consultant for <Sector>" page. Content comes from
+// src/data/seoSectors.ts. Section order follows the tom-riley.co.uk SEO set: intro, why,
+// focus, mid CTA, how, about, proof, FAQs, book, then the same playbook in other sectors.
+import Base from '../layouts/Base.astro';
+import Portrait from './Portrait.astro';
+import Faq from './Faq.astro';
+import BookCall from './BookCall.astro';
+import { seoSectors, type SeoSector } from '../data/seoSectors';
+import { sectors } from '../data/services';
+import { breadcrumbSchema, faqSchema, serviceSchema, personSchema, businessSchema } from '../lib/schema';
+
+type Props = SeoSector;
+const p = Astro.props;
+const path = `/services/seo-consultant-${p.slug}/`;
+const title = `${p.name} | Christopher Kelly`;
+const crumb = `SEO for ${p.crumb}`;
+
+// Title Case for headings built from data, keeping internal capitals (SaaS, SEO).
+const minor = new Set(['and', 'for', 'of', 'the', 'a', 'an', 'to', 'in', 'on', 'with', 'or']);
+const tc = (s: string) => s.split(' ').map((w, i) => (i > 0 && minor.has(w) ? w : w.charAt(0).toUpperCase() + w.slice(1))).join(' ');
+const noun = tc(p.noun);
+
+// The first example search in the intro drives the illustrative search card.
+const query = p.intro[1].match(/'([^']+)'/)?.[1] ?? p.name.toLowerCase();
+
+const bySlug = Object.fromEntries(seoSectors.map((s) => [s.slug, s]));
+const siblings = p.siblings.map((s) => bySlug[s]).filter(Boolean);
+const ai = sectors.find((s) => s.href === `/services/ai-seo-consultant-${p.slug}/`);
+const list = (items: string[]) => items.length < 2 ? items.join('') : `${items.slice(0, -1).join(', ')} and ${items.at(-1)}`;
+const siblingLinks = list(siblings.map((s) => `an <a class="inl" href="/services/seo-consultant-${s.slug}/">${s.name}</a>`));
+
+// The intro's first sentence is the lead; the rest reads as body copy.
+const [lead, ...more] = p.intro[0].split(/(?<=[.!?]) (?=[A-Z])/);
+const rest = more.join(' ');
+
+const proofNames = p.proof?.names ?? [];
+
+const schema = [
+  personSchema(),
+  businessSchema(),
+  serviceSchema({ name: p.name, description: p.description, path, audience: p.audience, serviceType: ['Search engine optimisation', 'SEO consulting'] }),
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Services', path: '/services/' },
+    { name: crumb, path },
+  ]),
+  faqSchema(p.faqs),
+];
+
+const cover = [
+  { e: '📍', t: 'Where you rank today', p: 'The searches that matter to you, and who is winning them.' },
+  { e: '🧱', t: 'What is holding you back', p: 'Technical, content and authority gaps, in plain English.' },
+  { e: '🎯', t: 'What to fix first', p: 'The changes most likely to bring in more enquiries, soonest.' },
+];
+---
+<Base title={title} description={p.description} active="services" schema={schema} hasBookSection>
+
+  <!-- BREADCRUMB + HERO -->
+  <section class="hero-band" data-hero>
+    <nav class="crumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li class="sep" aria-hidden="true">/</li>
+        <li><a href="/services/">Services</a></li>
+        <li class="sep" aria-hidden="true">/</li>
+        <li aria-current="page">{crumb}</li>
+      </ol>
+    </nav>
+    <div class="hero hero-tight">
+      <div>
+        <p class="eyebrow">SEO consulting</p>
+        <h1 class="h1">{p.name}</h1>
+        <p class="hero-sub">{p.heroSub}</p>
+        <div class="hero-btns">
+          <a class="btn" href="#book">👉 Book a call with Christopher</a>
+          <a class="btn btn-ghost" href="#how">See how I work →</a>
+        </div>
+      </div>
+      <div class="hero-media">
+        <div class="photo photo-hero">
+          <Portrait variant="hero" eager />
+        </div>
+        <div class="ai-card serp-card" role="img" aria-label={`Illustration: your site ranking on Google for "${query}"`}>
+          <span class="ai-head" aria-hidden="true"><span class="ai-dot"></span>Google search</span>
+          <p class="ai-prompt" aria-hidden="true">{query}</p>
+          <p class="ai-ans" aria-hidden="true"><strong>Your site</strong>, in the top results with a page built for exactly this search.</p>
+          <span class="ai-tag" aria-hidden="true">Organic result</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="sec bg-white" aria-label="Introduction">
+    <div class="wrap-760 intro">
+      <p class="lead">{lead}</p>
+      {rest && <p class="body">{rest}</p>}
+      <p class="body">{p.intro[1]}</p>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section class="sec bg-cream" id="why" aria-labelledby="h-why">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">Why it matters</p>
+        <h2 class="h2" id="h-why">Why {tc(p.audience)} Need an SEO Consultant</h2>
+      </div>
+      <div class="shift-grid">
+        {p.why.map((w, i) => (
+          <div class="shift">
+            <span class="shift-n">{String(i + 1).padStart(2, '0')}</span>
+            <div><p class="shift-p sp-why">{w}</p></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FOCUS -->
+  <section class="sec bg-white" id="focus" aria-labelledby="h-focus">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">What I focus on</p>
+        <h2 class="h2" id="h-focus">What I Focus On for {noun}</h2>
+        <p class="sub">{p.focusLead}</p>
+      </div>
+      <ul class="sp-focus">
+        {p.focus.map((f) => <li>{f}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <!-- MID CTA -->
+  <section class="mid" aria-label="Book a call">
+    <div class="mid-card">
+      <div class="mid-copy">
+        <h2 class="mid-h">Want to See Exactly Where You Stand?</h2>
+        <p class="mid-p">In 15 minutes we can look at where you rank today, what is holding you back and what to fix first.</p>
+      </div>
+      <a class="btn" href="#book">👉 Book a call with Christopher</a>
+    </div>
+  </section>
+
+  <!-- HOW -->
+  <section class="sec bg-cream" id="how" aria-labelledby="h-how">
+    <div class="wrap">
+      <div class="shead">
+        <p class="eyebrow">The playbook</p>
+        <h2 class="h2" id="h-how">How I Do {noun}</h2>
+      </div>
+      <div class="steps">
+        {p.steps.map((s, i) => (
+          <div class="step">
+            <span class="step-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <span class="step-emoji" aria-hidden="true">{s.emoji}</span>
+            <h3 class="step-t">{s.t}</h3>
+            <p class="step-p">{s.p}</p>
+            <span class="step-tag">Step {String(i + 1).padStart(2, '0')}</span>
+            {i < p.steps.length - 1 && <span class="badge" aria-hidden="true">→</span>}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about" aria-labelledby="h-about">
+    <div class="photo photo-about">
+      <Portrait variant="about" />
+    </div>
+    <div class="about-c">
+      <p class="eyebrow" style="margin-bottom:0">About Christopher</p>
+      <h2 class="h2" id="h-about">The SEO Consultant Behind This Playbook</h2>
+      <p>I'm Christopher Kelly, a senior, hands-on SEO consultant. <a class="inl" href="/about/">My background</a> is technical and commercial SEO for multi-location and multi-brand businesses, including years of delivery across a global portfolio of 15+ luxury hotel properties.</p>
+      <p>You work with me directly. No account managers, no junior handover and no agency layer. I plan the work, do the work and report on it in plain English, against enquiries and revenue rather than traffic alone.</p>
+    </div>
+  </section>
+
+  <!-- PROOF -->
+  {p.proof && (
+    <section class="sec bg-black" id="proof" aria-labelledby="h-proof">
+      <div class="wrap">
+        <div class="shead">
+          <p class="eyebrow">Proof, not promises</p>
+          <h2 class="h2 h2-w" id="h-proof">Who I've Worked With</h2>
+          <p class="sub sub-w">{p.proof.line}</p>
+        </div>
+        <ul class="sp-names">
+          {proofNames.map((n) => <li>{n}</li>)}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  <!-- FAQS -->
+  <section class="sec bg-white" id="faq" aria-labelledby="h-faq">
+    <div class="wrap-800">
+      <div class="shead">
+        <p class="eyebrow">FAQs</p>
+        <h2 class="h2" id="h-faq">{noun} FAQs</h2>
+      </div>
+      <Faq items={p.faqs} />
+    </div>
+  </section>
+
+  <BookCall heading="Start With a Call About Your Growth and Visibility" sub="A free 15 minute call, direct with me. Bring your site and the searches you want to win." cover={cover} threeCol />
+
+  <!-- OTHER SECTORS -->
+  <section class="sec bg-white" aria-labelledby="h-other">
+    <div class="wrap-760">
+      <div class="shead">
+        <p class="eyebrow">Other sectors</p>
+        <h2 class="h2" id="h-other">The Same Playbook, Other Sectors</h2>
+      </div>
+      <p class="body sp-other">I bring the same approach to work as <Fragment set:html={siblingLinks} />. The detail changes from market to market, but the method holds: rank for the searches buyers make, then turn the visits into enquiries.</p>
+      {ai && (
+        <p class="body sp-other">And if being recommended by ChatGPT and Google's AI answers is the bigger prize for you, there is a dedicated page for the <a class="inl" href={ai.href}>{ai.t}</a> side of the same market, and the full list is on <a class="inl" href="/services/">my services page</a>.</p>
+      )}
+    </div>
+  </section>
+
+</Base>

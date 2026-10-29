@@ -876,3 +876,13 @@ blockquote.t { margin: 0; }
 @media (max-width: 860px) {
   .lp-map { grid-template-columns: 1fr; gap: 2.5rem; }
 }
+
+/* SEO sector pages (SeoSectorPage.astro) */
+.sp-why { font-size: .98rem; color: var(--body); }
+.sp-focus { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr)); gap: 1rem; }
+.sp-focus li { position: relative; background: #FAF8F3; border: 1px solid var(--hair); padding: 1.15rem 1.25rem 1.15rem 3rem; font-size: .95rem; line-height: 1.55; color: var(--body); }
+.sp-focus li::before { content: '✓'; position: absolute; left: 1.2rem; top: 1.1rem; color: var(--indigo); font-weight: 800; }
+.sp-names { list-style: none; margin: 0 auto; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: .75rem; max-width: 900px; }
+.sp-names li { border: 1px solid rgba(255, 255, 255, .16); color: #fff; padding: .65rem 1.05rem; font-family: var(--f-head); font-weight: 800; font-size: .92rem; letter-spacing: -.01em; }
+.sp-other { font-size: 1rem; line-height: 1.75; color: var(--body); text-align: center; }
+.sp-other + .sp-other { margin-top: 1rem; }

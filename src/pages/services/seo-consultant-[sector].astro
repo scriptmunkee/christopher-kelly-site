@@ -1,0 +1,9 @@
+---
+import SeoSectorPage from '../../components/SeoSectorPage.astro';
+import { seoSectors } from '../../data/seoSectors';
+
+export function getStaticPaths() {
+  return seoSectors.map((p) => ({ params: { sector: p.slug }, props: p }));
+}
+---
+<SeoSectorPage {...Astro.props} />
