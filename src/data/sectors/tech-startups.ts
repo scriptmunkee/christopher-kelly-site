@@ -53,7 +53,7 @@ export const techStartups: SectorPageData = {
   },
   playH2: 'How I Get Tech Startups<br>Named By AI.',
   steps: [
-    { emoji: '🔍', t: 'Map the category and the competition', p: `A fixed set of buyer questions for your category and use cases: where you're named, who is named instead and why. It starts with <a class="inl" href="${S}#ai-visibility-audit">an AI visibility audit</a>.`, tag: 'Category baseline' },
+    { emoji: '🔍', t: 'Map the category and the competition', p: `A fixed set of buyer questions for your category and use cases: where you're named, who is named instead and why. It starts with <a class="inl" href="${S}seo-ai-visibility-audit/">an SEO and AI visibility audit</a>.`, tag: 'Category baseline' },
     { emoji: '🧱', t: 'Make your product a clear entity', p: `Category, founders, integrations and company records aligned across your site and profiles through <a class="inl" href="${S}#entity-optimisation">entity and knowledge graph optimisation</a>.`, tag: 'Entity first' },
     { emoji: '📈', t: 'Own the comparison layer', p: `Alternatives, "X vs Y", integration and pricing pages AI can quote, built with <a class="inl" href="${S}#content-engineering">content engineering</a> that scales as you ship.`, tag: 'Written to be cited' },
   ],
@@ -102,7 +102,7 @@ export const techStartups: SectorPageData = {
     { q: 'Does AI search replace traditional SEO for startups?', a: 'No, it builds on it. AI engines still read crawlable pages, and many search the web live before answering. Strong technical SEO, clear product pages and comparison content feed both. The difference is that AI search also weighs reviews, press and consistent entity data, so the work reaches beyond your own website.' },
     { q: 'What have you done with tech startups?', a: "I've delivered SEO strategy, audits and content for web3 and crypto brands including RedStone Finance, Bankless, Bity, Thesis and Mezo. That work covered content briefs, competitor comparison pages, URL structure and technical fixes. On a call I can walk you through it in detail and show how it applies to your category." },
     { q: 'How do you measure AI visibility for a startup?', a: `I track a fixed set of buyer questions for your category, use cases and competitors, and record whether your product is mentioned, cited with a link, or missing, and who is named instead. That <a class="inl" href="${S}#ai-visibility-measurement">AI visibility measurement</a> sits alongside your sign-up and pipeline data, so movement can be tied to growth.` },
-    { q: 'How do we start?', a: `Start with a baseline. I run a fixed set of buyer questions for your category and competitors through ChatGPT and Google AI, then show where your product is named, cited or missing and who is named instead. That <a class="inl" href="${S}#ai-visibility-audit">AI visibility audit</a> gives you a prioritised list of fixes before any wider work begins.` },
+    { q: 'How do we start?', a: `Start with a baseline. I run a fixed set of buyer questions for your category and competitors through ChatGPT and Google AI, then show where your product is named, cited or missing and who is named instead. That <a class="inl" href="${S}seo-ai-visibility-audit/">SEO and AI visibility audit</a> gives you a prioritised list of fixes before any wider work begins.` },
   ],
   book: {
     heading: 'Start With A Call<br>About Your Product.',

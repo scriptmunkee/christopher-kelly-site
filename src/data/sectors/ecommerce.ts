@@ -53,7 +53,7 @@ export const ecommerce: SectorPageData = {
   },
   playH2: 'How I Get E-commerce Brands<br>Named By AI.',
   steps: [
-    { emoji: '🔍', t: 'Baseline by category and product', p: `A fixed set of shopper questions for each category, with your products marked named, cited or missing. It starts with <a class="inl" href="${S}#ai-visibility-audit">an AI visibility audit</a> across ChatGPT and Google AI.`, tag: 'Category-by-category baseline' },
+    { emoji: '🔍', t: 'Baseline by category and product', p: `A fixed set of shopper questions for each category, with your products marked named, cited or missing. It starts with <a class="inl" href="${S}seo-ai-visibility-audit/">an SEO and AI visibility audit</a> across ChatGPT and Google AI.`, tag: 'Category-by-category baseline' },
     { emoji: '🧱', t: 'Fix the product data foundations', p: `Identifiers, feeds, structured data and brand details aligned through <a class="inl" href="${S}#entity-optimisation">entity and knowledge graph optimisation</a>, so AI can read every product.`, tag: 'Data first' },
     { emoji: '📈', t: 'Own the "best X" questions', p: `Buying guides, comparisons and product answers that still convert, built with <a class="inl" href="${S}#content-engineering">content engineering</a> across your whole range.`, tag: 'Written to be cited' },
   ],
@@ -101,7 +101,7 @@ export const ecommerce: SectorPageData = {
     { q: 'We sell on Amazon too. Does that help or hurt?', a: 'It helps if the facts match. AI engines read marketplace listings, retailer pages and your own site, then repeat whatever is most consistent and complete. When prices, specifications or names differ, AI may describe the marketplace version or skip you. Aligning product data everywhere makes your own site the clearest source.' },
     { q: 'What platforms does this work with?', a: "The approach is platform-agnostic. It works wherever you control product data, structured data and page templates, whether that's Shopify, Adobe Commerce, WooCommerce, BigCommerce or a headless build. The work centres on feeds, templates and content rather than plugins, so it fits your stack and your development team's process." },
     { q: 'What do AI engines need from a product page?', a: 'Accurate, crawlable facts: product name, brand and identifiers like GTINs, price and availability that match your feed, delivery and returns terms, genuine reviews, and Product and Offer structured data. Add clear answers to the questions shoppers ask, such as fit, compatibility and comparisons, and AI has what it needs to recommend the product.' },
-    { q: 'How do we start?', a: `Start with a baseline. I run a fixed set of shopper questions for your main categories through ChatGPT and Google AI, then show where your products are named, cited or missing and who is named instead. That <a class="inl" href="${S}#ai-visibility-audit">AI visibility audit</a> gives you a prioritised list of fixes before any wider work begins.` },
+    { q: 'How do we start?', a: `Start with a baseline. I run a fixed set of shopper questions for your main categories through ChatGPT and Google AI, then show where your products are named, cited or missing and who is named instead. That <a class="inl" href="${S}seo-ai-visibility-audit/">SEO and AI visibility audit</a> gives you a prioritised list of fixes before any wider work begins.` },
   ],
   book: {
     heading: 'Start With A Call<br>About Your Range.',

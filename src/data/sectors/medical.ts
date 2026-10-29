@@ -53,7 +53,7 @@ export const medical: SectorPageData = {
   },
   playH2: 'How I Get Healthcare Providers<br>Named By AI.',
   steps: [
-    { emoji: '🔍', t: 'Baseline by treatment and location', p: `A fixed set of patient questions for each treatment and town, with your service marked named, cited or missing. It starts with <a class="inl" href="${S}#ai-visibility-audit">an AI visibility audit</a> across ChatGPT and Google AI.`, tag: 'Treatment-by-treatment baseline' },
+    { emoji: '🔍', t: 'Baseline by treatment and location', p: `A fixed set of patient questions for each treatment and town, with your service marked named, cited or missing. It starts with <a class="inl" href="${S}seo-ai-visibility-audit/">an SEO and AI visibility audit</a> across ChatGPT and Google AI.`, tag: 'Treatment-by-treatment baseline' },
     { emoji: '🧱', t: 'Put credentials first', p: `Clinicians, registrations, ratings and sites aligned across your site, PHIN, directories and profiles through <a class="inl" href="${S}#entity-optimisation">entity and knowledge graph optimisation</a>.`, tag: 'Credentials first' },
     { emoji: '📈', t: 'Answer the questions patients ask', p: `Costs, waiting times, suitability and recovery explained accurately, reviewed clinically and built with <a class="inl" href="${S}#content-engineering">content engineering</a> across every service.`, tag: 'Clinically reviewed' },
   ],
@@ -101,7 +101,7 @@ export const medical: SectorPageData = {
     { q: 'Why is healthcare harder than other sectors for AI search?', a: 'Health is a high-stakes topic, so AI engines are cautious. They favour providers with verifiable evidence: named clinicians with registration numbers, regulator ratings, clear treatment information and independent reviews. Vague or promotional pages get passed over, which is why accuracy and credentials matter more here than almost anywhere else.' },
     { q: 'Do patients really use AI to choose private care?', a: "More each year. A King's College London poll found one in seven UK adults had used AI chatbots for health advice instead of contacting a GP or the NHS. With self-pay admissions at their highest level, patients researching treatments and providers increasingly meet an AI answer before they meet your website." },
     { q: 'Do you work with dental and specialist clinics as well as hospitals?', a: "Yes. I've delivered SEO for private dental practices including Fulham Road Dental and Direct Dental, and the same approach works for specialist clinics, diagnostic centres and hospital groups: clinicians, treatments, locations and fees made clear, consistent and verifiable across every site and profile." },
-    { q: 'How do we start?', a: `Start with a baseline. I run a fixed set of patient questions for each treatment and location through ChatGPT and Google AI, then show where your service is named, cited or missing and who is named instead. That <a class="inl" href="${S}#ai-visibility-audit">AI visibility audit</a> gives you a prioritised list of fixes before any wider work begins.` },
+    { q: 'How do we start?', a: `Start with a baseline. I run a fixed set of patient questions for each treatment and location through ChatGPT and Google AI, then show where your service is named, cited or missing and who is named instead. That <a class="inl" href="${S}seo-ai-visibility-audit/">SEO and AI visibility audit</a> gives you a prioritised list of fixes before any wider work begins.` },
   ],
   book: {
     heading: 'Start With A Call<br>About Your Services.',

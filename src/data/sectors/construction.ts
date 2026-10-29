@@ -53,7 +53,7 @@ export const construction: SectorPageData = {
   },
   playH2: 'How I Get Construction Firms<br>Named By AI.',
   steps: [
-    { emoji: '🔍', t: 'Baseline by sector and region', p: `A fixed set of client, specifier and buyer questions for each sector and region, with your firm marked named, cited or missing. It starts with <a class="inl" href="${S}#ai-visibility-audit">an AI visibility audit</a>.`, tag: 'Sector-by-sector baseline' },
+    { emoji: '🔍', t: 'Baseline by sector and region', p: `A fixed set of client, specifier and buyer questions for each sector and region, with your firm marked named, cited or missing. It starts with <a class="inl" href="${S}seo-ai-visibility-audit/">an SEO and AI visibility audit</a>.`, tag: 'Sector-by-sector baseline' },
     { emoji: '🧱', t: 'Make capabilities checkable', p: `Accreditations, frameworks, offices and product data aligned across your site and profiles through <a class="inl" href="${S}#entity-optimisation">entity and knowledge graph optimisation</a>.`, tag: 'Evidence first' },
     { emoji: '📈', t: 'Turn projects into proof', p: `Case studies and product pages AI can quote, with sector, region and value stated plainly, built with <a class="inl" href="${S}#content-engineering">content engineering</a>.`, tag: 'Written to be cited' },
   ],
@@ -101,7 +101,7 @@ export const construction: SectorPageData = {
     { q: 'We win work through tenders and word of mouth. Does AI search matter?', a: 'Yes, because the people who refer and shortlist you now check you online, often with AI. Specifiers are adopting it fast: RIBA found 74% of UK architecture practices use AI on at least some projects. If AI describes your firm wrongly or not at all, that referral starts on the back foot.' },
     { q: 'How long does it take to show up in AI recommendations?', a: 'Fixes to your own site, case studies and profiles can start to show up within weeks, especially on engines that search the web live. Being named for competitive shortlist questions takes longer, because it depends on press, awards and framework evidence building up. A fixed baseline from the start makes the progress visible.' },
     { q: 'Do you work with building product manufacturers?', a: 'Yes. Manufacturers need AI to understand each product line, its certifications, performance data and where it can be used. That means clear technical pages, consistent data across NBS Source and distributor sites, and accurate claims backed by test evidence. Specifiers ask AI very precise questions, so precise product facts win.' },
-    { q: 'How do we start?', a: `Start with a baseline. I run a fixed set of client, specifier and buyer questions for your sectors and regions through ChatGPT and Google AI, then show where your firm is named, cited or missing and who is named instead. That <a class="inl" href="${S}#ai-visibility-audit">AI visibility audit</a> gives you a prioritised list of fixes before any wider work begins.` },
+    { q: 'How do we start?', a: `Start with a baseline. I run a fixed set of client, specifier and buyer questions for your sectors and regions through ChatGPT and Google AI, then show where your firm is named, cited or missing and who is named instead. That <a class="inl" href="${S}seo-ai-visibility-audit/">SEO and AI visibility audit</a> gives you a prioritised list of fixes before any wider work begins.` },
   ],
   book: {
     heading: 'Start With A Call<br>About Your Firm.',

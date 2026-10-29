@@ -59,7 +59,7 @@ This is why the problem goes unnoticed. A dashboard that tracks "brand visibilit
 
 ### Step 1: Baseline every branch
 
-Build a fixed set of customer questions for each location type and market, such as "near me", "best in [town]", service questions and availability. Run them through ChatGPT, Gemini, Perplexity and Google AI Mode, and record whether each branch is mentioned, cited with a link, or missing, and who is named instead. That's what an [AI search visibility audit](https://christopher-kelly.co.uk/services/#ai-visibility-audit) covers.
+Build a fixed set of customer questions for each location type and market, such as "near me", "best in [town]", service questions and availability. Run them through ChatGPT, Gemini, Perplexity and Google AI Mode, and record whether each branch is mentioned, cited with a link, or missing, and who is named instead. That's what an [SEO and AI visibility audit](https://christopher-kelly.co.uk/services/seo-ai-visibility-audit/) covers.
 
 ### Step 2: Create one source of truth
 

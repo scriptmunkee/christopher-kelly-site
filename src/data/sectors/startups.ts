@@ -53,7 +53,7 @@ export const startups: SectorPageData = {
   },
   playH2: 'How I Get Startups<br>Named By AI.',
   steps: [
-    { emoji: '🔍', t: 'Set the foundations', p: `Your name, category, founders and company records made consistent, starting with <a class="inl" href="${S}#ai-visibility-audit">an AI visibility audit</a> of what ChatGPT and Google AI say today.`, tag: 'Foundation sprint' },
+    { emoji: '🔍', t: 'Set the foundations', p: `Your name, category, founders and company records made consistent, starting with <a class="inl" href="${S}seo-ai-visibility-audit/">an SEO and AI visibility audit</a> of what ChatGPT and Google AI say today.`, tag: 'Foundation sprint' },
     { emoji: '🧱', t: 'Win the questions you can win', p: `The specific, niche questions where a new brand can be named first, backed by <a class="inl" href="${S}#entity-optimisation">entity and knowledge graph optimisation</a>.`, tag: 'Winnable first' },
     { emoji: '📈', t: 'Build evidence that compounds', p: `Pages, comparisons and coverage that keep adding up, using <a class="inl" href="${S}#content-engineering">content engineering</a> sized for a small team.`, tag: 'Compounding' },
   ],
@@ -102,7 +102,7 @@ export const startups: SectorPageData = {
     { q: 'What does this cost compared with an agency?', a: "You pay for senior time, not an agency layer. Work is scoped around a fixed baseline and a short list of priorities, so you can start with an AI visibility audit and decide what comes next. I'll give you a clear quote on the call once I know your category, markets and goals." },
     { q: 'How fast can a startup see results?', a: 'Fixes to your own site, profiles and company records can start to show up in AI answers within weeks, especially on engines that search the web live. Being named for competitive category questions takes longer, because it depends on reviews and coverage building up. A fixed baseline from day one makes every step visible.' },
     { q: 'Do press mentions really matter for AI search?', a: "Yes. In Ahrefs' study of 75,000 brands, branded web mentions were far more closely linked to AI visibility than domain strength. Customers also check: a US survey by Idea Grove found 69% would rather choose a brand with media coverage. A few accurate, independent mentions give AI something trustworthy to repeat." },
-    { q: 'How do we start?', a: `Start with a baseline. I run a fixed set of customer questions for your brand, category and competitors through ChatGPT and Google AI, then show what they say about you and who is named instead. That <a class="inl" href="${S}#ai-visibility-audit">AI visibility audit</a> gives you a prioritised list of fixes before any wider work begins.` },
+    { q: 'How do we start?', a: `Start with a baseline. I run a fixed set of customer questions for your brand, category and competitors through ChatGPT and Google AI, then show what they say about you and who is named instead. That <a class="inl" href="${S}seo-ai-visibility-audit/">SEO and AI visibility audit</a> gives you a prioritised list of fixes before any wider work begins.` },
   ],
   book: {
     heading: 'Start With A Call<br>About Your Launch.',

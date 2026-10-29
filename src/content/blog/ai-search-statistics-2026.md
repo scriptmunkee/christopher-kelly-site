@@ -104,7 +104,7 @@ They use them, and they check them. That combination is why AI visibility and th
 
 Four things follow from this data.
 
-1. **Measure where you stand.** Rankings and traffic don't show whether AI names you. A fixed set of customer questions, run regularly, does. That's the starting point of an [AI search visibility audit](https://christopher-kelly.co.uk/services/#ai-visibility-audit).
+1. **Measure where you stand.** Rankings and traffic don't show whether AI names you. A fixed set of customer questions, run regularly, does. That's the starting point of an [SEO and AI visibility audit](https://christopher-kelly.co.uk/services/seo-ai-visibility-audit/).
 2. **Fix your facts at the source.** If most citations come from your site and listings, accuracy there is the cheapest win. For brands with many branches, it's the core of the work I do as an [AI SEO Consultant for Multi-Location Brands](https://christopher-kelly.co.uk/services/ai-seo-consultant-multi-location/).
 3. **Publish the answers AI is looking for.** Prices, comparisons, availability and clear explanations get quoted. Vague pages get skipped in favour of whoever answered better.
 4. **Build independent evidence.** Reviews, press and directory profiles that agree with your site give AI the confidence to recommend you, and give customers something to check.

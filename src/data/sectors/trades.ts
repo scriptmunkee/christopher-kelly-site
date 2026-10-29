@@ -53,7 +53,7 @@ export const trades: SectorPageData = {
   },
   playH2: 'How I Get Trade Firms<br>Named By AI.',
   steps: [
-    { emoji: '🔍', t: 'Baseline by service and area', p: `A fixed set of homeowner questions for each service and town, with your firm marked named, cited or missing. It starts with <a class="inl" href="${S}#ai-visibility-audit">an AI visibility audit</a> across ChatGPT and Google AI.`, tag: 'Area-by-area baseline' },
+    { emoji: '🔍', t: 'Baseline by service and area', p: `A fixed set of homeowner questions for each service and town, with your firm marked named, cited or missing. It starts with <a class="inl" href="${S}seo-ai-visibility-audit/">an SEO and AI visibility audit</a> across ChatGPT and Google AI.`, tag: 'Area-by-area baseline' },
     { emoji: '🧱', t: 'Make every credential checkable', p: `Branches, accreditations, reviews and profiles aligned through <a class="inl" href="${S}#local-ai-seo">multi-location and local AI SEO</a>, so AI can verify what you claim.`, tag: 'Trust first' },
     { emoji: '📈', t: 'Own service-plus-area questions', p: `"Boiler repair in Leeds" and every combination that matters, built with <a class="inl" href="${S}#content-engineering">content engineering</a> across every branch.`, tag: 'Written to be cited' },
   ],
@@ -101,7 +101,7 @@ export const trades: SectorPageData = {
     { q: 'How is this different from paying a lead directory?', a: 'A directory sells you leads it owns. AI SEO makes your own brand the answer, so enquiries come direct. Directories still matter, because AI reads them as independent evidence, so your profiles there should match your site exactly. The aim is to be named whether the homeowner asks AI, Google or a directory.' },
     { q: 'We only cover one region. Does that matter?', a: "No, and it can help. AI answers local questions locally, so a firm that clearly states its service areas, branches and response times can be named ahead of a national brand on its own patch. What matters is that every area you cover has a clear page and an accurate profile behind it." },
     { q: 'Which credentials should we show for AI search?', a: 'Every registration AI can check: Gas Safe numbers for gas work, competent person scheme membership such as NICEIC for electrical work, TrustMark and any Which? Trusted Traders status. Show them with the registration number, keep them current, and make sure they match the public registers, because AI and homeowners both check.' },
-    { q: 'How do we start?', a: `Start with a baseline. I run a fixed set of homeowner questions for each service and area through ChatGPT and Google AI, then show where your firm is named, cited or missing and who is named instead. That <a class="inl" href="${S}#ai-visibility-audit">AI visibility audit</a> gives you a prioritised list of fixes before any wider work begins.` },
+    { q: 'How do we start?', a: `Start with a baseline. I run a fixed set of homeowner questions for each service and area through ChatGPT and Google AI, then show where your firm is named, cited or missing and who is named instead. That <a class="inl" href="${S}seo-ai-visibility-audit/">SEO and AI visibility audit</a> gives you a prioritised list of fixes before any wider work begins.` },
   ],
   book: {
     heading: 'Start With A Call<br>About Your Business.',

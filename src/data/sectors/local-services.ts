@@ -53,7 +53,7 @@ export const localServices: SectorPageData = {
   },
   playH2: 'How I Get Local Businesses<br>Named By AI.',
   steps: [
-    { emoji: '🔍', t: 'Baseline by service and branch', p: `A fixed set of local questions for each service and town, with every branch marked named, cited or missing. It starts with <a class="inl" href="${S}#ai-visibility-audit">an AI visibility audit</a> across ChatGPT and Google AI.`, tag: 'Branch-by-branch baseline' },
+    { emoji: '🔍', t: 'Baseline by service and branch', p: `A fixed set of local questions for each service and town, with every branch marked named, cited or missing. It starts with <a class="inl" href="${S}seo-ai-visibility-audit/">an SEO and AI visibility audit</a> across ChatGPT and Google AI.`, tag: 'Branch-by-branch baseline' },
     { emoji: '🧱', t: 'Get every detail right, everywhere', p: `Profiles, listings, hours and credentials made identical across the web through <a class="inl" href="${S}#local-ai-seo">multi-location and local AI SEO</a>.`, tag: 'Accuracy first' },
     { emoji: '📈', t: 'Give AI reasons to choose you', p: `Service, price and branch pages that answer local questions, built with <a class="inl" href="${S}#content-engineering">content engineering</a> across every location.`, tag: 'Written to be cited' },
   ],
@@ -101,7 +101,7 @@ export const localServices: SectorPageData = {
     { q: 'How is this different from the map pack?', a: "The map pack ranks listings; AI answers name a few businesses and say why. They don't always agree: one 2026 US study found 28.5% of Local Pack businesses were missing from Google AI Mode for the same query. Winning both takes accurate profiles plus pages and reviews that explain why you're the right choice." },
     { q: 'How quickly can a local business show up in AI answers?', a: 'Fixes to your Google Business Profile, listings and branch pages can show up within weeks, especially on engines that search the web live. Changes that rely on new reviews and local coverage take longer, often a few months. Tracking a fixed set of local questions from the start makes the progress visible.' },
     { q: 'Why does AI get our opening hours or phone number wrong?', a: "Because it pieces your details together from many sources, and they rarely all agree. One 2026 US study found ChatGPT's details matched Google Business Profile for only 56% of local businesses. The fix is one accurate set of facts, kept identical across your site, profiles, maps and directories." },
-    { q: 'How do we start?', a: `Start with a baseline. I run a fixed set of local questions for each service and branch through ChatGPT and Google AI, then show where your business is named, cited or missing and who is named instead. That <a class="inl" href="${S}#ai-visibility-audit">AI visibility audit</a> gives you a prioritised list of fixes before any wider work begins.` },
+    { q: 'How do we start?', a: `Start with a baseline. I run a fixed set of local questions for each service and branch through ChatGPT and Google AI, then show where your business is named, cited or missing and who is named instead. That <a class="inl" href="${S}seo-ai-visibility-audit/">SEO and AI visibility audit</a> gives you a prioritised list of fixes before any wider work begins.` },
   ],
   book: {
     heading: 'Start With A Call<br>About Your Business.',

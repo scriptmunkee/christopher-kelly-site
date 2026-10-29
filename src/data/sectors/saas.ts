@@ -53,7 +53,7 @@ export const saas: SectorPageData = {
   },
   playH2: 'How I Get SaaS Brands<br>Named By AI.',
   steps: [
-    { emoji: '🔍', t: 'Map every use case', p: `A fixed set of buyer questions for each use case, team size and integration, with your product marked named, cited or missing. It starts with <a class="inl" href="${S}#ai-visibility-audit">an AI visibility audit</a>.`, tag: 'Use-case baseline' },
+    { emoji: '🔍', t: 'Map every use case', p: `A fixed set of buyer questions for each use case, team size and integration, with your product marked named, cited or missing. It starts with <a class="inl" href="${S}seo-ai-visibility-audit/">an SEO and AI visibility audit</a>.`, tag: 'Use-case baseline' },
     { emoji: '🧱', t: 'Make the product legible', p: `Category, integrations, pricing and security facts aligned across your site, marketplaces and review profiles through <a class="inl" href="${S}#entity-optimisation">entity and knowledge graph optimisation</a>.`, tag: 'Entity first' },
     { emoji: '📈', t: 'Win the comparison layer', p: `Use-case, integration, alternatives and "X vs Y" pages AI can quote, built with <a class="inl" href="${S}#content-engineering">content engineering</a> that scales with your roadmap.`, tag: 'Written to be cited' },
   ],
@@ -102,7 +102,7 @@ export const saas: SectorPageData = {
     { q: 'How is AI search different from normal SaaS SEO?', a: "Traditional SaaS SEO wins clicks to your pages. AI search decides whether you're named in the answer at all. That depends on consistent category and use-case positioning, reviews on G2 and Capterra, integrations, and pricing and comparison pages AI can read. The technical foundations overlap, so I run both as one programme." },
     { q: "We're pre-Series A. Is it too early?", a: "Not if you have paying customers and a clear category. Early is when it's cheapest to set the facts straight: one category sentence, a crawlable pricing page, honest comparison pages and a first set of genuine reviews. Those become what AI repeats about you as you grow, so they're worth getting right now." },
     { q: 'How do you measure success?', a: `I track a fixed set of buyer questions for each use case, integration and competitor, and record whether your product is mentioned, cited with a link, or missing, and who is named instead. That <a class="inl" href="${S}#ai-visibility-measurement">AI visibility measurement</a> sits alongside your trial and pipeline data, so movement can be tied to revenue.` },
-    { q: 'How do we start?', a: `Start with a baseline. I run a fixed set of buyer questions for your category, use cases and competitors through ChatGPT and Google AI, then show where your product is named, cited or missing and who is named instead. That <a class="inl" href="${S}#ai-visibility-audit">AI visibility audit</a> gives you a prioritised list of fixes before any wider work begins.` },
+    { q: 'How do we start?', a: `Start with a baseline. I run a fixed set of buyer questions for your category, use cases and competitors through ChatGPT and Google AI, then show where your product is named, cited or missing and who is named instead. That <a class="inl" href="${S}seo-ai-visibility-audit/">SEO and AI visibility audit</a> gives you a prioritised list of fixes before any wider work begins.` },
   ],
   book: {
     heading: 'Start With A Call<br>About Your Product.',

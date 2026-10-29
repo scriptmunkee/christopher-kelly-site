@@ -53,7 +53,7 @@ export const insurance: SectorPageData = {
   },
   playH2: 'How I Get Insurance Brands<br>Named By AI.',
   steps: [
-    { emoji: '🔍', t: 'Baseline by product and customer', p: `A fixed set of customer questions for each product and customer type, with your brand marked named, cited or missing. It starts with <a class="inl" href="${S}#ai-visibility-audit">an AI visibility audit</a> across ChatGPT and Google AI.`, tag: 'Product-by-product baseline' },
+    { emoji: '🔍', t: 'Baseline by product and customer', p: `A fixed set of customer questions for each product and customer type, with your brand marked named, cited or missing. It starts with <a class="inl" href="${S}seo-ai-visibility-audit/">an SEO and AI visibility audit</a> across ChatGPT and Google AI.`, tag: 'Product-by-product baseline' },
     { emoji: '🧱', t: 'Build the product and brand entities', p: `Products, brands, underwriters and ratings aligned across your site, comparison listings and profiles through <a class="inl" href="${S}#entity-optimisation">entity and knowledge graph optimisation</a>.`, tag: 'Entity first' },
     { emoji: '📈', t: 'Answer the cover questions customers ask', p: `What's covered, what isn't and how claims work, written for compliance approval using <a class="inl" href="${S}#content-engineering">content engineering</a> across every product.`, tag: 'Written to be cited' },
   ],
@@ -101,7 +101,7 @@ export const insurance: SectorPageData = {
     { q: 'Do customers really use AI to choose insurance?', a: "Yes. A Geneva Association survey of 6,000 people across six markets, including the UK, found 68% used AI assistants such as ChatGPT or Copilot when buying insurance, and 46% already use them to compare products. If AI can't describe your cover clearly, a comparison site or a competitor fills that gap." },
     { q: 'How is insurance different for AI search?', a: 'Insurance is a regulated, high-stakes purchase, so AI engines lean heavily on comparison sites, ratings and reviews, and they repeat cover details word for word. Vague or out-of-date policy information gets passed straight on to customers. Precise, dated product facts on your own pages are the best protection and the strongest route to being named.' },
     { q: 'Will AI SEO work within FCA rules?', a: 'Yes. Content is written to be clear, fair and not misleading, savings claims are checked against current FCA guidance, and everything goes through your financial promotions approval before it goes live. The clear, accurate product facts that compliance asks for are the same facts AI engines need to recommend you with confidence.' },
-    { q: 'How do we start?', a: `Start with a baseline. I run a fixed set of customer questions for each product and customer type through ChatGPT and Google AI, then show where your brand is named, cited or missing and who is named instead. That <a class="inl" href="${S}#ai-visibility-audit">AI visibility audit</a> gives you a prioritised list of fixes before any wider work begins.` },
+    { q: 'How do we start?', a: `Start with a baseline. I run a fixed set of customer questions for each product and customer type through ChatGPT and Google AI, then show where your brand is named, cited or missing and who is named instead. That <a class="inl" href="${S}seo-ai-visibility-audit/">SEO and AI visibility audit</a> gives you a prioritised list of fixes before any wider work begins.` },
   ],
   book: {
     heading: 'Start With A Call<br>About Your Products.',
