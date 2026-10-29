@@ -16,15 +16,14 @@ const description = 'Christopher Kelly is a senior, hands-on enterprise AI SEO c
 const strip = [
   { n: '15+', l: 'luxury properties delivered' },
   { n: '4', l: 'continents' },
-  { n: '[CONFIRM]', l: 'years in SEO' },
+  { n: '12', l: 'named clients across four sectors' },
   { n: 'UK', l: 'based, working globally' },
 ];
 
 const timeline = [
-  { d: '[CONFIRM year]', t: 'Starts in SEO and marketing operations', p: '[CONFIRM: first role and where]' },
-  { d: '[CONFIRM years]', t: 'Law firm and dental clients', p: 'Including Stowe Family Law, Simpson Millar, Fulham Road Dental and Direct Dental.' },
+  { d: '', t: 'Law firm and dental clients', p: 'Including Stowe Family Law, Simpson Millar, Fulham Road Dental and Direct Dental.' },
   { d: 'Feb 2024 to Mar 2025', t: 'Web3 and crypto SEO', p: 'Audits, strategy and content for brands including Bankless, RedStone Finance and Mezo, through a partner agency.' },
-  { d: '[CONFIRM year] to now', t: 'Global luxury hotel group', p: 'Multi-year SEO and AI search across 15+ properties on four continents. Named on request.' },
+  { d: 'Multi-year, to now', t: 'Global luxury hotel group', p: 'Multi-year SEO and AI search across 15+ properties on four continents. Named on request.' },
   { d: 'Oct 2025', t: 'Founds Ascend Digital Marketing Ltd', p: 'The consultancy behind this site, Companies House number 16822903.' },
   { d: '2026', t: 'Local SEO automation goes live', p: 'Audits that took most of a day now generate in about two minutes.' },
 ];
@@ -86,7 +85,7 @@ const recordFacts = [
   ['Automation', `n8n workflows that generate <a class="inl" href="${U}/case-studies/local-seo-automation-luxury-hotel-portfolio/">local SEO audits in about two minutes</a> and write approved fixes back to listings`],
   ['Named clients', 'Stowe Family Law, Simpson Millar, Fulham Road Dental, Direct Dental, Bankless, RedStone Finance, Mezo, Thesis, Trojan, Crestal, Bando, Bity'],
   ['Method', `<a class="inl" href="${U}/services/seo-ai-visibility-audit/">Baseline across the AI engines</a>, fix entities, build answer-first content, then measure mentions and citations monthly`],
-  ['Experience', '[CONFIRM] years in SEO and marketing operations'],
+  ['Experience', 'A long-standing background in SEO and marketing operations'],
 ];
 
 const faqs = [
@@ -173,7 +172,7 @@ const schema = [
       <div class="ab-story-c">
         <p class="eyebrow">My story</p>
         <h2 class="h2" id="h-story">From Marketing Ops to AI Search</h2>
-        <p>I've worked in SEO and marketing operations for [CONFIRM] years. The job has changed more in the last two than in all the years before, because buyers now ask AI for a recommendation before they search.</p>
+        <p>I come from a long-standing background in SEO and marketing operations. The job has changed more in the last two years than in all the years before, because buyers now ask AI for a recommendation before they search.</p>
         <p>For years I've delivered SEO for a global luxury hotel group across 15+ properties on four continents: seasonal and experience pages, FAQ systems, Google Business Profiles and tracking how AI describes each property. Every change clears brand, legal and regional teams, so I know how to ship inside a big organisation.</p>
         <p>Alongside that, I've worked with law firms, dental practices and crypto and fintech brands. Those sectors taught me how AI treats regulated, high-trust businesses, where a wrong answer costs more than a lost click.</p>
         <p>I build my own tooling too. n8n workflows, API integrations and browser tools take the repetitive work off people, and my <a class="inl" href="/case-studies/local-seo-automation-luxury-hotel-portfolio/">local SEO automation case study</a> shows what that's worth to an enterprise team.</p>
@@ -182,7 +181,7 @@ const schema = [
       <ol class="tl" aria-label="Career timeline">
         {timeline.map((i) => (
           <li class="tl-i">
-            <span class="tl-d">{i.d}</span>
+            {i.d && <span class="tl-d">{i.d}</span>}
             <span class="tl-t">{i.t}</span>
             <span class="tl-p">{i.p}</span>
           </li>

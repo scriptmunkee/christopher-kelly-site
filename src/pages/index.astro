@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import { real } from '../lib/ph';
 import Marquee from '../components/Marquee.astro';
 import Portrait from '../components/Portrait.astro';
 import { brands } from '../data/brands';
@@ -88,6 +89,12 @@ const cases = [
     visuals: ['[PLACEHOLDER SCREENSHOT]<br>Workflow overview', '[PLACEHOLDER SCREENSHOT]<br>Automated monthly report'],
   },
 ];
+
+// AI answer screenshots for the proof section. The grid shows once at least one approved screenshot is added here.
+const shots: { img: string; alt: string; cap: string }[] = [];
+
+// Short review quotes under the booking block. Shown once real, attributable quotes are added.
+const miniQuotes: { q: string; who: string }[] = [];
 
 const schema = [websiteSchema(), personSchema(), businessSchema(), faqSchema(faqs)];
 ---
@@ -313,13 +320,13 @@ const schema = [websiteSchema(), personSchema(), businessSchema(), faqSchema(faq
       <div class="shead">
         <p class="eyebrow">Straight from the answer engine</p>
         <h2 class="h2 h2-w" id="h-proof">This Is What Enterprise AI SEO<br>Actually Delivers.</h2>
-        <p class="sub" style="color:rgba(255,255,255,.78);max-width:760px">Real answers from AI engines after the work went live. Not a ranking report: the brand is the source the answer is built on.</p>
+        <p class="sub" style="color:rgba(255,255,255,.78);max-width:760px">{shots.length > 0 ? 'Real answers from AI engines after the work went live.' : 'What changes when the work goes live.'} Not a ranking report: the brand is the source the answer is built on.</p>
       </div>
-      <div class="shot-grid">
-        <figure class="shot"><div class="shot-img"><span class="ph-label">[PLACEHOLDER SCREENSHOT]</span></div><figcaption class="shot-cap"><strong>"where is [Resort]"</strong> → [Brand] cited as the definition source</figcaption></figure>
-        <figure class="shot"><div class="shot-img"><span class="ph-label">[PLACEHOLDER SCREENSHOT]</span></div><figcaption class="shot-cap"><strong>"how to get to [Resort] from the airport"</strong> → [Brand] cited as the getting-there source</figcaption></figure>
-        <figure class="shot"><div class="shot-img"><span class="ph-label">[PLACEHOLDER SCREENSHOT]</span></div><figcaption class="shot-cap"><strong>"[PROMPT]"</strong> → [Brand] cited as the [PLACEHOLDER] source</figcaption></figure>
-      </div>
+      {shots.length > 0 && (
+        <div class="shot-grid">
+          {shots.map((sh) => <figure class="shot"><div class="shot-img"><img src={sh.img} alt={sh.alt} loading="lazy" /></div><figcaption class="shot-cap" set:html={sh.cap} /></figure>)}
+        </div>
+      )}
       <div class="callout">
         <h3 class="callout-h">An AI recommendation arrives pre-sold.</h3>
         <p>When a buyer reads your name inside an AI answer, the comparison has already happened. The engine weighed the options and picked you.</p>
@@ -349,15 +356,13 @@ const schema = [websiteSchema(), personSchema(), businessSchema(), faqSchema(faq
                 <div class="cs-col">
                   <div><h4 class="cs-k">Challenge</h4><p class="cs-p">{c.challenge}</p></div>
                   <div><h4 class="cs-k">Approach</h4><p class="cs-p">{c.approach}</p></div>
-                  <div><h4 class="cs-k">Results</h4><ul class="cs-ul">{c.results.map((r) => <li set:html={r} />)}</ul></div>
+                  {real(c.results).length > 0 && <div><h4 class="cs-k">Results</h4><ul class="cs-ul">{real(c.results).map((r) => <li set:html={r} />)}</ul></div>}
                 </div>
-                <div class="cs-col">
-                  {c.visuals.map((v) => <div class="chart" set:html={v} />)}
-                </div>
-                <blockquote class="quote">
-                  <span class="q-av">[IMG]</span>
-                  <div><p class="q-text">"[PLACEHOLDER QUOTE]"</p><p class="q-who">[NAME], [ROLE], [COMPANY]</p></div>
-                </blockquote>
+                {real(c.visuals).length > 0 && (
+                  <div class="cs-col">
+                    {real(c.visuals).map((v) => <div class="chart" set:html={v} />)}
+                  </div>
+                )}
               </div>
             </details>
           </article>
@@ -399,11 +404,13 @@ const schema = [websiteSchema(), personSchema(), businessSchema(), faqSchema(faq
     sub="One call, direct with me. You leave knowing where you stand in AI search, whether we work together or not."
     cover={cover}
   >
-    <div class="mini-grid">
-      {[1, 2, 3].map(() => (
-        <div class="mini"><span class="stars" role="img" aria-label="5 out of 5 stars">★★★★★</span><p class="mini-q">"[PLACEHOLDER SHORT QUOTE]"</p><span class="mini-w">[NAME], [ROLE]</span></div>
-      ))}
-    </div>
+    {miniQuotes.length > 0 && (
+      <div class="mini-grid">
+        {miniQuotes.map((m) => (
+          <div class="mini"><span class="stars" role="img" aria-label="5 out of 5 stars">★★★★★</span><p class="mini-q">"{m.q}"</p><span class="mini-w">{m.who}</span></div>
+        ))}
+      </div>
+    )}
     <ul class="pl" slot="before-ticks">
       <li>👉 Bring one brand, one market or the whole portfolio</li>
       <li>👉 We look at real AI answers about you, not theory</li>

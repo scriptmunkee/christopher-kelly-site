@@ -9,6 +9,7 @@ import BookCall from './BookCall.astro';
 import { site } from '../data/site';
 import { sectors } from '../data/services';
 import { icons, S, type SectorPageData } from '../lib/sector';
+import { isPh } from '../lib/ph';
 import { breadcrumbSchema, faqSchema, serviceSchema, personSchema, businessSchema } from '../lib/schema';
 
 type Props = SectorPageData;
@@ -226,8 +227,8 @@ const schema = [
           <article class="case">
             <span class="label">{c.label}</span>
             <h3 class="case-t">{c.t}</h3>
-            <p class="case-p">{c.p}</p>
-            <p class="case-m">{c.m}</p>
+            {!isPh(c.p) && <p class="case-p">{c.p}</p>}
+            {!isPh(c.m) && <p class="case-m">{c.m}</p>}
           </article>
         ))}
       </div>

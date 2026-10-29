@@ -48,10 +48,6 @@ Travellers' most common questions about a remote destination are practical: wher
 
 Google's AI Overview now cites the resort's destination page as both **the definition of the destination** and **the getting-there source**. Instead of borrowing facts from the more famous town, the answer is built from the resort's own official page.
 
-[PLACEHOLDER: screenshot of the AI Overview citing the page]
-
-[PLACEHOLDER: change in impressions or clicks for destination queries, and time to citation]
-
 ## How to Tell if Your Brand Has the Same Problem
 
 Name collisions are more common than most brands realise. Watch for these signs:
