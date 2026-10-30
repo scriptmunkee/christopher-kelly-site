@@ -6,9 +6,10 @@ Full infrastructure map, recipes and open items live in the `christopher-kelly-s
 
 ## Workflow
 - Edit, run `npm run build` to check it compiles, commit, push to `main`. Cloudflare rebuilds automatically, usually within a minute. Confirm on the live site.
-- Never commit secrets. Public client keys only (PostHog `phc_` key, Cloudflare beacon token in `site.ts`). There is no backend, no forms and no database.
+- Never commit secrets. Public client keys only (PostHog `phc_` key, Cloudflare beacon token in `site.ts`). There is no backend (beyond the one-route Worker script for `/_geo`), no forms and no database.
 - Booking: every "Book my call" button uses `calendarUrl` (TidyCal) in `site.ts`.
 - Analytics: Cloudflare Web Analytics beacon for everyone; PostHog (EU) only after consent via `Consent.astro`. Update `/privacy/` whenever a tool, cookie or form is added.
+- Analytics location: once consent is given, `Consent.astro` fetches `/_geo` and adds `visitor_country`, `visitor_region`, `visitor_region_code`, `visitor_city` and, for GB, `visitor_postcode_area` (letters only, e.g. `TS`) to every PostHog event via `before_send`, the same properties companimal.co.uk sends to the shared project. `/_geo` is the only path the Worker script (`worker/index.ts`) handles (`assets.run_worker_first` in `wrangler.jsonc`); it reads Cloudflare's visitor location headers (zone managed transform) or `request.cf`. Never cache it, never add finer fields (postcode district, lat/long, IP), and keep `run_worker_first` limited to `/_geo` so pages stay pure static assets.
 - Keep pages server-rendered HTML. No client-side frameworks; tiny inline scripts only (see `Base.astro`).
 - Interactive bits (accordions, FAQs, case studies, mobile menu) use native `<details>/<summary>` so content is in the HTML for crawlers.
 

@@ -26,13 +26,41 @@
   const show = () => banner?.removeAttribute('hidden');
   const hide = () => banner?.setAttribute('hidden', '');
 
+  // Coarse visitor location from Cloudflare (country, region, town, postcode
+  // area) via the Worker's /_geo route. Only fetched once the visitor has
+  // accepted, held in memory, and never allowed to hold up PostHog: a failure
+  // or slow answer just means events go out without it. Same visitor_*
+  // properties as companimal.co.uk in the shared PostHog project.
+  async function fetchVisitorGeo(): Promise<Record<string, string>> {
+    try {
+      const res = await fetch('/_geo', {
+        cache: 'no-store',
+        credentials: 'omit',
+        signal: AbortSignal.timeout(1500),
+      });
+      if (!res.ok) return {};
+      const geo = await res.json();
+      return geo && typeof geo === 'object' ? geo : {};
+    } catch {
+      return {};
+    }
+  }
+
   async function startPostHog() {
     if (ph) { ph.opt_in_capturing(); return; }
-    const { default: posthog } = await import('posthog-js');
+    // In parallel, so the first pageview (sent during init) already carries it.
+    const [{ default: posthog }, visitorGeo] = await Promise.all([import('posthog-js'), fetchVisitorGeo()]);
     posthog.init(site.analytics.posthogKey, {
       api_host: site.analytics.posthogHost,
       ui_host: 'https://eu.posthog.com',
       person_profiles: 'identified_only',
+      // Add the location to every event; never overwrite a value an event set.
+      before_send: (event) => {
+        if (event && Object.keys(visitorGeo).length) {
+          event.properties = { ...visitorGeo, ...(event.properties ?? {}) };
+        }
+        return event;
+      },
     });
     ph = posthog;
   }

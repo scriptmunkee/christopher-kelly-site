@@ -1,11 +1,17 @@
-// Cloudflare Worker config for christopher-kelly.co.uk (static assets only, no Worker script).
+// Cloudflare Worker config for christopher-kelly.co.uk (static assets, plus a tiny
+// Worker script that only handles /_geo for analytics location).
 // Workers Builds runs `wrangler deploy` on every push to main and reads this file.
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "christopher-kelly-site",
   "compatibility_date": "2026-10-01",
+  // Only runs for the paths in assets.run_worker_first; everything else is served
+  // from ./dist without invoking the script.
+  "main": "worker/index.ts",
   "assets": {
     "directory": "./dist",
+    "binding": "ASSETS",
+    "run_worker_first": ["/_geo"],
     // Serve dist/404.html (with a 404 status) for any URL that doesn't exist.
     "not_found_handling": "404-page",
     // Matches astro.config.mjs trailingSlash: 'always'.
