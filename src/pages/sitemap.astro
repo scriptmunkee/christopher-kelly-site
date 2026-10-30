@@ -27,13 +27,6 @@ const groups: { h: string; links: L[] }[] = [
   { h: 'SEO Consultant Pages', links: seoSectors.map((s) => ({ t: s.name, href: `/services/seo-consultant-${s.slug}/` })) },
   { h: 'Case Studies', links: studies.map((c) => ({ t: c.data.title, href: `/case-studies/${c.id}/` })) },
   { h: 'Blog Posts', links: posts.map((p) => ({ t: p.data.title, href: `/blog/${p.id}/` })) },
-  {
-    h: 'Feeds',
-    links: [
-      { t: 'Blog RSS feed', href: '/rss.xml' },
-      { t: 'XML sitemap', href: '/sitemap-index.xml' },
-    ],
-  },
 ].filter((g) => g.links.length);
 
 const title = 'Sitemap | Christopher Kelly';
@@ -44,7 +37,7 @@ const schema = [
   collectionSchema({
     path: '/sitemap/',
     name: title,
-    items: groups.flatMap((g) => g.links).filter((l) => l.href.endsWith('/')).map((l) => ({ title: l.t, path: l.href })),
+    items: groups.flatMap((g) => g.links).map((l) => ({ title: l.t, path: l.href })),
   }),
   breadcrumbSchema([
     { name: 'Home', path: '/' },
