@@ -44,6 +44,17 @@ Naming and linking convention (from the tom-riley.co.uk sitemap): every sector p
 ## Adding a blog post
 Create `src/content/blog/<slug>.md` with the frontmatter the schema in `src/content.config.ts` requires: title, description (160 characters max), standfirst, category (Statistics, Case Studies or Guides), pubDate, 3 to 5 takeaways, sources (title, publisher, date, URL) and authorLink (a page name and its path). Set `draft: true` to hold a post back. Write answer-first, H2s in Title Case, every statistic linked inline to a dated, named source and labelled when it's a vendor study or non-UK data. Internal links go inside sentences, using page names as anchor text. The hub, sitemap, RSS and schema update automatically.
 
+### Story-led posts (from the Tom Riley "non-commodity content" work, Oct 2026)
+Use for news, opinion and case-study posts; keep reference posts (statistics) as tables.
+1. **Scene:** open on a specific moment (a day, a time, an action), told in short one-line paragraphs. No preamble.
+2. **The turn:** what looked fine on the surface, then the one detail that changes the story. End the section on a question.
+3. **Same events, the reader's side:** an H2 such as "Now look at the same quarter from your side" that walks back through the story beat by beat and shows what it means for the reader's business.
+4. **Summary table:** "What happened | What it means for you".
+5. **The other side:** the strongest counter-argument, fairly put, before the conclusion.
+6. **What to do:** 3 or 4 numbered actions, each linked in-sentence to the relevant service, sector page or post.
+7. **Close:** two or three short lines. No bolt-on CTA (the template adds the author box and booking).
+Content only Chris can write beats commodity content: "what we did, for whom, what changed". Label composites as composites, never invent a person or a quote, and keep every number linked to its source.
+
 ## Adding a case study
 Create `src/content/case-studies/<slug>.md` with the frontmatter in `src/content.config.ts`: headline stats (3 or 4), summary (challenge, approach, result), KPI tiles (number, caption, basis line), an optional `value` model (locations, rates, build hours, hosting, and workflows with runs a year and minutes before and after) and `assumptions`, each marked Documented or Estimate. The template computes every total, ROI, payback and the scale table from `value`, so never type a total into the body; keep the headline and KPI numbers in step with the model. Set `estimated: true` when any figure is modelled, which shows the estimate notice. Name the client only if they are on the permitted list below; otherwise "named on request". Blog posts in the Case Studies category also appear on the hub.
 
