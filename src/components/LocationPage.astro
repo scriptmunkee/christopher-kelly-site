@@ -20,8 +20,8 @@ const title = `${p.name} | Christopher Kelly`;
 const short = p.place.replace(/^the /, '');
 const mapKey = p.slug.replace('ai-seo-consultant-', '');
 const focus = mapKey === 'north-east' ? undefined : mapKey;
-const mapH2 = mapKey === 'newcastle' ? 'Based Here in Newcastle' : mapKey === 'north-east' ? 'Working Across the North East' : `From Newcastle to ${p.place}`;
-const mapQuery = mapKey === 'north-east' ? 'North East England' : `${mapKey === 'newcastle' ? 'Newcastle upon Tyne' : p.place}, UK`;
+const mapH2 = mapKey === 'durham' ? 'Based Here in Durham' : mapKey === 'north-east' ? 'Working Across the North East' : `From Durham to ${p.place}`;
+const mapQuery = mapKey === 'north-east' ? 'North East England' : `${p.place}, UK`;
 const relation3 = p.relation.replace(/^I'm/, 'He is').replace(/ for me$/, ' for him').replace(/ and work /, ' and works ');
 const sectorLinks = p.sectors
   .map((s) => ({ ...s, page: sectors.find((x) => x.href === `/services/ai-seo-consultant-${s.slug}/`) }))
@@ -156,12 +156,12 @@ const schema = [
   <!-- MAP -->
   <section class="sec bg-white" id="where" aria-labelledby="h-where">
     <div class="wrap lp-map">
-      <NeMap focus={focus} query={mapQuery} label={`Map of North East England showing ${focus ? p.place + ' and ' : ''}Newcastle upon Tyne, where Christopher Kelly is based`} />
+      <NeMap focus={focus} query={mapQuery} label={`Map of North East England showing ${focus && focus !== 'durham' ? p.place + ' and ' : ''}Durham, where Christopher Kelly is based`} />
       <div class="lp-map-c">
         <p class="eyebrow">Where I work</p>
         <h2 class="h2" id="h-where">{mapH2}</h2>
         <p>{p.relation}. Most of the work happens inside your website, Google Business Profile and analytics, so it runs just as well whether you're down the road or across the region.</p>
-        <p>I work with businesses across Newcastle, Gateshead, Sunderland, Durham, Teesside and Darlington, and with enterprise brands worldwide. Wherever you are, you deal with me directly.</p>
+        <p>I work with businesses across County Durham, Newcastle, Gateshead, Sunderland, Teesside and Darlington, and with enterprise brands worldwide. Wherever you are, you deal with me directly.</p>
         <div class="hero-btns"><a class="btn" href="#book">👉 Book a 15 minute call</a></div>
       </div>
     </div>

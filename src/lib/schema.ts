@@ -14,10 +14,10 @@ export function personSchema() {
     jobTitle: site.role,
     url: `${site.url}/`,
     description:
-      'Christopher Kelly is a senior, hands-on enterprise AI SEO consultant based in Newcastle upon Tyne, UK, with multi-year SEO and AI search delivery across a global portfolio of 15+ locations.',
+      'Christopher Kelly is a senior, hands-on enterprise AI SEO consultant based in Durham, UK, with multi-year SEO and AI search delivery across a global portfolio of 15+ locations.',
     image: `${site.url}/img/christopher-hero.jpg`,
     worksFor: { '@id': orgId },
-    address: { '@type': 'PostalAddress', addressLocality: 'Newcastle upon Tyne', addressRegion: 'Tyne and Wear', addressCountry: 'GB' },
+    address: { '@type': 'PostalAddress', addressLocality: 'Durham', addressRegion: 'County Durham', addressCountry: 'GB' },
     knowsAbout: [
       'Enterprise SEO',
       'AI search optimisation',
@@ -44,12 +44,13 @@ export function businessSchema() {
     image: `${site.url}/og.png`,
     founder: { '@id': personId },
     areaServed: [
+      { '@type': 'City', name: 'Durham' },
       { '@type': 'City', name: 'Newcastle upon Tyne' },
       { '@type': 'AdministrativeArea', name: 'North East England' },
       { '@type': 'Country', name: 'United Kingdom' },
       'Worldwide',
     ],
-    address: { '@type': 'PostalAddress', addressLocality: 'Newcastle upon Tyne', addressRegion: 'Tyne and Wear', addressCountry: 'GB' },
+    address: { '@type': 'PostalAddress', addressLocality: 'Durham', addressRegion: 'County Durham', addressCountry: 'GB' },
     audience: { '@type': 'BusinessAudience', audienceType: 'Marketing and digital leaders at multi-location and multi-brand enterprises' },
     knowsAbout: [
       'AI search optimisation',

@@ -9,9 +9,9 @@ interface Props {
   label: string;       // accessible description of the map
 }
 const { focus, query, label } = Astro.props;
-const base = xy(places.newcastle.lon, places.newcastle.lat);
+const base = xy(places.durham.lon, places.durham.lat);
 const f = focus ? xy(places[focus].lon, places[focus].lat) : undefined;
-const showLine = focus && focus !== 'newcastle' && focus !== 'gateshead';
+const showLine = focus && focus !== 'durham';
 const all = Object.entries(places).map(([k, p]) => ({ k, ...p, ...xy(p.lon, p.lat) }));
 const gmap = `https://www.google.com/maps?q=${encodeURIComponent(query)}&z=11&output=embed`;
 ---
@@ -32,7 +32,7 @@ const gmap = `https://www.google.com/maps?q=${encodeURIComponent(query)}&z=11&ou
       )}
       {all.map((p) => {
         const isFocus = !focus || p.k === focus;
-        const isBase = p.k === 'newcastle';
+        const isBase = p.k === 'durham';
         return (
           <g>
             {isFocus && <circle cx={p.x} cy={p.y} r="16" fill="rgba(198,244,50,.18)" />}
@@ -41,7 +41,7 @@ const gmap = `https://www.google.com/maps?q=${encodeURIComponent(query)}&z=11&ou
           </g>
         );
       })}
-      {focus !== 'newcastle' && (
+      {focus !== 'durham' && (
         <text x={base.x - 10} y={base.y - 28} text-anchor="end" class="nem-base">Based here</text>
       )}
     </svg>
