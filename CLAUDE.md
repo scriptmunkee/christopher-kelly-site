@@ -55,6 +55,17 @@ Use for news, opinion and case-study posts; keep reference posts (statistics) as
 7. **Close:** two or three short lines. No bolt-on CTA (the template adds the author box and booking).
 Content only Chris can write beats commodity content: "what we did, for whom, what changed". Label composites as composites, never invent a person or a quote, and keep every number linked to its source.
 
+### Voice (opinionated, first person; Chris asked for this on 4 Nov 2026)
+Modelled on how tom-riley.co.uk reads, never on his wording.
+- First person, "I" not "we". Open on something Chris actually does or saw, not on a definition.
+- Very short paragraphs. One-line punchlines are fine. Vary rhythm: two short lines, then one longer.
+- Take a side and say it plainly. No hedging stacks ("may potentially help"). One clear opinion per section.
+- Rhetorical question, then answer it straight away. Triads are fine, once or twice a post.
+- H2s can carry the verdict ("Nobody Owns the Description. That's the Problem.").
+- Put the counter-argument fairly, then say why you still disagree.
+- Close by restating the point in two or three short lines. No sign-off fluff.
+- Still bound by the writing rules below: British English, no double or em dashes, no hype words, no invented numbers or quotes.
+
 ## Adding a case study
 Create `src/content/case-studies/<slug>.md` with the frontmatter in `src/content.config.ts`: headline stats (3 or 4), summary (challenge, approach, result), KPI tiles (number, caption, basis line), an optional `value` model (locations, rates, build hours, hosting, and workflows with runs a year and minutes before and after) and `assumptions`, each marked Documented or Estimate. The template computes every total, ROI, payback and the scale table from `value`, so never type a total into the body; keep the headline and KPI numbers in step with the model. Set `estimated: true` when any figure is modelled, which shows the estimate notice. Name the client only if they are on the permitted list below; otherwise "named on request". Blog posts in the Case Studies category also appear on the hub.
 
