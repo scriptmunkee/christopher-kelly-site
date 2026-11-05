@@ -16,7 +16,7 @@ const p = Astro.props;
 const U = site.url;
 const path = `/${p.slug}/`;
 const audit = `${U}/services/seo-ai-visibility-audit/`;
-const title = `${p.name} | Christopher Kelly`;
+const title = p.title ?? `${p.name} | Christopher Kelly`;
 const short = p.place.replace(/^the /, '');
 const mapKey = p.slug.replace('ai-seo-consultant-', '');
 const focus = mapKey === 'north-east' ? undefined : mapKey;
@@ -131,7 +131,7 @@ const schema = [
     <div class="wrap-800">
       <div class="shead">
         <p class="eyebrow">The short answer</p>
-        <h2 class="h2" id="h-who">Who Helps {short} Businesses Get Recommended by AI?</h2>
+        <h2 class="h2" id="h-who">{p.whoH2 ?? `Who Helps ${short} Businesses Get Recommended by AI?`}</h2>
       </div>
       <p class="au-answer">Christopher Kelly is a senior, hands-on AI SEO consultant. {relation3}. He gets businesses named, cited and recommended by ChatGPT, Gemini, Perplexity, Copilot and Google AI Mode, using the same methods he uses for a global luxury hotel group across 15+ properties. You work with him directly, and every engagement starts with a 15 minute conversation.</p>
     </div>
@@ -172,7 +172,7 @@ const schema = [
     <div class="wrap">
       <div class="shead">
         <p class="eyebrow">What I do</p>
-        <h2 class="h2" id="h-how">How I Get {short} Businesses Named by AI</h2>
+        <h2 class="h2" id="h-how">{p.howH2 ?? `How I Get ${short} Businesses Named by AI`}</h2>
       </div>
       <div class="ab-principles">
         {help.map((h, i) => (

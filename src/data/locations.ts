@@ -8,6 +8,9 @@ export interface LocationPage {
   slug: string;
   place: string;          // short name used in copy: "Newcastle"
   name: string;           // page name, H1 and title before the |
+  title?: string;         // optional <title> override; defaults to "<name> | Christopher Kelly"
+  whoH2?: string;         // optional override for the "short answer" H2
+  howH2?: string;         // optional override for the "What I do" H2
   description: string;    // meta, 160 characters max
   relation: string;       // how Christopher relates to the place, one clause
   heroSub: string;
@@ -194,16 +197,22 @@ export const locations: LocationPage[] = [
     slug: 'ai-seo-consultant-gateshead',
     place: 'Gateshead',
     name: 'AI SEO Consultant Gateshead',
-    description: 'Christopher Kelly is an AI SEO consultant working with Gateshead businesses. Get named and recommended by ChatGPT, Gemini and Google AI. Book a call.',
+    title: 'AI SEO Consultant Gateshead | The SEO Agency Alternative',
+    whoH2: 'Looking for an SEO Agency in Gateshead?',
+    howH2: 'How I Get Gateshead Businesses Found in Google and AI',
+    description: 'Looking for an SEO agency in Gateshead? Work directly with Christopher Kelly, a senior SEO and AI search consultant. Local SEO, Google and AI. Book a call.',
     relation: "I'm based in Durham, a short trip from Gateshead",
     heroSub: 'Get your Gateshead business into the answers your customers trust.',
-    heroBody: "From Team Valley to the Quays, Gateshead businesses compete for customers who now ask AI who to use. AI names a few. I make sure yours is one of them, with senior, hands-on work from a consultant just across the river.",
+    heroBody: "Search for an SEO agency in Gateshead and most of what comes back is Newcastle firms. I'm the alternative: a senior SEO and AI search consultant a short trip away, doing the work myself. From Team Valley to the Quays, I get your business ranking in Google and named by the AI tools your customers now ask.",
     aiCard: { prompt: 'trade counter near Team Valley open on Saturdays', answer: '<strong>[Your business]</strong> is on Team Valley, opens Saturday mornings and carries the trade ranges most local installers need.' },
-    localH2: 'Why AI Search Matters for Gateshead Businesses',
+    localH2: 'Local SEO and AI Search for Gateshead Businesses',
     local: [
       "Gateshead is where a lot of the North East's business actually happens. Team Valley Trading Estate is home to hundreds of firms, from manufacturers to trade counters, the MetroCentre draws shoppers from across the region, and the Quays, with Baltic and The Glasshouse, bring visitors to the riverside.",
-      "Customers searching for any of them increasingly ask AI. Which trade counter is open Saturday. Where to eat before a gig at The Glasshouse. Which commercial cleaner covers Team Valley. AI answers with a shortlist, and businesses with unclear or conflicting details get left off.",
-      "For businesses on a big estate or in a busy retail area, that problem is worse. AI has to tell you apart from dozens of neighbours, and it only names the ones it can describe with confidence.",
+      "Customers searching for any of them now ask Google and AI in the same breath. Which trade counter is open Saturday. Where to eat before a gig at The Glasshouse. Which commercial cleaner covers Team Valley. Google shows a map pack, AI answers with a shortlist, and businesses with unclear or conflicting details get left off both.",
+      "For businesses on a big estate or in a busy retail area, that problem is worse. Search engines and AI have to tell you apart from dozens of neighbours, and they only name the ones they can describe with confidence.",
+      "Search for SEO in Gateshead today and page one is mostly Newcastle agencies that mention Gateshead in passing, plus directories ranking other agencies. That leaves room for Gateshead businesses that get their local SEO right.",
+      "The work is search engine optimisation first: technical SEO, on-page fixes, keyword research around what your customers actually type, a well-kept Google Business Profile for Google Maps, and links and mentions from local press and trusted sites. The AI search layer sits on top, because ChatGPT, Gemini and Google AI Mode lean on the same pages and entities that rank. It isn't Google Ads, PPC or a website rebuild.",
+      "Rankings and clicks are only part of the picture. I tie the work to real enquiries, not vanity metrics, and re-run the same customer questions through the AI engines every month, so you can see whether you're missing, mentioned, cited or recommended.",
     ],
     prompts: [
       'trade counter near Team Valley open on Saturdays',
@@ -214,18 +223,24 @@ export const locations: LocationPage[] = [
       'wholesale supplier in Gateshead',
     ],
     sectors: [
-      { slug: 'trades', why: 'Trade counters, installers and home services across Gateshead.' },
+      { slug: 'trades', why: 'Trade counters, B2B suppliers, installers and home services across Gateshead and Team Valley.' },
       { slug: 'ecommerce', why: 'Retailers and wholesalers selling online from Team Valley.' },
       { slug: 'local-services', why: 'Service businesses competing for customers across the borough.' },
       { slug: 'hospitality', why: 'Hotels, bars and restaurants around the Quays and the MetroCentre.' },
     ],
     faqs: [
-      { q: 'Do you work with Gateshead businesses?',
-        a: "Yes. I'm based in Durham, a short trip from Gateshead, and I work with businesses across Gateshead as well as enterprise brands worldwide. You deal with me directly, and the work is built around your customers, your location and the questions people actually ask AI about businesses like yours." },
+      { q: 'Are you an SEO agency in Gateshead?',
+        a: "No, and that's the point. I'm an independent SEO and AI search consultant based in Durham, a short trip from Gateshead. There's no account manager or junior team: I do the audit, the fixes and the reporting myself, for Gateshead businesses and enterprise brands worldwide, and you deal with me directly from the first call." },
+      { q: 'What is local SEO?',
+        a: "Local SEO is the work that gets a business found by people nearby: in Google's local results, on Google Maps and now in AI answers about a place. For a Gateshead business it means an accurate Google Business Profile, consistent details across listings, strong reviews and pages that make clear exactly where you are and what you do." },
       { q: 'How does a Team Valley business stand out in AI answers?',
         a: "By being easy to tell apart. On a large estate, AI has to work out which of many businesses fits the question. A clear name, exact location, opening hours, ranges or services, and consistent details across your site, Google Business Profile and listings give it the confidence to name you rather than a neighbour." },
       { q: 'Does AI search matter for Gateshead retailers?',
         a: "Yes. Shoppers ask AI where to buy, what's in stock and which shop is best for a specific need. AI answers with a few names, often citing reviews and product pages. Retailers with clear product information, accurate store details and strong recent reviews are the ones it recommends, whether they sell in store or online." },
+      { q: 'Does SEO still matter now AI answers the question?',
+        a: "Yes. ChatGPT, Gemini and Google AI Mode build their answers from pages search engines already trust, so good SEO is the foundation of AI visibility, not a separate job. A Gateshead business that ranks well, with consistent details and pages that answer real questions, is far more likely to be named in the AI answer too." },
+      { q: 'How long does SEO take to work?',
+        a: "Fixes to your details, Google Business Profile and key pages can show up within weeks. Rankings for competitive terms, and the links and mentions behind them, usually take months. I re-run the same customer questions every month, so you see progress question by question rather than waiting for a quarterly report." },
       conversationFaq('Gateshead'),
       { q: 'Where should a Gateshead business start?',
         a: "With an honest picture of what AI says about you. An SEO and AI visibility audit runs your customers' real questions through the main AI engines, shows who gets named instead and explains why. Most Gateshead businesses find a few quick fixes, usually inconsistent details or pages that don't answer the question." },
