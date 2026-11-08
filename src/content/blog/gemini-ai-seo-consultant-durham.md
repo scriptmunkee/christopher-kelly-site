@@ -4,7 +4,6 @@ description: "I built a tracker that asks Gemini who to hire as an AI SEO consul
 standfirst: "I built a small tool that asks Google's Gemini the question I care about most, every week, and records exactly which pages it uses to answer. The first results were humbling. This is the story of how I built it, what it found, and why the problem probably applies to your business too."
 category: Case Studies
 pubDate: 2026-11-08
-draft: true
 takeaways:
   - "Asked as someone in Durham, Gemini cited my site in 0 of 20 answers to 'AI SEO consultant in Durham'. One local agency's page was used in all 20."
   - "Gemini doesn't search your question word for word. It runs its own searches, such as 'SEO consultant Durham UK', and builds the answer from the pages those return."
@@ -139,8 +138,8 @@ But one agency appearing in 20 answers out of 20 isn't noise. Nor is my page bei
 ## What I'm Doing Next
 
 1. **Get the page indexed.** Request indexing in Search Console and check it's served. It's the first thing I look at in an [SEO and AI visibility audit](https://christopher-kelly.co.uk/services/seo-ai-visibility-audit/), and I'd skipped it on my own site.
-2. **Rewrite the opening.** Dan's research suggests Google [takes the opening paragraphs of a page almost whole](https://dejan.ai/blog/what-extraction-method-is-google-using-to-build-grounding-snippets/). My page opens with a line about making AI recommend your business "not the one next door". It's a nice line, but it isn't a fact. The first sentence should say who I am, what I do and where I'm based.
-3. **Match the searches Gemini actually runs.** Cover "SEO consultant", "SEO agency", "County Durham" and "North East", not just "AI SEO consultant".
+2. **Rewrite the opening.** Dan's research suggests Google [takes the opening paragraphs of a page almost whole](https://dejan.ai/blog/what-extraction-method-is-google-using-to-build-grounding-snippets/). My page opened with a line about making AI recommend your business "not the one next door". It was a nice line, but it wasn't a fact. I've rewritten it so the first sentence says who I am, what I do and where I'm based.
+3. **Match the searches Gemini actually runs.** The page now covers "SEO consultant", "SEO agency", "County Durham" and "North East", not just "AI SEO consultant".
 4. **Get onto the lists Gemini reads, and keep measuring.** Being named on the review sites it used gets me into answers before my own page ranks. The tracker shows week by week whether it's working, which is the heart of [AI visibility measurement](https://christopher-kelly.co.uk/services/#ai-visibility-measurement).
 
 If your locations go missing in the same way, the causes are often the ones I covered in [Why Your Branches Disappear From AI Answers, and How to Fix It](https://christopher-kelly.co.uk/blog/why-branches-disappear-from-ai-answers/).
