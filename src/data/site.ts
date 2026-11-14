@@ -12,7 +12,7 @@ export const site = {
     // Cloudflare Web Analytics: cookieless, loads for everyone.
     cloudflareToken: '441bd70e437648718b020e6ce1973219',
     // PostHog (EU cloud): loads only after the visitor accepts cookies.
-    posthogKey: 'phc_vEDfJ64brT22W6HXMVfQB3xuan5wrQwKtWKu3zfCsctp',
+    posthogKey: 'phc_zUuDYjMX9CiqpgoH6u75kqywsDxG5jn3pL8bsxZmG2em',
     posthogHost: 'https://eu.i.posthog.com',
   },
 
