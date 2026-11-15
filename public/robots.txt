@@ -4,3 +4,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://christopher-kelly.co.uk/sitemap-index.xml
+Sitemap: https://christopher-kelly.co.uk/lab/sitemap.xml
