@@ -27,6 +27,9 @@ const groups: { h: string; links: L[] }[] = [
   { h: 'SEO Consultant Pages', links: seoSectors.map((s) => ({ t: s.name, href: `/services/seo-consultant-${s.slug}/` })) },
   { h: 'Case Studies', links: studies.map((c) => ({ t: c.data.title, href: `/case-studies/${c.id}/` })) },
   { h: 'Blog Posts', links: posts.map((p) => ({ t: p.data.title, href: `/blog/${p.id}/` })) },
+  // The crawler lab is served by the separate llm-crawler-lab Worker; this is its one
+  // internal link, so search crawlers reach the test pages (see CLAUDE.md).
+  { h: 'Research', links: [{ t: 'Crawler and AI Search Lab', href: '/lab/' }] },
 ].filter((g) => g.links.length);
 
 const title = 'Sitemap | Christopher Kelly';
